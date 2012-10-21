@@ -11,16 +11,13 @@ using Word = Microsoft.Office.Interop.Word;
 using System.Reflection;
 using VisaCzech.DL;
 using VisaCzech.BL;
+using VisaCzech.BL.ObjFramework.WordFiller;
 
 namespace VisaCzech.UI
 {
     public partial class MainForm : Form
     {
-        private Word._Application app;
-        private Word._Document doc;
-        private object missingObj = System.Reflection.Missing.Value;
-        private object trueObj = true;
-        private object falseObj = false;
+
 
         private List<Person> _packet;
 
@@ -34,46 +31,12 @@ namespace VisaCzech.UI
             _packet = new List<Person>();
             personsList.Items.AddRange(PersonStorage.LoadAllPersons().ToArray());
             RefreshTemplates();
-            //app = new Word.Application();
-            //object path = @"d:\anketa.dotx";
-            //try
-            //{
-            //    doc = app.Documents.Add(ref path, ref missingObj, ref missingObj, ref missingObj);
-            //}
-            //catch (Exception)
-            //{
-            //    doc.Close(ref falseObj);
-            //    app.Quit(ref falseObj);
-            //    doc = null;
-            //    app = null;
-            //    throw;
-            //}
+
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //object strToFindObj = textBox1.Text;
-            //object replaceStrObj = textBox2.Text;
-            //object replaceTypeObj = Word.WdReplace.wdReplaceAll;
 
-            //for (var i = 1; i <= doc.Sections.Count; i++)
-            //{
-            //    var wordRange = doc.Sections[i].Range;
-
-            //    var wordFindObj = wordRange.Find;
-            //    var wordFindParameters = new object[15]
-            //                                      {
-            //                                          strToFindObj, missingObj, missingObj, missingObj, missingObj,
-            //                                          missingObj,
-            //                                          missingObj, missingObj, missingObj, replaceStrObj, replaceTypeObj,
-            //                                          missingObj, missingObj, missingObj, missingObj
-            //                                      };
-
-            //    wordFindObj.GetType().InvokeMember("Execute", BindingFlags.InvokeMethod, null, wordFindObj,
-            //                                       wordFindParameters);
-
-            //}
-            //doc.Save();
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -150,6 +113,16 @@ namespace VisaCzech.UI
         {
             templates.Items.Clear();
             templates.Items.AddRange(TemplateStorage.LoadTemplates().ToArray());
+        }
+
+        private void fillAnketas_Click(object sender, EventArgs e)
+        {
+            if (templates.SelectedIndex == -1) return;
+            var template = TemplateStorage.GetFullTemplateName(templates.SelectedItem.ToString());
+            var dlg = new FolderBrowserDialog {SelectedPath = AppDomain.CurrentDomain.BaseDirectory};
+            if (dlg.ShowDialog() != DialogResult.OK) return;
+            var anketas = packetList.Items.Cast<Person>().ToList();
+            WordFiller.FillTemplate(template, anketas, dlg.SelectedPath);
         }
     }
 }

@@ -214,6 +214,7 @@
             this.fillAnketas.TabIndex = 9;
             this.fillAnketas.Text = "Заполнить анкеты";
             this.fillAnketas.UseVisualStyleBackColor = true;
+            this.fillAnketas.Click += new System.EventHandler(this.fillAnketas_Click);
             // 
             // label4
             // 

@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using VisaCzech.BL;
 
 namespace VisaCzech.DL
 {
@@ -27,6 +24,11 @@ namespace VisaCzech.DL
         private static string DefaultPath
         {
             get { return AppDomain.CurrentDomain.BaseDirectory + "Templates\\"; }
+        }
+
+        public static string GetFullTemplateName(string template)
+        {
+            return DefaultPath + template;
         }
     }
 }

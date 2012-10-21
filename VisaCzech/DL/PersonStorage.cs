@@ -106,7 +106,7 @@ namespace VisaCzech.DL
             }
         }
 
-        public static void DeletePerson(string fileName)
+        private static void DeletePerson(string fileName)
         {
             try
             {
