@@ -3,7 +3,7 @@
 namespace VisaCzech.BL.ObjFramework.WordFiller
 {
     [AttributeUsage(AttributeTargets.Field, Inherited = true, AllowMultiple = false)]
-    public sealed class StringAttribute : Attribute
+    public class StringAttribute : Attribute
     {
         public string TemplateString;
 
