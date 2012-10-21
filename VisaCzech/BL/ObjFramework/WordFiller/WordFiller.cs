@@ -23,11 +23,14 @@ namespace VisaCzech.BL.ObjFramework.WordFiller
                 foreach (var person in anketas)
                     FillAnketa(app, templateFileName, person, resultPath);
             }
-            catch (Exception)
+            catch
+            {
+                    
+            }
+            finally
             {
                 if (app != null) app.Quit(ref falseObj);
                 app = null;
-                throw;
             }
         }
 
