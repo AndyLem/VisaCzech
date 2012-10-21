@@ -16,7 +16,7 @@ namespace VisaCzech
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new PersonForm());
+            Application.Run(new MainForm());
         }
     }
 }

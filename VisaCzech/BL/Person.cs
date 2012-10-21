@@ -38,8 +38,12 @@ namespace VisaCzech.BL
         public string BirthCountry;
 
         [String(TemplateString = "@@GRAJDANSTVO")]
-        [Link(ControlName = "Citizen")]
+        [Link(ControlName = "citizen")]
         public string Citizenship;
+
+        [String(TemplateString = "@@GRAJDANSTVO_ROJD")]
+        [Link(ControlName = "birthCitizen")]
+        public string BirthCitizenship;
 
         [Link(ControlName = "sex", LinkActionName = "SexChanged", AllowFillComboBox = false)]
         public string SexValue = "Мужской";
@@ -160,6 +164,11 @@ namespace VisaCzech.BL
         [String(TemplateString = "@@DATA_SOSTAVLENIYA")]
         [Link(ControlName = "fillDate")]
         public string DateOfFilling;
+
+        public override string ToString()
+        {
+            return Name + " " + Surname;
+        }
     }
 
     public enum Status

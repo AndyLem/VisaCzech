@@ -3,17 +3,11 @@ using System.Collections.Generic;
 
 namespace VisaCzech.BL.ObjFramework.ObjectContainerLinker
 {
-    public sealed class LinkActionFactory
+    public class LinkActionFactory
     {
-        private static LinkActionFactory _instance;
         private readonly Dictionary<string, Action<object, object>> _actions;
 
-        public static LinkActionFactory Instance
-        {
-            get { return _instance ?? (_instance = new LinkActionFactory()); }
-        }
-
-        private LinkActionFactory()
+        public LinkActionFactory()
         {
             _actions = new Dictionary<string, Action<object, object>>();
         }

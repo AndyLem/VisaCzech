@@ -11,7 +11,7 @@ namespace VisaCzech.BL.ObjFramework.ObjectContainerLinker
         private object _obj;
         private Control _container;
         private readonly Dictionary<object, Tuple<FieldInfo, LinkAttribute>> _links = new Dictionary<object, Tuple<FieldInfo, LinkAttribute>>();
-        
+        public readonly LinkActionFactory ActionFactory = new LinkActionFactory();
 
         public void LinkObjectToControl(Control container, object obj)
         {
@@ -43,7 +43,7 @@ namespace VisaCzech.BL.ObjFramework.ObjectContainerLinker
             }
         }
 
-        public void FillComboBoxes(Control container, object obj)
+        public static void FillComboBoxes(Control container, object obj)
         {
             if (container == null) throw new ArgumentNullException("container");
             if (obj == null) throw new ArgumentNullException("obj");
@@ -137,7 +137,7 @@ namespace VisaCzech.BL.ObjFramework.ObjectContainerLinker
         private void DoLinkAction(object sender, LinkAttribute attr)
         {
             if (string.IsNullOrEmpty(attr.LinkActionName)) return;
-            var action = LinkActionFactory.Instance[attr.LinkActionName];
+            var action = ActionFactory[attr.LinkActionName];
             if (action != null) action(sender, _obj);
         }
 
