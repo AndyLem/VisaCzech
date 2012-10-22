@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VisaCzech.BL.ObjFramework.WordFiller
+namespace VisaCzech.BL.WordFiller
 {
     [AttributeUsage(AttributeTargets.Field, Inherited = true, AllowMultiple = false)]
     public class StringAttribute : Attribute

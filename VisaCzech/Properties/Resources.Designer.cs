@@ -68,5 +68,23 @@ namespace VisaCzech.Properties {
                 return ResourceManager.GetString("DeleteAnketa", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Завершено.
+        /// </summary>
+        internal static string WordFiller_FillComplete {
+            get {
+                return ResourceManager.GetString("WordFiller_FillComplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to При заполнении анкет произошла ошибка .
+        /// </summary>
+        internal static string WordFiller_FillError {
+            get {
+                return ResourceManager.GetString("WordFiller_FillError", resourceCulture);
+            }
+        }
     }
 }

@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Windows.Forms;
+using VisaCzech.Properties;
 
-namespace VisaCzech.BL.ObjFramework.WordFiller
+namespace VisaCzech.BL.WordFiller
 {
     public class WordFiller
     {
-        private Microsoft.Office.Interop.Word._Application app;
-        
-        private static object missingObj = System.Reflection.Missing.Value;
-        private static object trueObj = true;
-        private static object falseObj = false;
+        private static object _missingObj = Missing.Value;
+        private static object _trueObj = true;
+        private static object _falseObj = false;
 
         public static void FillTemplate(object templateFileName, List<Person> anketas, string resultPath)
         {
@@ -23,15 +23,15 @@ namespace VisaCzech.BL.ObjFramework.WordFiller
                 foreach (var person in anketas)
                     FillAnketa(app, templateFileName, person, resultPath);
             }
-            catch
+            catch (Exception e)
             {
-                    
+                MessageBox.Show(string.Format("{0}{1}", Resources.WordFiller_FillError, e.Message));
             }
             finally
             {
-                if (app != null) app.Quit(ref falseObj);
-                app = null;
+                if (app != null) app.Quit(ref _falseObj);
             }
+            MessageBox.Show(Resources.WordFiller_FillComplete);
         }
 
         private static void FillAnketa(Microsoft.Office.Interop.Word._Application app, object templateFileName, Person anketa, string resultPath)
@@ -43,7 +43,7 @@ namespace VisaCzech.BL.ObjFramework.WordFiller
             newFileName += anketa.Surname;
             try
             {
-                doc = app.Documents.Add(ref templateFileName, ref missingObj, ref missingObj, ref missingObj);
+                doc = app.Documents.Add(ref templateFileName, ref _missingObj, ref _missingObj, ref _missingObj);
                 var fieldInfos = anketa.GetType().GetFields();
 
                 foreach (var info in fieldInfos)
@@ -62,21 +62,25 @@ namespace VisaCzech.BL.ObjFramework.WordFiller
                     }
                 }
                 object newFn = newFileName;
-                doc.SaveAs(ref newFn, ref missingObj, ref missingObj, ref missingObj, ref missingObj, ref missingObj, ref missingObj, ref missingObj, ref missingObj, ref missingObj, ref missingObj, ref missingObj, ref missingObj, ref missingObj, ref missingObj, ref missingObj);
+                doc.SaveAs(ref newFn, ref _missingObj, ref _missingObj, ref _missingObj, ref _missingObj, ref _missingObj, ref _missingObj, ref _missingObj, ref _missingObj, ref _missingObj, ref _missingObj, ref _missingObj, ref _missingObj, ref _missingObj, ref _missingObj, ref _missingObj);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(string.Format("Ошибка '{0}' при заполнении анкеты '{1}' для '{2} {3}'", e.Message + e.StackTrace, templateFileName, anketa.Surname, anketa.Name));
             }
             finally
             {
-                if (doc != null) doc.Close(ref falseObj);
-                doc = null;
+                if (doc != null) doc.Close(ref _falseObj);
             }
             
         }
 
         private static void ReplaceString(Microsoft.Office.Interop.Word._Document doc, 
-            System.Reflection.FieldInfo info, StringAttribute attr, Person anketa)
+            FieldInfo info, StringAttribute attr, Person anketa)
         {
             object strToFindObj = attr.TemplateString;
             var replaceStrObj = info.GetValue(anketa) ?? "";
+            replaceStrObj = replaceStrObj.ToString().ToUpper();
             object replaceTypeObj = Microsoft.Office.Interop.Word.WdReplace.wdReplaceAll;
 
             for (var i = 1; i <= doc.Sections.Count; i++)
@@ -84,12 +88,12 @@ namespace VisaCzech.BL.ObjFramework.WordFiller
                 var wordRange = doc.Sections[i].Range;
 
                 var wordFindObj = wordRange.Find;
-                var wordFindParameters = new object[15]
+                var wordFindParameters = new[]
                                                   {
-                                                      strToFindObj, missingObj, missingObj, missingObj, missingObj,
-                                                      missingObj,
-                                                      missingObj, missingObj, missingObj, replaceStrObj, replaceTypeObj,
-                                                      missingObj, missingObj, missingObj, missingObj
+                                                      strToFindObj, _missingObj, _missingObj, _missingObj, _missingObj,
+                                                      _missingObj,
+                                                      _missingObj, _missingObj, _missingObj, replaceStrObj, replaceTypeObj,
+                                                      _missingObj, _missingObj, _missingObj, _missingObj
                                                   };
 
                 wordFindObj.GetType().InvokeMember("Execute", BindingFlags.InvokeMethod, null, wordFindObj,

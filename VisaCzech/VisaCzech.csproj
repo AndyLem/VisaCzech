@@ -55,9 +55,9 @@
     <Compile Include="BL\ObjFramework\ObjectContainerLinker\LinkActionFactory.cs" />
     <Compile Include="BL\ObjFramework\ObjectContainerLinker\Linker.cs" />
     <Compile Include="BL\ObjFramework\ObjectContainerLinker\LinkAttribute.cs" />
-    <Compile Include="BL\ObjFramework\WordFiller\EnumAttribute.cs" />
-    <Compile Include="BL\ObjFramework\WordFiller\StringAttribute.cs" />
-    <Compile Include="BL\ObjFramework\WordFiller\WordFiller.cs" />
+    <Compile Include="BL\WordFiller\EnumAttribute.cs" />
+    <Compile Include="BL\WordFiller\StringAttribute.cs" />
+    <Compile Include="BL\WordFiller\WordFiller.cs" />
     <Compile Include="BL\Packet.cs" />
     <Compile Include="BL\Person.cs" />
     <Compile Include="DL\PacketStorage.cs" />
