@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Windows.Forms;
+using Microsoft.Office.Interop.Word;
 using VisaCzech.Properties;
 
 namespace VisaCzech.BL.WordFiller
@@ -11,6 +12,7 @@ namespace VisaCzech.BL.WordFiller
         private static object _missingObj = Missing.Value;
         private static object _trueObj = true;
         private static object _falseObj = false;
+        private static string _emptyBox = "□";
 
         public static void FillTemplate(object templateFileName, List<Person> anketas, string resultPath)
         {
@@ -53,11 +55,11 @@ namespace VisaCzech.BL.WordFiller
                     {
                         if (oAttr is StringAttribute)
                         {
-                            ReplaceString(doc, info, oAttr as StringAttribute, anketa);
+                            FillField(doc, info, oAttr as StringAttribute, anketa);
                         }
                         else if (oAttr is EnumAttribute)
                         {
-                            
+                            CheckSomeBoxes(doc, info, oAttr as EnumAttribute, anketa);
                         }
                     }
                 }
@@ -75,12 +77,28 @@ namespace VisaCzech.BL.WordFiller
             
         }
 
-        private static void ReplaceString(Microsoft.Office.Interop.Word._Document doc, 
+        private static void CheckSomeBoxes(_Document doc, FieldInfo info, EnumAttribute attr, Person anketa)
+        {
+            var templateStr = attr.TemplateString;
+            var val = Convert.ToInt32(info.GetValue(anketa)) + 1;
+            for (var i = 1; i <= attr.EnumValues; i++)
+            {
+                object strToFindObj = templateStr + i;
+                ReplaceString(doc, i == val ? "X" : _emptyBox, strToFindObj);
+            }
+        }
+
+        private static void FillField(_Document doc, 
             FieldInfo info, StringAttribute attr, Person anketa)
         {
             object strToFindObj = attr.TemplateString;
             var replaceStrObj = info.GetValue(anketa) ?? "";
             replaceStrObj = replaceStrObj.ToString().ToUpper();
+            ReplaceString(doc, replaceStrObj, strToFindObj);
+        }
+
+        private static void ReplaceString(_Document doc, object replaceStrObj, object strToFindObj)
+        {
             object replaceTypeObj = Microsoft.Office.Interop.Word.WdReplace.wdReplaceAll;
 
             for (var i = 1; i <= doc.Sections.Count; i++)
@@ -89,16 +107,15 @@ namespace VisaCzech.BL.WordFiller
 
                 var wordFindObj = wordRange.Find;
                 var wordFindParameters = new[]
-                                                  {
-                                                      strToFindObj, _missingObj, _missingObj, _missingObj, _missingObj,
-                                                      _missingObj,
-                                                      _missingObj, _missingObj, _missingObj, replaceStrObj, replaceTypeObj,
-                                                      _missingObj, _missingObj, _missingObj, _missingObj
-                                                  };
+                                             {
+                                                 strToFindObj, _missingObj, _missingObj, _missingObj, _missingObj,
+                                                 _missingObj,
+                                                 _missingObj, _missingObj, _missingObj, replaceStrObj, replaceTypeObj,
+                                                 _missingObj, _missingObj, _missingObj, _missingObj
+                                             };
 
                 wordFindObj.GetType().InvokeMember("Execute", BindingFlags.InvokeMethod, null, wordFindObj,
                                                    wordFindParameters);
-
             }
         }
     }

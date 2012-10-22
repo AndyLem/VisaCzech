@@ -47,12 +47,12 @@ namespace VisaCzech.BL
 
         [Link(ControlName = "sex", LinkActionName = "SexChanged", AllowFillComboBox = false)]
         public string SexValue = "Мужской";
-        [Enum(TemplateString = "@@8_POL", EnumValues = 2)]
+        [Enum(TemplateString = "@8_", EnumValues = 2)]
         public Sex Sex;
 
         [Link(ControlName = "family", LinkActionName = "FamilyChanged", AllowFillComboBox = false)]
         public string StatusValue;
-        [Enum(TemplateString = "@@9_STATUS", EnumValues = 6)]
+        [Enum(TemplateString = "@9_", EnumValues = 6)]
         public Status Status;
         [String(TemplateString = "@@9_OTHER_STATUS")]
         [Link(ControlName = "otherFamily")]
@@ -69,7 +69,7 @@ namespace VisaCzech.BL
 
         [Link(ControlName = "docType", LinkActionName = "DocTypeChanged", AllowFillComboBox = false)]
         public string DocumentTypeValue = "Паспорт";
-        [Enum(TemplateString = "@@12_DOCTYPE", EnumValues = 6)]
+        [Enum(TemplateString = "@12_", EnumValues = 6)]
         public DocType DocumentType;
         [String(TemplateString = "@@12_OTHER_DOCTYPE")]
         [Link(ControlName = "otherDocType")]
