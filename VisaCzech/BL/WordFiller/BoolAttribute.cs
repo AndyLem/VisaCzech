@@ -1,22 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace VisaCzech.BL.WordFiller
 {
     [AttributeUsage(AttributeTargets.Field, Inherited = true, AllowMultiple = false)]
-    public class StringAttribute : Attribute
+    public class BoolAttribute : Attribute
     {
         public string TemplateString;
 
-        public string ValidationFuncName;
-
-        public string InvalidValue;
-
-
-        public StringAttribute()
+        public BoolAttribute()
         {
             TemplateString = string.Empty;
-            ValidationFuncName = string.Empty;
-            InvalidValue = string.Empty;
         }
     }
 }

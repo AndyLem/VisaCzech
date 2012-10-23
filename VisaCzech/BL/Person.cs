@@ -1,6 +1,8 @@
 ﻿using VisaCzech.BL.ObjFramework.ObjectContainerLinker;
 using System;
 using VisaCzech.BL.WordFiller;
+using System.Drawing;
+using System.Xml.Serialization;
 
 namespace VisaCzech.BL
 {
@@ -14,7 +16,7 @@ namespace VisaCzech.BL
         }
 
         [String(TemplateString = "@@1_FAMILIA")]
-        [Link(ControlName = "surname")]
+        [Link(ControlName = "surname", LinkActionName = "SurnameChanged")]
         public string Surname;
         
         [String(TemplateString = "@@2_FAMILIA_ROJD")]
@@ -31,32 +33,32 @@ namespace VisaCzech.BL
 
         [String(TemplateString = "@@5_PLACE_BIRTH")]
         [Link(ControlName = "birthPlace")]
-        public string BirthPlace;
+        public string BirthPlace = "Minsk";
 
         [String(TemplateString = "@@6_STRANA_ROJD")]
         [Link(ControlName = "birthCountry")]
-        public string BirthCountry;
+        public string BirthCountry = "BLR";
 
         [String(TemplateString = "@@7_GRAJDANSTVO")]
-        [Link(ControlName = "citizen")]
-        public string Citizenship;
+        [Link(ControlName = "citizen", LinkActionName = "CitizenChanged")]
+        public string Citizenship = "BLR";
 
         [String(TemplateString = "@@7__GRAJDANSTVO_ROJD")]
         [Link(ControlName = "birthCitizen")]
-        public string BirthCitizenship;
+        public string BirthCitizenship = "BLR";
 
         [Link(ControlName = "sex", LinkActionName = "SexChanged", AllowFillComboBox = false)]
         public string SexValue = "Мужской";
         [Enum(TemplateString = "@8_", EnumValues = 2)]
-        public Sex Sex;
+        public Sex Sex = Sex.Male;
 
         [Link(ControlName = "family", LinkActionName = "FamilyChanged", AllowFillComboBox = false)]
-        public string StatusValue;
+        public string StatusValue = "Холост/не замужем";
         [Enum(TemplateString = "@9_", EnumValues = 6)]
-        public Status Status;
+        public Status Status = Status.Single;
         [String(TemplateString = "@@9_OTHER_STATUS")]
         [Link(ControlName = "otherFamily")]
-        public string OtherStatus;
+        public string OtherStatus = string.Empty;
 
 
         [String(TemplateString = "@@10_RODITEL")]
@@ -70,10 +72,10 @@ namespace VisaCzech.BL
         [Link(ControlName = "docType", LinkActionName = "DocTypeChanged", AllowFillComboBox = false)]
         public string DocumentTypeValue = "Паспорт";
         [Enum(TemplateString = "@12_", EnumValues = 6)]
-        public DocType DocumentType;
+        public DocType DocumentType = DocType.Passport;
         [String(TemplateString = "@@12_OTHER_DOCTYPE")]
         [Link(ControlName = "otherDocType")]
-        public string OtherDocumentType;
+        public string OtherDocumentType = string.Empty;
 
         [String(TemplateString = "@@13_SERIYA_NUMBER_PASSPORT")]
         [Link(ControlName = "docNumber")]
@@ -89,7 +91,7 @@ namespace VisaCzech.BL
 
         [String(TemplateString = "@@16_VIDAN_PASS")]
         [Link(ControlName = "docIssuedBy")]
-        public string DocumentIssuedBy;
+        public string DocumentIssuedBy = "BLR";
 
         [String(TemplateString = "@@17_DOM_ADRES_MILO")]
         [Link(ControlName = "homeAddress")]
@@ -109,65 +111,83 @@ namespace VisaCzech.BL
 
         [String(TemplateString = "@@25_PRODOLJIT_DNEY")]
         [Link(ControlName = "duration")]
-        public string Duration;
+        public string Duration = "5";
 
+        [Bool(TemplateString = "@26_")]
         [Link(ControlName = "visa1Enabled", LinkActionName = "Visa1EnabledChanged")]
         public bool Visa1Enabled = false;
         [Link(ControlName = "visa1From")]
-        [String(TemplateString = "@@26_VISA1_FROM")]
+        [String(TemplateString = "@@26_VISA1_OT", ValidationFuncName = "IsVisa1Checked")]
         public string Visa1From;
         [Link(ControlName = "visa1To")]
-        [String(TemplateString = "@@26_VISA1_TO")]
+        [String(TemplateString = "@@26_VISA1_DO", ValidationFuncName = "IsVisa1Checked")]
         public string Visa1To;
 
         [Link(ControlName = "visa2Enabled", LinkActionName = "Visa2EnabledChanged")]
         public bool Visa2Enabled = false;
         [Link(ControlName = "visa2From")]
-        [String(TemplateString = "@@26_VISA2_FROM")]
+        [String(TemplateString = "@@26_VISA2_OT", ValidationFuncName = "IsVisa2Checked")]
         public string Visa2From;
         [Link(ControlName = "visa2To")]
-        [String(TemplateString = "@@26_VISA2_TO")]
+        [String(TemplateString = "@@26_VISA2_DO", ValidationFuncName = "IsVisa2Checked")]
         public string Visa2To;
 
         [Link(ControlName = "visa3Enabled", LinkActionName = "Visa3EnabledChanged")]
         public bool Visa3Enabled = false;
         [Link(ControlName = "visa3From")]
-        [String(TemplateString = "@@26_VISA3_FROM")]
+        [String(TemplateString = "@@26_VISA3_OT", ValidationFuncName = "IsVisa3Checked")]
         public string Visa3From;
         [Link(ControlName = "visa3To")]
-        [String(TemplateString = "@@26_VISA3_TO")]
+        [String(TemplateString = "@@26_VISA3_DO", ValidationFuncName = "IsVisa3Checked")]
         public string Visa3To;
 
         [String(TemplateString = "@@29_DATA_ZAEZDA")]
-        [Link(ControlName = "visaStart")]
+        [Link(ControlName = "visaStart", InitOnlyEmpty = true)]
         public string VisaStartDate;
 
         [String(TemplateString = "@@30_DATA_VIEZDA")]
-        [Link(ControlName = "visaEnd")]
+        [Link(ControlName = "visaEnd", InitOnlyEmpty = true)]
         public string VisaEndDate;
         
         [String(TemplateString = "@@32_NAZVANIE_ADRES_COMPANY_PRIGLASHENIE")]
-        [Link(ControlName = "host")]
+        [Link(ControlName = "host", InitOnlyEmpty = true)]
         public string HostNameAndAddress;
 
         [String(TemplateString = "@@32_TEL_PRIGL_COMPANY")]
-        [Link(ControlName = "hostPhone")]
+        [Link(ControlName = "hostPhone", InitOnlyEmpty = true)]
         public string HostPhoneNumber;
 
         [String(TemplateString = "@@32_DANNIE_LICO_COMPANII_PRIGLASHENIE")]
-        [Link(ControlName = "hostPerson")]
+        [Link(ControlName = "hostPerson", InitOnlyEmpty = true)]
         public string HostPersonNameAddressPhoneEmail;
 
         [String(TemplateString = "@@36_MESTO_SOSTAVLENIYA")]
-        [Link(ControlName = "fillPlace")]
-        public string PlaceOfFilling;
+        [Link(ControlName = "fillPlace", InitOnlyEmpty = true)]
+        public string PlaceOfFilling = "Minsk";
         [String(TemplateString = "@@36_DATA_SOSTAVLENIYA")]
         [Link(ControlName = "fillDate")]
         public string DateOfFilling;
 
+        [XmlIgnore]
+        public Image Image;
+
         public override string ToString()
         {
             return Name + " " + Surname;
+        }
+
+        public void Merge(Person scannedPerson)
+        {
+            var tempId = Id;
+            var fieldInfos = GetType().GetFields();
+            foreach (var info in fieldInfos)
+            {
+                var val = info.GetValue(scannedPerson);
+                if (val == null) continue;
+                if (string.IsNullOrEmpty(val.ToString())) continue;
+                info.SetValue(this, val);
+            }
+            Id = tempId;
         }
     }
 

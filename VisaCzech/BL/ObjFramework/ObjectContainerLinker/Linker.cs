@@ -43,6 +43,47 @@ namespace VisaCzech.BL.ObjFramework.ObjectContainerLinker
             }
         }
 
+        public void MoveDataFromObject()
+        {
+            foreach (var ctrl in _links.Keys)
+            {
+                var info = _links[ctrl].Item1;
+                var attr = _links[ctrl].Item2;
+                string curCtrlValue;
+                if (ctrl is TextBox) curCtrlValue = (ctrl as TextBox).Text;
+                else if (ctrl is ComboBox) curCtrlValue = (ctrl as ComboBox).Text;
+                else curCtrlValue = string.Empty;
+
+                if (attr.InitOnlyEmpty && !string.IsNullOrEmpty(curCtrlValue)) continue;
+
+                var val = info.GetValue(_obj) ?? string.Empty;
+                if (ctrl is TextBox) (ctrl as TextBox).Text = val.ToString();
+                else if (ctrl is ComboBox)
+                {
+                    if ((ctrl as ComboBox).DropDownStyle == ComboBoxStyle.DropDownList)
+                        (ctrl as ComboBox).SelectedItem = val.ToString();
+                    else (ctrl as ComboBox).Text = val.ToString();
+                }
+                else if (ctrl is DateTimePicker) (ctrl as DateTimePicker).Value = ConvertStrToDateTime(val);
+                else if (ctrl is CheckBox) (ctrl as CheckBox).Checked = (bool) val;
+            }
+        }
+
+        private static DateTime ConvertStrToDateTime(object val)
+        {
+            var str = val.ToString().Replace('-','.');
+            DateTime dt;
+            try
+            {
+                dt = Convert.ToDateTime(str);
+            }
+            catch (Exception)
+            {
+                return DateTime.Now;
+            }
+            return dt;
+        }
+
         public static void FillComboBoxes(Control container, object obj)
         {
             if (container == null) throw new ArgumentNullException("container");
@@ -83,17 +124,26 @@ namespace VisaCzech.BL.ObjFramework.ObjectContainerLinker
             if (ctrl is TextBox)
             {
                 (ctrl as TextBox).TextChanged += TbxOnTextChanged;
-                if (val != null) (ctrl as TextBox).Text = val.ToString();
+                if (!attr.InitOnlyEmpty || string.IsNullOrEmpty((ctrl as TextBox).Text))
+                    if (val != null) (ctrl as TextBox).Text = val.ToString();
             }
             else if (ctrl is DateTimePicker)
             {
                 (ctrl as DateTimePicker).ValueChanged += DtpOnValueChanged;
-                if (val != null) (ctrl as DateTimePicker).Value = Convert.ToDateTime(val);
+                if (val != null) (ctrl as DateTimePicker).Value = ConvertStrToDateTime(val);
             }
             else if (ctrl is ComboBox)
             {
                 (ctrl as ComboBox).TextChanged += CbbOnTextChanged;
-                if (val != null) (ctrl as ComboBox).Text = val.ToString();
+                if ((ctrl as ComboBox).DropDownStyle == ComboBoxStyle.DropDown)
+                {
+                    if (!attr.InitOnlyEmpty || string.IsNullOrEmpty((ctrl as ComboBox).Text))
+                        if (val != null) (ctrl as ComboBox).Text = val.ToString();
+                }
+                else
+                {
+                    (ctrl as ComboBox).SelectedIndex = (ctrl as ComboBox).Items.IndexOf(val.ToString());
+                }
             }
             else if (ctrl is CheckBox)
             {

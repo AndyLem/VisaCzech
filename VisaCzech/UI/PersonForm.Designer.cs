@@ -35,6 +35,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.hostPhone = new System.Windows.Forms.TextBox();
             this.fillDate = new System.Windows.Forms.DateTimePicker();
             this.fillPlace = new System.Windows.Forms.ComboBox();
             this.hostPerson = new System.Windows.Forms.ComboBox();
@@ -105,13 +106,13 @@
             this.label35 = new System.Windows.Forms.Label();
             this.label37 = new System.Windows.Forms.Label();
             this.host = new System.Windows.Forms.ComboBox();
+            this.homePhone = new System.Windows.Forms.TextBox();
+            this.duration = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.loadFromScanner = new System.Windows.Forms.Button();
             this.saved = new System.Windows.Forms.Label();
             this.cancelBtn = new System.Windows.Forms.Button();
             this.saveBtn = new System.Windows.Forms.Button();
-            this.homePhone = new System.Windows.Forms.TextBox();
-            this.duration = new System.Windows.Forms.TextBox();
-            this.hostPhone = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -178,8 +179,8 @@
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.AutoSize = true;
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
@@ -288,6 +289,13 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(746, 825);
             this.tableLayoutPanel1.TabIndex = 6;
             // 
+            // hostPhone
+            // 
+            this.hostPhone.Location = new System.Drawing.Point(226, 703);
+            this.hostPhone.Name = "hostPhone";
+            this.hostPhone.Size = new System.Drawing.Size(121, 20);
+            this.hostPhone.TabIndex = 25;
+            // 
             // fillDate
             // 
             this.fillDate.Location = new System.Drawing.Point(226, 778);
@@ -305,9 +313,9 @@
             // 
             // hostPerson
             // 
-            this.hostPerson.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.hostPerson.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.hostPerson.FormattingEnabled = true;
             this.hostPerson.Location = new System.Drawing.Point(226, 728);
             this.hostPerson.Name = "hostPerson";
@@ -386,9 +394,9 @@
             // 
             // panel4
             // 
-            this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.panel4.Controls.Add(this.visa3To);
             this.panel4.Controls.Add(this.label30);
             this.panel4.Controls.Add(this.visa3From);
@@ -448,9 +456,9 @@
             // 
             // panel3
             // 
-            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.Controls.Add(this.visa1To);
             this.panel3.Controls.Add(this.label28);
             this.panel3.Controls.Add(this.visa1From);
@@ -839,9 +847,9 @@
             // 
             // docIssuedBy
             // 
-            this.docIssuedBy.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.docIssuedBy.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.docIssuedBy.FormattingEnabled = true;
             this.docIssuedBy.Location = new System.Drawing.Point(226, 403);
             this.docIssuedBy.Name = "docIssuedBy";
@@ -850,9 +858,9 @@
             // 
             // homeAddress
             // 
-            this.homeAddress.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.homeAddress.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.homeAddress.Location = new System.Drawing.Point(226, 428);
             this.homeAddress.Name = "homeAddress";
             this.homeAddress.Size = new System.Drawing.Size(517, 20);
@@ -909,9 +917,9 @@
             // 
             // panel2
             // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.Controls.Add(this.visa2To);
             this.panel2.Controls.Add(this.label27);
             this.panel2.Controls.Add(this.visa2From);
@@ -993,61 +1001,14 @@
             // 
             // host
             // 
-            this.host.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.host.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.host.FormattingEnabled = true;
             this.host.Location = new System.Drawing.Point(226, 678);
             this.host.Name = "host";
             this.host.Size = new System.Drawing.Size(517, 21);
             this.host.TabIndex = 24;
-            // 
-            // panel1
-            // 
-            this.panel1.AutoScroll = true;
-            this.panel1.AutoSize = true;
-            this.panel1.Controls.Add(this.saved);
-            this.panel1.Controls.Add(this.cancelBtn);
-            this.panel1.Controls.Add(this.saveBtn);
-            this.panel1.Controls.Add(this.tableLayoutPanel1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(770, 869);
-            this.panel1.TabIndex = 7;
-            // 
-            // saved
-            // 
-            this.saved.AutoSize = true;
-            this.saved.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.saved.ForeColor = System.Drawing.Color.Green;
-            this.saved.Location = new System.Drawing.Point(174, 17);
-            this.saved.Name = "saved";
-            this.saved.Size = new System.Drawing.Size(70, 13);
-            this.saved.TabIndex = 9;
-            this.saved.Text = "Сохранено";
-            this.saved.Visible = false;
-            // 
-            // cancelBtn
-            // 
-            this.cancelBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelBtn.Location = new System.Drawing.Point(93, 12);
-            this.cancelBtn.Name = "cancelBtn";
-            this.cancelBtn.Size = new System.Drawing.Size(75, 23);
-            this.cancelBtn.TabIndex = 1;
-            this.cancelBtn.Text = "Закрыть";
-            this.cancelBtn.UseVisualStyleBackColor = true;
-            this.cancelBtn.Click += new System.EventHandler(this.cancelBtn_Click);
-            // 
-            // saveBtn
-            // 
-            this.saveBtn.Location = new System.Drawing.Point(12, 12);
-            this.saveBtn.Name = "saveBtn";
-            this.saveBtn.Size = new System.Drawing.Size(75, 23);
-            this.saveBtn.TabIndex = 0;
-            this.saveBtn.Text = "Сохранить";
-            this.saveBtn.UseVisualStyleBackColor = true;
-            this.saveBtn.Click += new System.EventHandler(this.saveBtn_Click);
             // 
             // homePhone
             // 
@@ -1063,21 +1024,77 @@
             this.duration.Size = new System.Drawing.Size(100, 20);
             this.duration.TabIndex = 21;
             // 
-            // hostPhone
+            // panel1
             // 
-            this.hostPhone.Location = new System.Drawing.Point(226, 703);
-            this.hostPhone.Name = "hostPhone";
-            this.hostPhone.Size = new System.Drawing.Size(121, 20);
-            this.hostPhone.TabIndex = 25;
+            this.panel1.AutoScroll = true;
+            this.panel1.AutoSize = true;
+            this.panel1.Controls.Add(this.loadFromScanner);
+            this.panel1.Controls.Add(this.saved);
+            this.panel1.Controls.Add(this.cancelBtn);
+            this.panel1.Controls.Add(this.saveBtn);
+            this.panel1.Controls.Add(this.tableLayoutPanel1);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(770, 869);
+            this.panel1.TabIndex = 7;
+            // 
+            // loadFromScanner
+            // 
+            this.loadFromScanner.Location = new System.Drawing.Point(12, 12);
+            this.loadFromScanner.Name = "loadFromScanner";
+            this.loadFromScanner.Size = new System.Drawing.Size(175, 23);
+            this.loadFromScanner.TabIndex = 10;
+            this.loadFromScanner.Text = "Загрузить со сканера";
+            this.loadFromScanner.UseVisualStyleBackColor = true;
+            this.loadFromScanner.Click += new System.EventHandler(this.loadFromScanner_Click);
+            // 
+            // saved
+            // 
+            this.saved.AutoSize = true;
+            this.saved.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.saved.ForeColor = System.Drawing.Color.Green;
+            this.saved.Location = new System.Drawing.Point(361, 17);
+            this.saved.Name = "saved";
+            this.saved.Size = new System.Drawing.Size(70, 13);
+            this.saved.TabIndex = 9;
+            this.saved.Text = "Сохранено";
+            this.saved.Visible = false;
+            // 
+            // cancelBtn
+            // 
+            this.cancelBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.cancelBtn.Location = new System.Drawing.Point(274, 12);
+            this.cancelBtn.Name = "cancelBtn";
+            this.cancelBtn.Size = new System.Drawing.Size(75, 23);
+            this.cancelBtn.TabIndex = 1;
+            this.cancelBtn.Text = "Закрыть";
+            this.cancelBtn.UseVisualStyleBackColor = true;
+            this.cancelBtn.Click += new System.EventHandler(this.cancelBtn_Click);
+            // 
+            // saveBtn
+            // 
+            this.saveBtn.Location = new System.Drawing.Point(193, 12);
+            this.saveBtn.Name = "saveBtn";
+            this.saveBtn.Size = new System.Drawing.Size(75, 23);
+            this.saveBtn.TabIndex = 0;
+            this.saveBtn.Text = "Сохранить";
+            this.saveBtn.UseVisualStyleBackColor = true;
+            this.saveBtn.Click += new System.EventHandler(this.saveBtn_Click);
             // 
             // PersonForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(787, 561);
+            this.ClientSize = new System.Drawing.Size(804, 561);
             this.Controls.Add(this.panel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "PersonForm";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Anketa";
             this.Load += new System.EventHandler(this.PersonForm_Load);
@@ -1182,5 +1199,6 @@
         private System.Windows.Forms.TextBox hostPhone;
         private System.Windows.Forms.TextBox homePhone;
         private System.Windows.Forms.TextBox duration;
+        private System.Windows.Forms.Button loadFromScanner;
     }
 }

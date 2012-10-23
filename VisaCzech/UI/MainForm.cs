@@ -35,8 +35,8 @@ namespace VisaCzech.UI
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            foreach (Person person in personsList.Items)
-                PersonStorage.SavePerson(person);
+            //foreach (Person person in personsList.Items)
+            //    PersonStorage.SavePerson(person);
         }
 
         private void createPerson_Click(object sender, EventArgs e)
@@ -44,7 +44,13 @@ namespace VisaCzech.UI
             var form = new PersonForm();
             var allPersons = personsList.Items.Cast<Person>().ToList();
             form.InitCombos(allPersons);
-            form.PersonCreated += (o, args) => personsList.Items.Add(o);
+            form.PersonCreated += (o, args) =>
+                                      {
+                                          var newPerson = new Person();
+                                          newPerson.Merge(o as Person);
+                                          personsList.Items.Add(newPerson);
+                                          PersonStorage.SavePerson(newPerson);
+                                      };
             form.CreatePerson();
             form.ShowDialog();
         }
@@ -107,6 +113,7 @@ namespace VisaCzech.UI
         {
             templates.Items.Clear();
             templates.Items.AddRange(TemplateStorage.LoadTemplates().ToArray());
+            templates.SelectedIndex = templates.Items.Count - 1;
         }
 
         private void fillAnketas_Click(object sender, EventArgs e)

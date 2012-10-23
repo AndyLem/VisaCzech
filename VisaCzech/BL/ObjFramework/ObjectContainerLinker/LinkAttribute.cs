@@ -12,11 +12,14 @@ namespace VisaCzech.BL.ObjFramework.ObjectContainerLinker
 
         public bool AllowFillComboBox;
 
+        public bool InitOnlyEmpty;
+
         public LinkAttribute()
         {
             ControlName = string.Empty;
             LinkActionName = string.Empty;
             AllowFillComboBox = true;
+            InitOnlyEmpty = false;
         }
 
     }

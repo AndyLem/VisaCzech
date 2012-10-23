@@ -13,10 +13,13 @@ namespace VisaCzech.BL.WordFiller
         private static object _trueObj = true;
         private static object _falseObj = false;
         private static string _emptyBox = "□";
+        private static ValidationFunctionFactory _validationFunctionFactory;
+
 
         public static void FillTemplate(object templateFileName, List<Person> anketas, string resultPath)
         {
-            Microsoft.Office.Interop.Word._Application app = null;
+            _Application app = null;
+            InitValidationFunction();
             
             try
             {
@@ -34,6 +37,26 @@ namespace VisaCzech.BL.WordFiller
                 if (app != null) app.Quit(ref _falseObj);
             }
             MessageBox.Show(Resources.WordFiller_FillComplete);
+        }
+
+        private static void InitValidationFunction()
+        {
+            _validationFunctionFactory = new ValidationFunctionFactory();
+            _validationFunctionFactory.RegisterFunction("IsVisa1Checked", o =>
+            {
+                var person = (Person)o;
+                return person.Visa1Enabled;
+            });
+            _validationFunctionFactory.RegisterFunction("IsVisa2Checked", o =>
+            {
+                var person = (Person)o;
+                return person.Visa2Enabled;
+            });
+            _validationFunctionFactory.RegisterFunction("IsVisa3Checked", o =>
+            {
+                var person = (Person)o;
+                return person.Visa3Enabled;
+            });
         }
 
         private static void FillAnketa(Microsoft.Office.Interop.Word._Application app, object templateFileName, Person anketa, string resultPath)
@@ -60,6 +83,10 @@ namespace VisaCzech.BL.WordFiller
                         else if (oAttr is EnumAttribute)
                         {
                             CheckSomeBoxes(doc, info, oAttr as EnumAttribute, anketa);
+                        }
+                        else if (oAttr is BoolAttribute)
+                        {
+                            CheckSomeBoxesFromBool(doc, info, oAttr as BoolAttribute, anketa);
                         }
                     }
                 }
@@ -88,11 +115,32 @@ namespace VisaCzech.BL.WordFiller
             }
         }
 
+        private static void CheckSomeBoxesFromBool(_Document doc, FieldInfo info, BoolAttribute attr, Person anketa)
+        {
+            var templateStr = attr.TemplateString;
+            var val = Convert.ToBoolean(info.GetValue(anketa));
+            for (var i = 0; i <= 1; i++)
+            {
+                object strToFindObj = templateStr + i;
+                ReplaceString(doc, ((val && i == 1) || (!val && i == 0)) ? "X" : _emptyBox, strToFindObj);
+            }
+        }
+
         private static void FillField(_Document doc, 
             FieldInfo info, StringAttribute attr, Person anketa)
         {
+            var cond = true;
+            if (!string.IsNullOrEmpty(attr.ValidationFuncName))
+            {
+                if (_validationFunctionFactory != null)
+                {
+                    var func = _validationFunctionFactory[attr.ValidationFuncName];
+                    cond = func(anketa);
+                }
+            }
+                            
             object strToFindObj = attr.TemplateString;
-            var replaceStrObj = info.GetValue(anketa) ?? "";
+            var replaceStrObj = cond ? (info.GetValue(anketa) ?? "") : attr.InvalidValue;
             replaceStrObj = replaceStrObj.ToString().ToUpper();
             ReplaceString(doc, replaceStrObj, strToFindObj);
         }

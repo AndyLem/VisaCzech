@@ -83,13 +83,14 @@ namespace VisaCzech.DL
         public static IEnumerable<Person> LoadAllPersons()
         {
             IEnumerable<string> files;
+            var persons = new List<Person>();
             try
             {
                 files = Directory.EnumerateFiles(DefaultPath, "*.xml", SearchOption.TopDirectoryOnly);
             }
             catch
             {
-                yield break;
+                return persons;
             }
             foreach (var file in files)
             {
@@ -102,8 +103,9 @@ namespace VisaCzech.DL
                 {
                     continue;
                 }
-                yield return person;
+                if (person != null) persons.Add(person);
             }
+            return persons;
         }
 
         private static void DeletePerson(string fileName)
