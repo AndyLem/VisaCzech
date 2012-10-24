@@ -216,5 +216,10 @@ namespace VisaCzech.BL.ObjFramework.ObjectContainerLinker
             if (txtBox != null) info.SetValue(_obj, txtBox.Text);
             DoLinkAction(sender, attr);
         }
+
+        public ICollection<Control> EnumLinkedControls()
+        {
+            return _links.Keys.Cast<Control>().ToList();
+        }
     }
 }

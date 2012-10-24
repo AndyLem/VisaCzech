@@ -10,6 +10,7 @@ using VisaCzech.BL;
 using VisaCzech.BL.ObjFramework.ObjectContainerLinker;
 using VisaCzech.DL;
 using VisaCzech.BL.ScannerXmlParser;
+using VisaCzech.BL.TranslitConverter;
 
 namespace VisaCzech.UI
 {
@@ -128,6 +129,9 @@ namespace VisaCzech.UI
 
         private void saveBtn_Click(object sender, EventArgs e)
         {
+            if (toTranslit.Checked)
+                ConvertAllToTranslit();
+
             _linker.MoveDataToObject();
             
             if (FormMode == Mode.Edit)
@@ -155,6 +159,26 @@ namespace VisaCzech.UI
             _linker.LinkObjectToControl(this, _person);
             _linker.MoveDataFromObject();
             _linker.MoveDataToObject();
+        }
+
+        private void ConvertAllToTranslit()
+        {
+            var affectedControls = _linker.EnumLinkedControls();
+            foreach (var ctrl in affectedControls)
+            {
+                if (ctrl is TextBox)
+                {
+                    var tb = ctrl as TextBox;
+                    var txt = tb.Text;
+                    tb.Text = TranslitConverter.Front(txt);
+                } else if (ctrl is ComboBox)
+                {
+                    var cb = ctrl as ComboBox;
+                    if (cb.DropDownStyle == ComboBoxStyle.DropDownList) continue;
+                    var txt = cb.Text;
+                    cb.Text = TranslitConverter.Front(txt);
+                }
+            }
         }
 
         private void cancelBtn_Click(object sender, EventArgs e)
