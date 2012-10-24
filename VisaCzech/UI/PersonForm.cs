@@ -132,7 +132,7 @@ namespace VisaCzech.UI
             
             if (FormMode == Mode.Edit)
             {
-                PersonStorage.SavePerson(_person);
+                PersonStorage.Instance.Save(_person);
                 return;
             }
 

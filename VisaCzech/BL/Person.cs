@@ -6,20 +6,19 @@ using System.Xml.Serialization;
 
 namespace VisaCzech.BL
 {
-    public class Person
+    public class Person : ID
     {
-        public string Id;
-
         public Person()
         {
             Id = Guid.NewGuid().ToString();
+            DateOfCreation = DateTime.Now;
         }
 
         [String(TemplateString = "@@1_FAMILIA")]
         [Link(ControlName = "surname", LinkActionName = "SurnameChanged")]
         public string Surname;
         
-        [String(TemplateString = "@@2_FAMILIA_ROJD")]
+        [String(TemplateString = "@@2_FAMILIA_ROJD", ValidationFuncName = "CheckSurname2")]
         [Link(ControlName = "surname2")]
         public string SurnameAtBirth;
 
@@ -167,6 +166,8 @@ namespace VisaCzech.BL
         [String(TemplateString = "@@36_DATA_SOSTAVLENIYA")]
         [Link(ControlName = "fillDate")]
         public string DateOfFilling;
+
+        public DateTime DateOfCreation;
 
         [XmlIgnore]
         public Image Image;

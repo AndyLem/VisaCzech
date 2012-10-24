@@ -86,5 +86,14 @@ namespace VisaCzech.Properties {
                 return ResourceManager.GetString("WordFiller_FillError", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Закрыть.
+        /// </summary>
+        internal static string WordFiller_FillTemplate_CloseForm {
+            get {
+                return ResourceManager.GetString("WordFiller_FillTemplate_CloseForm", resourceCulture);
+            }
+        }
     }
 }

@@ -142,7 +142,8 @@ namespace VisaCzech.BL.ObjFramework.ObjectContainerLinker
                 }
                 else
                 {
-                    (ctrl as ComboBox).SelectedIndex = (ctrl as ComboBox).Items.IndexOf(val.ToString());
+                    if (val != null)
+                        (ctrl as ComboBox).SelectedIndex = (ctrl as ComboBox).Items.IndexOf(val.ToString());
                 }
             }
             else if (ctrl is CheckBox)

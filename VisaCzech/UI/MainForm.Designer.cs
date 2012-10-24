@@ -29,32 +29,32 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.createPerson = new System.Windows.Forms.Button();
-            this.deletePersons = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.personFilter = new System.Windows.Forms.TextBox();
-            this.personsList = new System.Windows.Forms.ListBox();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
-            this.packetList = new System.Windows.Forms.ListBox();
-            this.removeFromPacket = new System.Windows.Forms.Button();
-            this.newPacket = new System.Windows.Forms.Button();
+            this.personsList = new VisaCzech.UI.TouchListBox();
             this.addToPacket = new System.Windows.Forms.Button();
+            this.personFilter = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.deletePersons = new System.Windows.Forms.Button();
+            this.createPerson = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.packetsList = new System.Windows.Forms.ComboBox();
+            this.currentPacketList = new VisaCzech.UI.TouchListBox();
             this.fillAnketas = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
-            this.templates = new System.Windows.Forms.ComboBox();
-            this.refreshTemplates = new System.Windows.Forms.Button();
+            this.newPacket = new System.Windows.Forms.Button();
+            this.removeFromPacket = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.deletePacket = new System.Windows.Forms.Button();
+            this.renamePacket = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.panel1.Controls.Add(this.addToPacket);
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)));
             this.panel1.Controls.Add(this.personsList);
+            this.panel1.Controls.Add(this.addToPacket);
             this.panel1.Controls.Add(this.personFilter);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.deletePersons);
@@ -64,6 +64,84 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(323, 600);
             this.panel1.TabIndex = 0;
+            // 
+            // personsList
+            // 
+            this.personsList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.personsList.ArrowColor = System.Drawing.SystemColors.Control;
+            this.personsList.ArrowSize = 20;
+            this.personsList.ArrowSizeMode = VisaCzech.UI.TouchListBox.ArrowSizeModes.Pixels;
+            this.personsList.ArrowSizePercents = 70;
+            this.personsList.DefaultSelectedIndex = -1;
+            this.personsList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.personsList.FormattingEnabled = true;
+            this.personsList.FrameColor = System.Drawing.Color.White;
+            this.personsList.HorizontalScrollbar = true;
+            this.personsList.IntegralHeight = false;
+            this.personsList.ItemHeight = 30;
+            this.personsList.Location = new System.Drawing.Point(6, 88);
+            this.personsList.MarkVisitedItems = false;
+            this.personsList.Name = "personsList";
+            this.personsList.NotVisitedColor = System.Drawing.Color.Gainsboro;
+            this.personsList.SelectedItemColor = System.Drawing.Color.Silver;
+            this.personsList.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.personsList.ShowArrow = false;
+            this.personsList.Size = new System.Drawing.Size(314, 509);
+            this.personsList.TabIndex = 7;
+            this.personsList.VisitedColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.personsList.DrawItemText += new VisaCzech.UI.TouchListBox.OnDrawText(this.personsList_DrawItemText);
+            this.personsList.DoubleClick += new System.EventHandler(this.personsList_DoubleClick);
+            // 
+            // addToPacket
+            // 
+            this.addToPacket.Location = new System.Drawing.Point(287, 59);
+            this.addToPacket.Name = "addToPacket";
+            this.addToPacket.Size = new System.Drawing.Size(33, 23);
+            this.addToPacket.TabIndex = 6;
+            this.addToPacket.Text = ">>";
+            this.addToPacket.UseVisualStyleBackColor = true;
+            this.addToPacket.Click += new System.EventHandler(this.addToPacket_Click);
+            // 
+            // personFilter
+            // 
+            this.personFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.personFilter.Enabled = false;
+            this.personFilter.Location = new System.Drawing.Point(56, 26);
+            this.personFilter.Name = "personFilter";
+            this.personFilter.Size = new System.Drawing.Size(264, 20);
+            this.personFilter.TabIndex = 4;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(3, 29);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(47, 13);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Фильтр";
+            // 
+            // deletePersons
+            // 
+            this.deletePersons.Location = new System.Drawing.Point(87, 59);
+            this.deletePersons.Name = "deletePersons";
+            this.deletePersons.Size = new System.Drawing.Size(75, 23);
+            this.deletePersons.TabIndex = 2;
+            this.deletePersons.Text = "Удалить";
+            this.deletePersons.UseVisualStyleBackColor = true;
+            this.deletePersons.Click += new System.EventHandler(this.deletePersons_Click);
+            // 
+            // createPerson
+            // 
+            this.createPerson.Location = new System.Drawing.Point(6, 59);
+            this.createPerson.Name = "createPerson";
+            this.createPerson.Size = new System.Drawing.Size(75, 23);
+            this.createPerson.TabIndex = 1;
+            this.createPerson.Text = "Создать";
+            this.createPerson.UseVisualStyleBackColor = true;
+            this.createPerson.Click += new System.EventHandler(this.createPerson_Click);
             // 
             // label1
             // 
@@ -76,78 +154,92 @@
             this.label1.Text = "Анкеты";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // createPerson
-            // 
-            this.createPerson.Location = new System.Drawing.Point(6, 59);
-            this.createPerson.Name = "createPerson";
-            this.createPerson.Size = new System.Drawing.Size(75, 23);
-            this.createPerson.TabIndex = 1;
-            this.createPerson.Text = "Создать";
-            this.createPerson.UseVisualStyleBackColor = true;
-            this.createPerson.Click += new System.EventHandler(this.createPerson_Click);
-            // 
-            // deletePersons
-            // 
-            this.deletePersons.Location = new System.Drawing.Point(87, 59);
-            this.deletePersons.Name = "deletePersons";
-            this.deletePersons.Size = new System.Drawing.Size(75, 23);
-            this.deletePersons.TabIndex = 2;
-            this.deletePersons.Text = "Удалить";
-            this.deletePersons.UseVisualStyleBackColor = true;
-            this.deletePersons.Click += new System.EventHandler(this.deletePersons_Click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 29);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(47, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Фильтр";
-            // 
-            // personFilter
-            // 
-            this.personFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.personFilter.Enabled = false;
-            this.personFilter.Location = new System.Drawing.Point(56, 26);
-            this.personFilter.Name = "personFilter";
-            this.personFilter.Size = new System.Drawing.Size(264, 20);
-            this.personFilter.TabIndex = 4;
-            // 
-            // personsList
-            // 
-            this.personsList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.personsList.FormattingEnabled = true;
-            this.personsList.HorizontalScrollbar = true;
-            this.personsList.IntegralHeight = false;
-            this.personsList.Location = new System.Drawing.Point(6, 88);
-            this.personsList.Name = "personsList";
-            this.personsList.ScrollAlwaysVisible = true;
-            this.personsList.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.personsList.Size = new System.Drawing.Size(314, 509);
-            this.personsList.TabIndex = 5;
-            this.personsList.DoubleClick += new System.EventHandler(this.personsList_DoubleClick);
-            // 
             // panel2
             // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel2.Controls.Add(this.refreshTemplates);
-            this.panel2.Controls.Add(this.templates);
-            this.panel2.Controls.Add(this.label4);
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Controls.Add(this.renamePacket);
+            this.panel2.Controls.Add(this.deletePacket);
+            this.panel2.Controls.Add(this.packetsList);
+            this.panel2.Controls.Add(this.currentPacketList);
             this.panel2.Controls.Add(this.fillAnketas);
             this.panel2.Controls.Add(this.newPacket);
             this.panel2.Controls.Add(this.removeFromPacket);
-            this.panel2.Controls.Add(this.packetList);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Location = new System.Drawing.Point(338, 12);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(473, 600);
             this.panel2.TabIndex = 1;
+            // 
+            // packetsList
+            // 
+            this.packetsList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.packetsList.FormattingEnabled = true;
+            this.packetsList.Location = new System.Drawing.Point(6, 26);
+            this.packetsList.Name = "packetsList";
+            this.packetsList.Size = new System.Drawing.Size(202, 21);
+            this.packetsList.TabIndex = 14;
+            this.packetsList.SelectedIndexChanged += new System.EventHandler(this.packetsList_SelectedIndexChanged);
+            // 
+            // currentPacketList
+            // 
+            this.currentPacketList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.currentPacketList.ArrowColor = System.Drawing.SystemColors.Control;
+            this.currentPacketList.ArrowSize = 20;
+            this.currentPacketList.ArrowSizeMode = VisaCzech.UI.TouchListBox.ArrowSizeModes.Pixels;
+            this.currentPacketList.ArrowSizePercents = 70;
+            this.currentPacketList.DefaultSelectedIndex = -1;
+            this.currentPacketList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.currentPacketList.FormattingEnabled = true;
+            this.currentPacketList.FrameColor = System.Drawing.Color.White;
+            this.currentPacketList.IntegralHeight = false;
+            this.currentPacketList.ItemHeight = 30;
+            this.currentPacketList.Location = new System.Drawing.Point(6, 88);
+            this.currentPacketList.MarkVisitedItems = true;
+            this.currentPacketList.Name = "currentPacketList";
+            this.currentPacketList.NotVisitedColor = System.Drawing.Color.Gainsboro;
+            this.currentPacketList.ScrollAlwaysVisible = true;
+            this.currentPacketList.SelectedItemColor = System.Drawing.Color.Silver;
+            this.currentPacketList.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.currentPacketList.ShowArrow = false;
+            this.currentPacketList.Size = new System.Drawing.Size(464, 509);
+            this.currentPacketList.TabIndex = 13;
+            this.currentPacketList.VisitedColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.currentPacketList.DrawItemText += new VisaCzech.UI.TouchListBox.OnDrawText(this.personsList_DrawItemText);
+            // 
+            // fillAnketas
+            // 
+            this.fillAnketas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.fillAnketas.Location = new System.Drawing.Point(361, 59);
+            this.fillAnketas.Name = "fillAnketas";
+            this.fillAnketas.Size = new System.Drawing.Size(109, 23);
+            this.fillAnketas.TabIndex = 9;
+            this.fillAnketas.Text = "Заполнить анкеты";
+            this.fillAnketas.UseVisualStyleBackColor = true;
+            this.fillAnketas.Click += new System.EventHandler(this.fillAnketas_Click);
+            // 
+            // newPacket
+            // 
+            this.newPacket.Location = new System.Drawing.Point(214, 24);
+            this.newPacket.Name = "newPacket";
+            this.newPacket.Size = new System.Drawing.Size(63, 23);
+            this.newPacket.TabIndex = 8;
+            this.newPacket.Text = "Новый";
+            this.newPacket.UseVisualStyleBackColor = true;
+            this.newPacket.Click += new System.EventHandler(this.newPacket_Click);
+            // 
+            // removeFromPacket
+            // 
+            this.removeFromPacket.Location = new System.Drawing.Point(6, 59);
+            this.removeFromPacket.Name = "removeFromPacket";
+            this.removeFromPacket.Size = new System.Drawing.Size(33, 23);
+            this.removeFromPacket.TabIndex = 7;
+            this.removeFromPacket.Text = "<<";
+            this.removeFromPacket.UseVisualStyleBackColor = true;
+            this.removeFromPacket.Click += new System.EventHandler(this.removeFromPacket_Click);
             // 
             // label3
             // 
@@ -160,92 +252,25 @@
             this.label3.Text = "Пакет";
             this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // packetList
+            // deletePacket
             // 
-            this.packetList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.packetList.FormattingEnabled = true;
-            this.packetList.HorizontalScrollbar = true;
-            this.packetList.IntegralHeight = false;
-            this.packetList.Location = new System.Drawing.Point(6, 88);
-            this.packetList.Name = "packetList";
-            this.packetList.ScrollAlwaysVisible = true;
-            this.packetList.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.packetList.Size = new System.Drawing.Size(464, 509);
-            this.packetList.TabIndex = 6;
+            this.deletePacket.Location = new System.Drawing.Point(395, 24);
+            this.deletePacket.Name = "deletePacket";
+            this.deletePacket.Size = new System.Drawing.Size(75, 23);
+            this.deletePacket.TabIndex = 15;
+            this.deletePacket.Text = "Удалить";
+            this.deletePacket.UseVisualStyleBackColor = true;
+            this.deletePacket.Click += new System.EventHandler(this.deletePacket_Click);
             // 
-            // removeFromPacket
+            // renamePacket
             // 
-            this.removeFromPacket.Location = new System.Drawing.Point(6, 59);
-            this.removeFromPacket.Name = "removeFromPacket";
-            this.removeFromPacket.Size = new System.Drawing.Size(122, 23);
-            this.removeFromPacket.TabIndex = 7;
-            this.removeFromPacket.Text = "Удалить из пакета";
-            this.removeFromPacket.UseVisualStyleBackColor = true;
-            this.removeFromPacket.Click += new System.EventHandler(this.removeFromPacket_Click);
-            // 
-            // newPacket
-            // 
-            this.newPacket.Location = new System.Drawing.Point(134, 59);
-            this.newPacket.Name = "newPacket";
-            this.newPacket.Size = new System.Drawing.Size(102, 23);
-            this.newPacket.TabIndex = 8;
-            this.newPacket.Text = "Новый пакет";
-            this.newPacket.UseVisualStyleBackColor = true;
-            this.newPacket.Click += new System.EventHandler(this.newPacket_Click);
-            // 
-            // addToPacket
-            // 
-            this.addToPacket.Location = new System.Drawing.Point(199, 59);
-            this.addToPacket.Name = "addToPacket";
-            this.addToPacket.Size = new System.Drawing.Size(121, 23);
-            this.addToPacket.TabIndex = 6;
-            this.addToPacket.Text = "Добавить в пакет >>";
-            this.addToPacket.UseVisualStyleBackColor = true;
-            this.addToPacket.Click += new System.EventHandler(this.addToPacket_Click);
-            // 
-            // fillAnketas
-            // 
-            this.fillAnketas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.fillAnketas.Location = new System.Drawing.Point(339, 59);
-            this.fillAnketas.Name = "fillAnketas";
-            this.fillAnketas.Size = new System.Drawing.Size(131, 23);
-            this.fillAnketas.TabIndex = 9;
-            this.fillAnketas.Text = "Заполнить анкеты";
-            this.fillAnketas.UseVisualStyleBackColor = true;
-            this.fillAnketas.Click += new System.EventHandler(this.fillAnketas_Click);
-            // 
-            // label4
-            // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(164, 29);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(86, 13);
-            this.label4.TabIndex = 10;
-            this.label4.Text = "Шаблоны анкет";
-            // 
-            // templates
-            // 
-            this.templates.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.templates.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.templates.FormattingEnabled = true;
-            this.templates.Location = new System.Drawing.Point(256, 26);
-            this.templates.Name = "templates";
-            this.templates.Size = new System.Drawing.Size(133, 21);
-            this.templates.TabIndex = 11;
-            // 
-            // refreshTemplates
-            // 
-            this.refreshTemplates.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.refreshTemplates.Location = new System.Drawing.Point(395, 24);
-            this.refreshTemplates.Name = "refreshTemplates";
-            this.refreshTemplates.Size = new System.Drawing.Size(75, 23);
-            this.refreshTemplates.TabIndex = 12;
-            this.refreshTemplates.Text = "Обновить";
-            this.refreshTemplates.UseVisualStyleBackColor = true;
-            this.refreshTemplates.Click += new System.EventHandler(this.refreshTemplates_Click);
+            this.renamePacket.Location = new System.Drawing.Point(283, 24);
+            this.renamePacket.Name = "renamePacket";
+            this.renamePacket.Size = new System.Drawing.Size(106, 23);
+            this.renamePacket.TabIndex = 16;
+            this.renamePacket.Text = "Переименовать";
+            this.renamePacket.UseVisualStyleBackColor = true;
+            this.renamePacket.Click += new System.EventHandler(this.renamePacket_Click);
             // 
             // MainForm
             // 
@@ -262,7 +287,6 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -270,7 +294,6 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.ListBox personsList;
         private System.Windows.Forms.TextBox personFilter;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button deletePersons;
@@ -279,13 +302,14 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button addToPacket;
-        private System.Windows.Forms.Button refreshTemplates;
-        private System.Windows.Forms.ComboBox templates;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button fillAnketas;
         private System.Windows.Forms.Button newPacket;
         private System.Windows.Forms.Button removeFromPacket;
-        private System.Windows.Forms.ListBox packetList;
+        private TouchListBox personsList;
+        private TouchListBox currentPacketList;
+        private System.Windows.Forms.ComboBox packetsList;
+        private System.Windows.Forms.Button renamePacket;
+        private System.Windows.Forms.Button deletePacket;
 
     }
 }

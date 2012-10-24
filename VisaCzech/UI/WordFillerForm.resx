@@ -117,16 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DeleteAnketa" xml:space="preserve">
-    <value>Удаление анкеты</value>
-  </data>
-  <data name="WordFiller_FillError" xml:space="preserve">
-    <value>При заполнении анкет произошла ошибка </value>
-  </data>
-  <data name="WordFiller_FillComplete">
-    <value xml:space="preserve">Завершено</value>
-  </data>
-  <data name="WordFiller_FillTemplate_CloseForm">
-    <value xml:space="preserve">Закрыть</value>
-  </data>
 </root>

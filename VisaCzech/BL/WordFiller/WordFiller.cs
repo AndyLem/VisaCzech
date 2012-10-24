@@ -1,42 +1,95 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 using Microsoft.Office.Interop.Word;
 using VisaCzech.Properties;
+using VisaCzech.UI;
+using System.ComponentModel;
 
 namespace VisaCzech.BL.WordFiller
 {
     public class WordFiller
     {
         private static object _missingObj = Missing.Value;
+// ReSharper disable UnusedMember.Local
         private static object _trueObj = true;
+// ReSharper restore UnusedMember.Local
         private static object _falseObj = false;
-        private static string _emptyBox = "□";
+        private const string EmptyBox = "□";
         private static ValidationFunctionFactory _validationFunctionFactory;
 
+        private static WordFillerProgressForm _form;
+        private static bool _shouldStop;
+        private static bool _wasError;
+        private static BackgroundWorker _worker;
+        
 
-        public static void FillTemplate(object templateFileName, List<Person> anketas, string resultPath)
+        public static void FillTemplate(ICollection<Person> persons, WordFillerOptions options)
+        {
+            _shouldStop = false;
+            _wasError = false;
+            _form = new WordFillerProgressForm();
+            _form.stop.Click += (sender, args) =>
+                                    {
+                                        _form.console.Items.Add("Ожидается завершение текущей операции");
+                                        _shouldStop = true; 
+                                    };
+            _form.Load += (sender, args) =>
+                              {
+                                  _worker = new BackgroundWorker
+                                                   {WorkerSupportsCancellation = true, WorkerReportsProgress = true};
+                                  _worker.ProgressChanged += (o, eventArgs) =>
+                                                                {
+                                                                    _form.progress.Value = eventArgs.ProgressPercentage;
+                                                                    _form.console.Items.Add(
+                                                                        eventArgs.UserState.ToString());
+                                                                };
+                                  _worker.RunWorkerCompleted += (o, eventArgs) =>
+                                        {
+                                            _form.stop.Text = Resources.WordFiller_FillTemplate_CloseForm;
+                                            _form.stop.Click +=
+                                                (sender1, args1) => _form.Close();
+                                        };
+                                  _worker.DoWork += (o, eventArgs) => FillTemplate(options.TemplateName, persons, options.SavePath);
+                                  _worker.RunWorkerAsync();
+                              };
+            _form.ShowDialog();
+        }
+
+        private static void FillTemplate(object templateFileName, ICollection<Person> anketas, string resultPath)
         {
             _Application app = null;
             InitValidationFunction();
-            
+            Directory.CreateDirectory(resultPath);
+
             try
             {
                 app = new Microsoft.Office.Interop.Word.Application();
-                
+
+                var progress = 0;
+                var progressStep = (int)(100/anketas.Count);
+                _worker.ReportProgress(0, "Идет формирование анкет");
                 foreach (var person in anketas)
-                    FillAnketa(app, templateFileName, person, resultPath);
+                {
+                    var newFileName = FillAnketa(app, templateFileName, person, resultPath);
+                    progress += progressStep;
+                    if (progress > 100) progress = 100;
+                    _worker.ReportProgress(progress, string.Format("Анкета для {0} {1} сформирована в файле {2}", person.Surname, person.Name, newFileName));
+                    if (_shouldStop) break;
+                }
+                _worker.ReportProgress(100, "Формирование анкет завершено");
             }
             catch (Exception e)
             {
-                MessageBox.Show(string.Format("{0}{1}", Resources.WordFiller_FillError, e.Message));
+                _worker.ReportProgress(100, e.Message);
+                _wasError = true;
             }
             finally
             {
                 if (app != null) app.Quit(ref _falseObj);
             }
-            MessageBox.Show(Resources.WordFiller_FillComplete);
         }
 
         private static void InitValidationFunction()
@@ -57,15 +110,20 @@ namespace VisaCzech.BL.WordFiller
                 var person = (Person)o;
                 return person.Visa3Enabled;
             });
+            _validationFunctionFactory.RegisterFunction("CheckSurname2", o =>
+            {
+                var person = (Person)o;
+                return person.Surname.ToUpper() != person.SurnameAtBirth.ToUpper();
+            });
         }
 
-        private static void FillAnketa(Microsoft.Office.Interop.Word._Application app, object templateFileName, Person anketa, string resultPath)
+        private static string FillAnketa(_Application app, object templateFileName, Person anketa, string resultPath)
         {
-            Microsoft.Office.Interop.Word._Document doc = null;
+            _Document doc = null;
             var newFileName = resultPath;
             if (!newFileName.EndsWith("\\"))
                 newFileName += "\\";
-            newFileName += anketa.Surname;
+            newFileName += anketa.Surname+" "+anketa.Name;
             try
             {
                 doc = app.Documents.Add(ref templateFileName, ref _missingObj, ref _missingObj, ref _missingObj);
@@ -101,7 +159,7 @@ namespace VisaCzech.BL.WordFiller
             {
                 if (doc != null) doc.Close(ref _falseObj);
             }
-            
+            return newFileName;
         }
 
         private static void CheckSomeBoxes(_Document doc, FieldInfo info, EnumAttribute attr, Person anketa)
@@ -111,7 +169,7 @@ namespace VisaCzech.BL.WordFiller
             for (var i = 1; i <= attr.EnumValues; i++)
             {
                 object strToFindObj = templateStr + i;
-                ReplaceString(doc, i == val ? "X" : _emptyBox, strToFindObj);
+                ReplaceString(doc, i == val ? "X" : EmptyBox, strToFindObj);
             }
         }
 
@@ -122,7 +180,7 @@ namespace VisaCzech.BL.WordFiller
             for (var i = 0; i <= 1; i++)
             {
                 object strToFindObj = templateStr + i;
-                ReplaceString(doc, ((val && i == 1) || (!val && i == 0)) ? "X" : _emptyBox, strToFindObj);
+                ReplaceString(doc, ((val && i == 1) || (!val && i == 0)) ? "X" : EmptyBox, strToFindObj);
             }
         }
 
@@ -147,7 +205,7 @@ namespace VisaCzech.BL.WordFiller
 
         private static void ReplaceString(_Document doc, object replaceStrObj, object strToFindObj)
         {
-            object replaceTypeObj = Microsoft.Office.Interop.Word.WdReplace.wdReplaceAll;
+            object replaceTypeObj = WdReplace.wdReplaceAll;
 
             for (var i = 1; i <= doc.Sections.Count; i++)
             {
