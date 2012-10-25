@@ -49,6 +49,36 @@ namespace VisaCzech.BL.ScannerXmlParser
                         person.PersonalId = imei;
 
                     person.Citizenship = TryFillField(pageNode, "IN_CNT", person.Citizenship);
+                    var mrz = TryFillField(pageNode, "MRZ", string.Empty);
+                    if (!string.IsNullOrEmpty(mrz))
+                    {
+                        var mrzData = ParseMrz(mrz);
+                        if (mrzData != null)
+                        {
+                            if (mrzData.Name.Length > person.Name.Length)
+                                person.Name = mrzData.Name;
+                            if (mrzData.Surname.Length > person.Surname.Length)
+                                person.Surname = mrzData.Surname;
+                            if (mrzData.DateOfBirth.Length >= person.BirthDate.Length)
+                                person.BirthDate = mrzData.DateOfBirth;
+                            if (mrzData.DocNumber.Length > person.DocumentNumber.Length)
+                                person.DocumentNumber = mrzData.DocNumber;
+                            if (mrzData.PersonalId.Length > person.PersonalId.Length)
+                                person.PersonalId = mrzData.PersonalId;
+                            person.Sex = mrzData.Sex == "M" ? Sex.Male : Sex.Female;
+
+                            //TODO: Продумать, как обойтись без констант
+                            switch (person.Sex)
+                            {
+                                case Sex.Male:
+                                    person.SexValue = "Мужской";
+                                    break;
+                                case Sex.Female:
+                                    person.SexValue = "Женский";
+                                    break;
+                            }
+                        }
+                    }
 
                     break;
                 case "Bel2":
@@ -68,10 +98,16 @@ namespace VisaCzech.BL.ScannerXmlParser
                     break;
             }
             var imageNode = pageNode.SelectSingleNode("image");
-            if (imageNode == null) return;
+            var photoNode = pageNode.SelectSingleNode("IN_FOTO");
+            if ((photoNode != null)  && (imageNode != null)) 
             try
             {
                 person.Image = ImageConverter.ConvertBase64ToImage(imageNode.InnerText);
+                if (photoNode.Attributes != null && photoNode.Attributes["ImgRect"] != null)
+                {
+                    var rectStr = photoNode.Attributes["ImgRect"].Value;
+
+                }
             }
                 // ReSharper disable EmptyGeneralCatchClause
             catch
@@ -80,10 +116,45 @@ namespace VisaCzech.BL.ScannerXmlParser
             }
         }
 
+        private static MrzData ParseMrz(string mrzStr)
+        {
+            var words = mrzStr.Split(new[] {'"'}, StringSplitOptions.RemoveEmptyEntries);
+            if (words.Length != 4)
+                return null;
+            for (var i = 0; i < words.Length; i++) words[i] = words[i].Trim();
+            if (!words[1].StartsWith("BLR")) return null;       // не белорусский паспорт, MRZ зона неизвестна
+            try
+            {
+                var bd = words[3].Substring(13, 6);
+                var yearStr = bd.Substring(0, 2);
+                var monthStr = bd.Substring(2, 2);
+                var dayStr = bd.Substring(4, 2);
+                var year = int.Parse(yearStr);
+                if (year > 20) yearStr = "19" + yearStr;
+                else yearStr = "20" + yearStr;                
+                var data = new MrzData
+                               {
+                                   Surname = words[1].Remove(0, 3),
+                                   Name = words[2],
+                                   DocNumber = words[3].Substring(0, 9),
+                                   Sex = words[3].Substring(20, 1),
+                                   PersonalId = words[3].Substring(28, 14),
+                                   DateOfBirth = dayStr + monthStr + yearStr
+                               };
+                return data;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
         private static string TryFillDate(XmlNode rootNode, string nodeName, string defaultValue)
         {
             var str = TryFillField(rootNode, nodeName, string.Empty);
-            return !string.IsNullOrEmpty(str) ? str.Replace('.', '-') : defaultValue;
+            return !string.IsNullOrEmpty(str) ? 
+                str.Replace(".", "") :
+                defaultValue;
         }
 
         private static string TryFillField(XmlNode rootNode, string nodeName, string defaultValue)

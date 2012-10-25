@@ -41,5 +41,11 @@ namespace VisaCzech.BL.ScannerXmlParser
             clearedString = clearedString.Replace(((char)(0x0a)).ToString(CultureInfo.InvariantCulture), "");
             return clearedString;
         }
+
+        public static Image CropImage(Image src, Rectangle cropRect)
+        {
+            // TODO: Реализовать вырезание куска картинки - нужно для фоток
+            return src;
+        }
     }
 }

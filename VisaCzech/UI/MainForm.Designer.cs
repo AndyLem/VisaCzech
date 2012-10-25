@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.personsList = new VisaCzech.UI.TouchListBox();
             this.addToPacket = new System.Windows.Forms.Button();
             this.personFilter = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -37,14 +36,17 @@
             this.createPerson = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.renamePacket = new System.Windows.Forms.Button();
+            this.deletePacket = new System.Windows.Forms.Button();
             this.packetsList = new System.Windows.Forms.ComboBox();
-            this.currentPacketList = new VisaCzech.UI.TouchListBox();
             this.fillAnketas = new System.Windows.Forms.Button();
             this.newPacket = new System.Windows.Forms.Button();
             this.removeFromPacket = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
-            this.deletePacket = new System.Windows.Forms.Button();
-            this.renamePacket = new System.Windows.Forms.Button();
+            this.fillSelectedAnketas = new System.Windows.Forms.Button();
+            this.createToPacket = new System.Windows.Forms.CheckBox();
+            this.currentPacketList = new VisaCzech.UI.TouchListBox();
+            this.personsList = new VisaCzech.UI.TouchListBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -53,6 +55,7 @@
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)));
+            this.panel1.Controls.Add(this.createToPacket);
             this.panel1.Controls.Add(this.personsList);
             this.panel1.Controls.Add(this.addToPacket);
             this.panel1.Controls.Add(this.personFilter);
@@ -64,35 +67,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(323, 600);
             this.panel1.TabIndex = 0;
-            // 
-            // personsList
-            // 
-            this.personsList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.personsList.ArrowColor = System.Drawing.SystemColors.Control;
-            this.personsList.ArrowSize = 20;
-            this.personsList.ArrowSizeMode = VisaCzech.UI.TouchListBox.ArrowSizeModes.Pixels;
-            this.personsList.ArrowSizePercents = 70;
-            this.personsList.DefaultSelectedIndex = -1;
-            this.personsList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.personsList.FormattingEnabled = true;
-            this.personsList.FrameColor = System.Drawing.Color.White;
-            this.personsList.HorizontalScrollbar = true;
-            this.personsList.IntegralHeight = false;
-            this.personsList.ItemHeight = 30;
-            this.personsList.Location = new System.Drawing.Point(6, 88);
-            this.personsList.MarkVisitedItems = false;
-            this.personsList.Name = "personsList";
-            this.personsList.NotVisitedColor = System.Drawing.Color.Gainsboro;
-            this.personsList.SelectedItemColor = System.Drawing.Color.Silver;
-            this.personsList.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.personsList.ShowArrow = false;
-            this.personsList.Size = new System.Drawing.Size(314, 509);
-            this.personsList.TabIndex = 7;
-            this.personsList.VisitedColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.personsList.DrawItemText += new VisaCzech.UI.TouchListBox.OnDrawText(this.personsList_DrawItemText);
-            this.personsList.DoubleClick += new System.EventHandler(this.personsList_DoubleClick);
             // 
             // addToPacket
             // 
@@ -125,9 +99,9 @@
             // 
             // deletePersons
             // 
-            this.deletePersons.Location = new System.Drawing.Point(87, 59);
+            this.deletePersons.Location = new System.Drawing.Point(216, 59);
             this.deletePersons.Name = "deletePersons";
-            this.deletePersons.Size = new System.Drawing.Size(75, 23);
+            this.deletePersons.Size = new System.Drawing.Size(65, 23);
             this.deletePersons.TabIndex = 2;
             this.deletePersons.Text = "Удалить";
             this.deletePersons.UseVisualStyleBackColor = true;
@@ -159,6 +133,7 @@
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Controls.Add(this.fillSelectedAnketas);
             this.panel2.Controls.Add(this.renamePacket);
             this.panel2.Controls.Add(this.deletePacket);
             this.panel2.Controls.Add(this.packetsList);
@@ -172,6 +147,26 @@
             this.panel2.Size = new System.Drawing.Size(473, 600);
             this.panel2.TabIndex = 1;
             // 
+            // renamePacket
+            // 
+            this.renamePacket.Location = new System.Drawing.Point(283, 24);
+            this.renamePacket.Name = "renamePacket";
+            this.renamePacket.Size = new System.Drawing.Size(106, 23);
+            this.renamePacket.TabIndex = 16;
+            this.renamePacket.Text = "Редактировать";
+            this.renamePacket.UseVisualStyleBackColor = true;
+            this.renamePacket.Click += new System.EventHandler(this.renamePacket_Click);
+            // 
+            // deletePacket
+            // 
+            this.deletePacket.Location = new System.Drawing.Point(395, 24);
+            this.deletePacket.Name = "deletePacket";
+            this.deletePacket.Size = new System.Drawing.Size(75, 23);
+            this.deletePacket.TabIndex = 15;
+            this.deletePacket.Text = "Удалить";
+            this.deletePacket.UseVisualStyleBackColor = true;
+            this.deletePacket.Click += new System.EventHandler(this.deletePacket_Click);
+            // 
             // packetsList
             // 
             this.packetsList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -182,34 +177,6 @@
             this.packetsList.TabIndex = 14;
             this.packetsList.SelectedIndexChanged += new System.EventHandler(this.packetsList_SelectedIndexChanged);
             // 
-            // currentPacketList
-            // 
-            this.currentPacketList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.currentPacketList.ArrowColor = System.Drawing.SystemColors.Control;
-            this.currentPacketList.ArrowSize = 20;
-            this.currentPacketList.ArrowSizeMode = VisaCzech.UI.TouchListBox.ArrowSizeModes.Pixels;
-            this.currentPacketList.ArrowSizePercents = 70;
-            this.currentPacketList.DefaultSelectedIndex = -1;
-            this.currentPacketList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.currentPacketList.FormattingEnabled = true;
-            this.currentPacketList.FrameColor = System.Drawing.Color.White;
-            this.currentPacketList.IntegralHeight = false;
-            this.currentPacketList.ItemHeight = 30;
-            this.currentPacketList.Location = new System.Drawing.Point(6, 88);
-            this.currentPacketList.MarkVisitedItems = true;
-            this.currentPacketList.Name = "currentPacketList";
-            this.currentPacketList.NotVisitedColor = System.Drawing.Color.Gainsboro;
-            this.currentPacketList.ScrollAlwaysVisible = true;
-            this.currentPacketList.SelectedItemColor = System.Drawing.Color.Silver;
-            this.currentPacketList.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.currentPacketList.ShowArrow = false;
-            this.currentPacketList.Size = new System.Drawing.Size(464, 509);
-            this.currentPacketList.TabIndex = 13;
-            this.currentPacketList.VisitedColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.currentPacketList.DrawItemText += new VisaCzech.UI.TouchListBox.OnDrawText(this.personsList_DrawItemText);
-            // 
             // fillAnketas
             // 
             this.fillAnketas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -217,7 +184,7 @@
             this.fillAnketas.Name = "fillAnketas";
             this.fillAnketas.Size = new System.Drawing.Size(109, 23);
             this.fillAnketas.TabIndex = 9;
-            this.fillAnketas.Text = "Заполнить анкеты";
+            this.fillAnketas.Text = "Заполнить все";
             this.fillAnketas.UseVisualStyleBackColor = true;
             this.fillAnketas.Click += new System.EventHandler(this.fillAnketas_Click);
             // 
@@ -252,25 +219,85 @@
             this.label3.Text = "Пакет";
             this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // deletePacket
+            // fillSelectedAnketas
             // 
-            this.deletePacket.Location = new System.Drawing.Point(395, 24);
-            this.deletePacket.Name = "deletePacket";
-            this.deletePacket.Size = new System.Drawing.Size(75, 23);
-            this.deletePacket.TabIndex = 15;
-            this.deletePacket.Text = "Удалить";
-            this.deletePacket.UseVisualStyleBackColor = true;
-            this.deletePacket.Click += new System.EventHandler(this.deletePacket_Click);
+            this.fillSelectedAnketas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.fillSelectedAnketas.Location = new System.Drawing.Point(214, 59);
+            this.fillSelectedAnketas.Name = "fillSelectedAnketas";
+            this.fillSelectedAnketas.Size = new System.Drawing.Size(141, 23);
+            this.fillSelectedAnketas.TabIndex = 17;
+            this.fillSelectedAnketas.Text = "Заполнить выделенные";
+            this.fillSelectedAnketas.UseVisualStyleBackColor = true;
+            this.fillSelectedAnketas.Click += new System.EventHandler(this.fillSelectedAnketas_Click);
             // 
-            // renamePacket
+            // createToPacket
             // 
-            this.renamePacket.Location = new System.Drawing.Point(283, 24);
-            this.renamePacket.Name = "renamePacket";
-            this.renamePacket.Size = new System.Drawing.Size(106, 23);
-            this.renamePacket.TabIndex = 16;
-            this.renamePacket.Text = "Переименовать";
-            this.renamePacket.UseVisualStyleBackColor = true;
-            this.renamePacket.Click += new System.EventHandler(this.renamePacket_Click);
+            this.createToPacket.AutoSize = true;
+            this.createToPacket.Checked = true;
+            this.createToPacket.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.createToPacket.Location = new System.Drawing.Point(87, 63);
+            this.createToPacket.Name = "createToPacket";
+            this.createToPacket.Size = new System.Drawing.Size(123, 17);
+            this.createToPacket.TabIndex = 8;
+            this.createToPacket.Text = "и добавить в пакет";
+            this.createToPacket.UseVisualStyleBackColor = true;
+            // 
+            // currentPacketList
+            // 
+            this.currentPacketList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.currentPacketList.ArrowColor = System.Drawing.SystemColors.Control;
+            this.currentPacketList.ArrowSize = 20;
+            this.currentPacketList.ArrowSizeMode = VisaCzech.UI.TouchListBox.ArrowSizeModes.Pixels;
+            this.currentPacketList.ArrowSizePercents = 70;
+            this.currentPacketList.DefaultSelectedIndex = -1;
+            this.currentPacketList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.currentPacketList.FormattingEnabled = true;
+            this.currentPacketList.FrameColor = System.Drawing.Color.White;
+            this.currentPacketList.IntegralHeight = false;
+            this.currentPacketList.ItemHeight = 30;
+            this.currentPacketList.Location = new System.Drawing.Point(6, 88);
+            this.currentPacketList.MarkVisitedItems = true;
+            this.currentPacketList.Name = "currentPacketList";
+            this.currentPacketList.NotVisitedColor = System.Drawing.Color.Gainsboro;
+            this.currentPacketList.ScrollAlwaysVisible = true;
+            this.currentPacketList.SelectedItemColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.currentPacketList.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.currentPacketList.ShowArrow = false;
+            this.currentPacketList.Size = new System.Drawing.Size(464, 509);
+            this.currentPacketList.TabIndex = 13;
+            this.currentPacketList.VisitedColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.currentPacketList.DrawItemText += new VisaCzech.UI.TouchListBox.OnDrawText(this.personsList_DrawItemText);
+            // 
+            // personsList
+            // 
+            this.personsList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.personsList.ArrowColor = System.Drawing.SystemColors.Control;
+            this.personsList.ArrowSize = 20;
+            this.personsList.ArrowSizeMode = VisaCzech.UI.TouchListBox.ArrowSizeModes.Pixels;
+            this.personsList.ArrowSizePercents = 70;
+            this.personsList.DefaultSelectedIndex = -1;
+            this.personsList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.personsList.FormattingEnabled = true;
+            this.personsList.FrameColor = System.Drawing.Color.White;
+            this.personsList.HorizontalScrollbar = true;
+            this.personsList.IntegralHeight = false;
+            this.personsList.ItemHeight = 30;
+            this.personsList.Location = new System.Drawing.Point(6, 88);
+            this.personsList.MarkVisitedItems = false;
+            this.personsList.Name = "personsList";
+            this.personsList.NotVisitedColor = System.Drawing.Color.Gainsboro;
+            this.personsList.SelectedItemColor = System.Drawing.Color.Silver;
+            this.personsList.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.personsList.ShowArrow = false;
+            this.personsList.Size = new System.Drawing.Size(314, 509);
+            this.personsList.TabIndex = 7;
+            this.personsList.VisitedColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.personsList.DrawItemText += new VisaCzech.UI.TouchListBox.OnDrawText(this.personsList_DrawItemText);
+            this.personsList.DoubleClick += new System.EventHandler(this.personsList_DoubleClick);
             // 
             // MainForm
             // 
@@ -310,6 +337,8 @@
         private System.Windows.Forms.ComboBox packetsList;
         private System.Windows.Forms.Button renamePacket;
         private System.Windows.Forms.Button deletePacket;
+        private System.Windows.Forms.Button fillSelectedAnketas;
+        private System.Windows.Forms.CheckBox createToPacket;
 
     }
 }

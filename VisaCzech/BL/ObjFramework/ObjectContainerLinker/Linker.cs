@@ -71,11 +71,18 @@ namespace VisaCzech.BL.ObjFramework.ObjectContainerLinker
 
         private static DateTime ConvertStrToDateTime(object val)
         {
-            var str = val.ToString().Replace('-','.');
+            var valStr = val.ToString();
+            string dateStr;
+            if (string.IsNullOrEmpty(valStr)) return DateTime.Now;
+            if (valStr.Length == 8)
+                dateStr = valStr.Substring(0, 2) + "." + valStr.Substring(2, 2) + "." + valStr.Substring(4);
+            else if (valStr.IndexOfAny(new[] {'-', '.'}) != -1)
+                dateStr = val.ToString().Replace('-','.');
+            else throw new Exception("Непонятный формат даты в значении "+valStr);
             DateTime dt;
             try
             {
-                dt = Convert.ToDateTime(str);
+                dt = Convert.ToDateTime(dateStr);
             }
             catch (Exception)
             {
@@ -204,7 +211,7 @@ namespace VisaCzech.BL.ObjFramework.ObjectContainerLinker
 
         private static string ConvertDateToText(DateTime dateTime)
         {
-            return dateTime.ToString("dd-MM-yyyy");
+            return dateTime.ToString("ddMMyyyy");
         }
         
         private void TbxOnTextChanged(object sender, EventArgs eventArgs)

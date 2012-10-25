@@ -18,6 +18,7 @@ namespace VisaCzech.UI
     {
         private Linker _linker;
         private VisaCzech.BL.Person _person;
+        private Packet _templatePacket;
 
         private enum Mode
         {
@@ -26,6 +27,8 @@ namespace VisaCzech.UI
         }
 
         public EventHandler PersonCreated;
+
+        public bool AutoSavePerson = true;
 
         private Mode FormMode;
 
@@ -107,9 +110,17 @@ namespace VisaCzech.UI
             InitActionFactory();
             if (FormMode == Mode.Create)
             {
-                _person = new Person();
+                CreateNewPerson();
             }
             if (_person != null) _linker.LinkObjectToControl(this, _person);
+        }
+
+        private void CreateNewPerson()
+        {
+            _person = new Person();
+            if (_templatePacket != null)
+                if (_templatePacket.TemplatePerson != null)
+                    _person.Merge(_templatePacket.TemplatePerson);
         }
 
         public void EditPerson(Person person)
@@ -120,11 +131,12 @@ namespace VisaCzech.UI
             saveBtn.DialogResult = DialogResult.OK;
         }
 
-        public void CreatePerson()
+        public void CreatePerson(Packet templatePacket = null)
         {
             FormMode = Mode.Create;
             saveBtn.DialogResult = DialogResult.None;
             cancelBtn.Show();
+            _templatePacket = templatePacket;
         }
 
         private void saveBtn_Click(object sender, EventArgs e)
@@ -136,7 +148,8 @@ namespace VisaCzech.UI
             
             if (FormMode == Mode.Edit)
             {
-                PersonStorage.Instance.Save(_person);
+                if (AutoSavePerson)
+                    PersonStorage.Instance.Save(_person);
                 return;
             }
 
@@ -152,7 +165,7 @@ namespace VisaCzech.UI
 
 
             _linker = null;
-            _person = new Person();
+            CreateNewPerson();
             _linker = new Linker();
             InitActionFactory();
             if (_linker == null) return;
@@ -168,6 +181,8 @@ namespace VisaCzech.UI
             {
                 if (ctrl is TextBox)
                 {
+                    // Временный костыль!!!!! TODO: Заменить на поле атрибута!
+                    if (ctrl.Name == "personalId") continue;
                     var tb = ctrl as TextBox;
                     var txt = tb.Text;
                     tb.Text = TranslitConverter.Front(txt);

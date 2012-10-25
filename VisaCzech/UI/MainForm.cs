@@ -30,11 +30,6 @@ namespace VisaCzech.UI
             packetsList.SelectedIndex = packetsList.Items.Count - 1;
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             //foreach (Person person in personsList.Items)
@@ -52,8 +47,14 @@ namespace VisaCzech.UI
                                           newPerson.Merge(o as Person);
                                           personsList.Items.Add(newPerson);
                                           PersonStorage.Instance.Save(newPerson);
+                                          if (!createToPacket.Checked) return;
+                                          if (_currentPacket == null) CreateNewPacket();
+                                          if (_currentPacket == null) return;
+                                          _currentPacket.AddPerson(newPerson);
+                                          currentPacketList.Items.Add(newPerson);
+                                          PacketStorage.Instance.Save(_currentPacket);
                                       };
-            form.CreatePerson();
+            form.CreatePerson(_currentPacket);
             form.ShowDialog();
         }
 
@@ -94,7 +95,7 @@ namespace VisaCzech.UI
         {
             if (_currentPacket == null)
                 CreateNewPacket();
-            if (_currentPacket == null) throw new Exception("Новый пакет не создался");
+            if (_currentPacket == null) return;
             foreach (var p in from Person p in personsList.SelectedItems where _currentPacket.IndexOfPerson(p) == -1 select p)
             {
                 _currentPacket.AddPerson(p);
@@ -108,7 +109,7 @@ namespace VisaCzech.UI
             if (_currentPacket == null)
                 CreateNewPacket();
             if (_currentPacket == null)
-                throw new Exception("Новый пакет не создался");
+                return;
             var indices = new int[currentPacketList.SelectedIndices.Count];
             currentPacketList.SelectedIndices.CopyTo(indices, 0);
             for (var i = indices.Length - 1; i >= 0; i--)
@@ -121,15 +122,23 @@ namespace VisaCzech.UI
         
         private void fillAnketas_Click(object sender, EventArgs e)
         {
-            if (_currentPacket == null) return;
-            var form = new WordFillerForm();
-            var options = new WordFillerOptions {PacketName = _currentPacket.Name};
-            form.Link(options);
-            if (form.ShowDialog() != DialogResult.OK) return;
-            options.TemplateName = TemplateStorage.GetFullTemplateName(options.TemplateName);
+            WordFillerOptions options;
+            if (PrepareWordFillerOptions(out options)) return;
             var persons = _currentPacket.EnumPersons(personsList.Items);
 
             WordFiller.FillTemplate(persons, options);
+        }
+
+        private bool PrepareWordFillerOptions(out WordFillerOptions options)
+        {
+            options = new WordFillerOptions();
+            if (_currentPacket == null) return true;
+            options.PacketName = _currentPacket.Name;
+            var form = new WordFillerForm();
+            form.Link(options);
+            if (form.ShowDialog() != DialogResult.OK) return true;
+            options.TemplateName = TemplateStorage.GetFullTemplateName(options.TemplateName);
+            return false;
         }
 
         private void personsList_DrawItemText(object sender, TouchListBox.DrawTextEventArgs e)
@@ -171,7 +180,9 @@ namespace VisaCzech.UI
                 CreateNewPacket();
                 return;
             }
-            currentPacketList.Items.AddRange(_currentPacket.EnumPersons(personsList.Items).ToArray());
+            var range = _currentPacket.EnumPersons(personsList.Items).ToArray();
+            if (range.Any())
+                currentPacketList.Items.AddRange(range);
         }
 
         private void CreateNewPacket()
@@ -185,6 +196,7 @@ namespace VisaCzech.UI
                 n++;
             } while (PacketStorage.Instance.PacketExists(newPacketName));
             var packet = new Packet(newPacketName);
+            if (!EditPacket(packet)) return;
             PacketStorage.Instance.Save(packet);
             packetsList.Items.Add(packet);
             packetsList.SelectedItem = packet;
@@ -205,14 +217,30 @@ namespace VisaCzech.UI
         private void renamePacket_Click(object sender, EventArgs e)
         {
             if (_currentPacket == null) return;
-            var form = new PacketForm();
-            form.EditPacket(_currentPacket);
-            if (form.ShowDialog() != DialogResult.OK) return;
-            PacketStorage.Instance.Save(_currentPacket);
+            EditPacket(_currentPacket);
             var index = packetsList.SelectedIndex;
             packetsList.Items.RemoveAt(index);
             packetsList.Items.Insert(index, _currentPacket);
             packetsList.SelectedIndex = index;
+        }
+
+        private bool EditPacket(Packet packet)
+        {
+            if (packet == null) throw new ArgumentNullException("packet");
+            var form = new PacketForm();
+            form.EditPacket(packet);
+            if (form.ShowDialog() != DialogResult.OK) return false;
+            PacketStorage.Instance.Save(packet);
+            return true;
+        }
+
+        private void fillSelectedAnketas_Click(object sender, EventArgs e)
+        {
+            if (_currentPacket == null) return;
+            WordFillerOptions options;
+            if (PrepareWordFillerOptions(out options)) return;
+            var persons = currentPacketList.SelectedItems.Cast<Person>().ToList();
+            WordFiller.FillTemplate(persons, options);
         }
     }
 }

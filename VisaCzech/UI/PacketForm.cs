@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using VisaCzech.BL.ObjFramework.ObjectContainerLinker;
 using VisaCzech.BL;
+using VisaCzech.DL;
 
 namespace VisaCzech.UI
 {
@@ -34,6 +35,18 @@ namespace VisaCzech.UI
         {
             passedPacket.Merge(linkedPacket);
             DialogResult = DialogResult.OK;
+        }
+
+        private void editTemplate_Click(object sender, EventArgs e)
+        {
+            var form = new PersonForm { AutoSavePerson = false};
+            var person = new Person();
+            person.Merge(linkedPacket.TemplatePerson, true);
+            var allPersons = PersonStorage.Instance.LoadAll();
+            form.InitCombos(allPersons);
+            form.EditPerson(person);
+            if (form.ShowDialog() != DialogResult.OK) return;
+            linkedPacket.TemplatePerson.Merge(person);
         }
     }
 }

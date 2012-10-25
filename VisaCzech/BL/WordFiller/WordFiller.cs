@@ -115,6 +115,11 @@ namespace VisaCzech.BL.WordFiller
                 var person = (Person)o;
                 return person.Surname.ToUpper() != person.SurnameAtBirth.ToUpper();
             });
+            _validationFunctionFactory.RegisterFunction("CheckCitizenship", o =>
+            {
+                var person = (Person)o;
+                return person.Citizenship.ToUpper() != person.BirthCitizenship.ToUpper();
+            });
         }
 
         private static string FillAnketa(_Application app, object templateFileName, Person anketa, string resultPath)

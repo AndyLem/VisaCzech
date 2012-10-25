@@ -114,8 +114,14 @@
             this.cancelBtn = new System.Windows.Forms.Button();
             this.saveBtn = new System.Windows.Forms.Button();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.panel6 = new System.Windows.Forms.Panel();
             this.toTranslit = new System.Windows.Forms.CheckBox();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.label39 = new System.Windows.Forms.Label();
+            this.label40 = new System.Windows.Forms.Label();
+            this.label41 = new System.Windows.Forms.Label();
+            this.hostHotel = new System.Windows.Forms.ComboBox();
+            this.hostHotelAddress = new System.Windows.Forms.ComboBox();
+            this.hostHotelPhone = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -189,13 +195,6 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
-            this.tableLayoutPanel1.Controls.Add(this.hostPhone, 1, 28);
-            this.tableLayoutPanel1.Controls.Add(this.fillDate, 1, 31);
-            this.tableLayoutPanel1.Controls.Add(this.fillPlace, 1, 30);
-            this.tableLayoutPanel1.Controls.Add(this.hostPerson, 1, 29);
-            this.tableLayoutPanel1.Controls.Add(this.label38, 0, 29);
-            this.tableLayoutPanel1.Controls.Add(this.label36, 0, 28);
-            this.tableLayoutPanel1.Controls.Add(this.label34, 0, 27);
             this.tableLayoutPanel1.Controls.Add(this.visaEnd, 1, 26);
             this.tableLayoutPanel1.Controls.Add(this.label33, 0, 26);
             this.tableLayoutPanel1.Controls.Add(this.visaStart, 1, 25);
@@ -248,14 +247,27 @@
             this.tableLayoutPanel1.Controls.Add(this.label25, 0, 24);
             this.tableLayoutPanel1.Controls.Add(this.work, 1, 20);
             this.tableLayoutPanel1.Controls.Add(this.panel2, 1, 23);
-            this.tableLayoutPanel1.Controls.Add(this.label35, 0, 30);
-            this.tableLayoutPanel1.Controls.Add(this.label37, 0, 31);
-            this.tableLayoutPanel1.Controls.Add(this.host, 1, 27);
             this.tableLayoutPanel1.Controls.Add(this.homePhone, 1, 18);
             this.tableLayoutPanel1.Controls.Add(this.duration, 1, 21);
+            this.tableLayoutPanel1.Controls.Add(this.label37, 0, 34);
+            this.tableLayoutPanel1.Controls.Add(this.fillDate, 1, 34);
+            this.tableLayoutPanel1.Controls.Add(this.label35, 0, 33);
+            this.tableLayoutPanel1.Controls.Add(this.label38, 0, 32);
+            this.tableLayoutPanel1.Controls.Add(this.label36, 0, 31);
+            this.tableLayoutPanel1.Controls.Add(this.label34, 0, 30);
+            this.tableLayoutPanel1.Controls.Add(this.fillPlace, 1, 33);
+            this.tableLayoutPanel1.Controls.Add(this.hostPerson, 1, 32);
+            this.tableLayoutPanel1.Controls.Add(this.hostPhone, 1, 31);
+            this.tableLayoutPanel1.Controls.Add(this.host, 1, 30);
+            this.tableLayoutPanel1.Controls.Add(this.label39, 0, 27);
+            this.tableLayoutPanel1.Controls.Add(this.label40, 0, 28);
+            this.tableLayoutPanel1.Controls.Add(this.label41, 0, 29);
+            this.tableLayoutPanel1.Controls.Add(this.hostHotel, 1, 27);
+            this.tableLayoutPanel1.Controls.Add(this.hostHotelAddress, 1, 28);
+            this.tableLayoutPanel1.Controls.Add(this.hostHotelPhone, 1, 29);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 13);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 33;
+            this.tableLayoutPanel1.RowCount = 36;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
@@ -289,31 +301,33 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(793, 825);
-            this.tableLayoutPanel1.TabIndex = 6;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(793, 900);
+            this.tableLayoutPanel1.TabIndex = 0;
             // 
             // hostPhone
             // 
-            this.hostPhone.Location = new System.Drawing.Point(240, 703);
+            this.hostPhone.Location = new System.Drawing.Point(240, 778);
             this.hostPhone.Name = "hostPhone";
             this.hostPhone.Size = new System.Drawing.Size(121, 20);
-            this.hostPhone.TabIndex = 25;
+            this.hostPhone.TabIndex = 31;
             // 
             // fillDate
             // 
-            this.fillDate.Location = new System.Drawing.Point(240, 778);
+            this.fillDate.Location = new System.Drawing.Point(240, 853);
             this.fillDate.Name = "fillDate";
             this.fillDate.Size = new System.Drawing.Size(193, 20);
-            this.fillDate.TabIndex = 28;
+            this.fillDate.TabIndex = 34;
             // 
             // fillPlace
             // 
             this.fillPlace.FormattingEnabled = true;
-            this.fillPlace.Location = new System.Drawing.Point(240, 753);
+            this.fillPlace.Location = new System.Drawing.Point(240, 828);
             this.fillPlace.Name = "fillPlace";
             this.fillPlace.Size = new System.Drawing.Size(193, 21);
-            this.fillPlace.TabIndex = 27;
+            this.fillPlace.TabIndex = 33;
             // 
             // hostPerson
             // 
@@ -321,16 +335,16 @@
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.hostPerson.FormattingEnabled = true;
-            this.hostPerson.Location = new System.Drawing.Point(240, 728);
+            this.hostPerson.Location = new System.Drawing.Point(240, 803);
             this.hostPerson.Name = "hostPerson";
             this.hostPerson.Size = new System.Drawing.Size(550, 21);
-            this.hostPerson.TabIndex = 26;
+            this.hostPerson.TabIndex = 32;
             // 
             // label38
             // 
             this.label38.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label38.AutoSize = true;
-            this.label38.Location = new System.Drawing.Point(141, 731);
+            this.label38.Location = new System.Drawing.Point(141, 806);
             this.label38.Name = "label38";
             this.label38.Size = new System.Drawing.Size(93, 13);
             this.label38.TabIndex = 60;
@@ -341,7 +355,7 @@
             // 
             this.label36.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(182, 706);
+            this.label36.Location = new System.Drawing.Point(182, 781);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(52, 13);
             this.label36.TabIndex = 58;
@@ -353,7 +367,7 @@
             this.label34.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label34.AutoEllipsis = true;
             this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(94, 681);
+            this.label34.Location = new System.Drawing.Point(94, 756);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(140, 13);
             this.label34.TabIndex = 56;
@@ -365,7 +379,7 @@
             this.visaEnd.Location = new System.Drawing.Point(240, 653);
             this.visaEnd.Name = "visaEnd";
             this.visaEnd.Size = new System.Drawing.Size(193, 20);
-            this.visaEnd.TabIndex = 23;
+            this.visaEnd.TabIndex = 26;
             // 
             // label33
             // 
@@ -383,7 +397,7 @@
             this.visaStart.Location = new System.Drawing.Point(240, 628);
             this.visaStart.Name = "visaStart";
             this.visaStart.Size = new System.Drawing.Size(193, 20);
-            this.visaStart.TabIndex = 22;
+            this.visaStart.TabIndex = 25;
             // 
             // label32
             // 
@@ -410,7 +424,7 @@
             this.panel4.Margin = new System.Windows.Forms.Padding(5, 3, 0, 3);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(551, 19);
-            this.panel4.TabIndex = 50;
+            this.panel4.TabIndex = 24;
             // 
             // visa3To
             // 
@@ -472,7 +486,7 @@
             this.panel3.Margin = new System.Windows.Forms.Padding(5, 3, 0, 3);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(551, 19);
-            this.panel3.TabIndex = 49;
+            this.panel3.TabIndex = 22;
             // 
             // visa1To
             // 
@@ -722,7 +736,7 @@
             this.label19.Location = new System.Drawing.Point(182, 456);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(52, 13);
-            this.label19.TabIndex = 23;
+            this.label19.TabIndex = 25;
             this.label19.Text = "Телефон";
             this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -933,7 +947,7 @@
             this.panel2.Margin = new System.Windows.Forms.Padding(5, 3, 0, 3);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(551, 19);
-            this.panel2.TabIndex = 48;
+            this.panel2.TabIndex = 23;
             // 
             // visa2To
             // 
@@ -985,7 +999,7 @@
             // 
             this.label35.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(127, 756);
+            this.label35.Location = new System.Drawing.Point(127, 831);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(107, 13);
             this.label35.TabIndex = 57;
@@ -996,7 +1010,7 @@
             // 
             this.label37.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label37.AutoSize = true;
-            this.label37.Location = new System.Drawing.Point(133, 781);
+            this.label37.Location = new System.Drawing.Point(133, 856);
             this.label37.Name = "label37";
             this.label37.Size = new System.Drawing.Size(101, 13);
             this.label37.TabIndex = 59;
@@ -1009,10 +1023,10 @@
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.host.FormattingEnabled = true;
-            this.host.Location = new System.Drawing.Point(240, 678);
+            this.host.Location = new System.Drawing.Point(240, 753);
             this.host.Name = "host";
             this.host.Size = new System.Drawing.Size(550, 21);
-            this.host.TabIndex = 24;
+            this.host.TabIndex = 30;
             // 
             // homePhone
             // 
@@ -1095,14 +1109,6 @@
             this.panel5.Size = new System.Drawing.Size(834, 47);
             this.panel5.TabIndex = 8;
             // 
-            // panel6
-            // 
-            this.panel6.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel6.Location = new System.Drawing.Point(0, 457);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(834, 29);
-            this.panel6.TabIndex = 9;
-            // 
             // toTranslit
             // 
             this.toTranslit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -1115,6 +1121,78 @@
             this.toTranslit.TabIndex = 11;
             this.toTranslit.Text = "Конвертировать в транслит при сохранении";
             this.toTranslit.UseVisualStyleBackColor = true;
+            // 
+            // panel6
+            // 
+            this.panel6.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel6.Location = new System.Drawing.Point(0, 457);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(834, 29);
+            this.panel6.TabIndex = 9;
+            // 
+            // label39
+            // 
+            this.label39.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label39.AutoSize = true;
+            this.label39.Location = new System.Drawing.Point(120, 681);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(114, 13);
+            this.label39.TabIndex = 61;
+            this.label39.Text = "Название гостиницы";
+            this.label39.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label40
+            // 
+            this.label40.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label40.AutoSize = true;
+            this.label40.Location = new System.Drawing.Point(100, 706);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(134, 13);
+            this.label40.TabIndex = 62;
+            this.label40.Text = "Адрес и e-mail гостиницы";
+            this.label40.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label41
+            // 
+            this.label41.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label41.AutoSize = true;
+            this.label41.Location = new System.Drawing.Point(125, 731);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(109, 13);
+            this.label41.TabIndex = 63;
+            this.label41.Text = "Телефон гостиницы";
+            this.label41.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // hostHotel
+            // 
+            this.hostHotel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.hostHotel.FormattingEnabled = true;
+            this.hostHotel.Location = new System.Drawing.Point(240, 678);
+            this.hostHotel.Name = "hostHotel";
+            this.hostHotel.Size = new System.Drawing.Size(550, 21);
+            this.hostHotel.TabIndex = 27;
+            // 
+            // hostHotelAddress
+            // 
+            this.hostHotelAddress.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.hostHotelAddress.FormattingEnabled = true;
+            this.hostHotelAddress.Location = new System.Drawing.Point(240, 703);
+            this.hostHotelAddress.Name = "hostHotelAddress";
+            this.hostHotelAddress.Size = new System.Drawing.Size(550, 21);
+            this.hostHotelAddress.TabIndex = 28;
+            // 
+            // hostHotelPhone
+            // 
+            this.hostHotelPhone.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)));
+            this.hostHotelPhone.Location = new System.Drawing.Point(240, 728);
+            this.hostHotelPhone.Name = "hostHotelPhone";
+            this.hostHotelPhone.Size = new System.Drawing.Size(121, 20);
+            this.hostHotelPhone.TabIndex = 29;
             // 
             // PersonForm
             // 
@@ -1241,5 +1319,11 @@
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.CheckBox toTranslit;
+        private System.Windows.Forms.Label label39;
+        private System.Windows.Forms.Label label40;
+        private System.Windows.Forms.Label label41;
+        private System.Windows.Forms.ComboBox hostHotel;
+        private System.Windows.Forms.ComboBox hostHotelAddress;
+        private System.Windows.Forms.TextBox hostHotelPhone;
     }
 }

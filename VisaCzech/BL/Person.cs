@@ -42,7 +42,7 @@ namespace VisaCzech.BL
         [Link(ControlName = "citizen", LinkActionName = "CitizenChanged")]
         public string Citizenship = "BLR";
 
-        [String(TemplateString = "@@7__GRAJDANSTVO_ROJD")]
+        [String(TemplateString = "@@7__GRAJDANSTVO_ROJD", ValidationFuncName = "CheckCitizenship")]
         [Link(ControlName = "birthCitizen")]
         public string BirthCitizenship = "BLR";
 
@@ -58,7 +58,6 @@ namespace VisaCzech.BL
         [String(TemplateString = "@@9_OTHER_STATUS")]
         [Link(ControlName = "otherFamily")]
         public string OtherStatus = string.Empty;
-
 
         [String(TemplateString = "@@10_RODITEL")]
         [Link(ControlName = "parent")]
@@ -109,8 +108,8 @@ namespace VisaCzech.BL
         public string WorkOrSchoolAddress;
 
         [String(TemplateString = "@@25_PRODOLJIT_DNEY")]
-        [Link(ControlName = "duration")]
-        public string Duration = "5";
+        [Link(ControlName = "duration", InitOnlyEmpty = true)]
+        public string Duration = string.Empty;
 
         [Bool(TemplateString = "@26_")]
         [Link(ControlName = "visa1Enabled", LinkActionName = "Visa1EnabledChanged")]
@@ -147,6 +146,18 @@ namespace VisaCzech.BL
         [String(TemplateString = "@@30_DATA_VIEZDA")]
         [Link(ControlName = "visaEnd", InitOnlyEmpty = true)]
         public string VisaEndDate;
+
+        [String(TemplateString = "@@31_HOTEL_NAME")]
+        [Link(ControlName = "hostHotel", InitOnlyEmpty = true)]
+        public string HotelName;
+
+        [String(TemplateString = "@@31_HOTEL_ADDRESS")]
+        [Link(ControlName = "hostHotelAddress", InitOnlyEmpty = true)]
+        public string HotelAddress;
+
+        [String(TemplateString = "@@31_HOTEL_PHONE")]
+        [Link(ControlName = "hostHotelPhone", InitOnlyEmpty = true)]
+        public string HotelPhone;
         
         [String(TemplateString = "@@32_NAZVANIE_ADRES_COMPANY_PRIGLASHENIE")]
         [Link(ControlName = "host", InitOnlyEmpty = true)]
@@ -163,6 +174,7 @@ namespace VisaCzech.BL
         [String(TemplateString = "@@36_MESTO_SOSTAVLENIYA")]
         [Link(ControlName = "fillPlace", InitOnlyEmpty = true)]
         public string PlaceOfFilling = "Minsk";
+
         [String(TemplateString = "@@36_DATA_SOSTAVLENIYA")]
         [Link(ControlName = "fillDate")]
         public string DateOfFilling;
@@ -177,7 +189,7 @@ namespace VisaCzech.BL
             return Name + " " + Surname;
         }
 
-        public void Merge(Person scannedPerson)
+        public void Merge(Person scannedPerson, bool mergeId = false)
         {
             var tempId = Id;
             var fieldInfos = GetType().GetFields();
@@ -188,7 +200,8 @@ namespace VisaCzech.BL
                 if (string.IsNullOrEmpty(val.ToString())) continue;
                 info.SetValue(this, val);
             }
-            Id = tempId;
+            if (!mergeId)
+                Id = tempId;
         }
     }
 

@@ -33,6 +33,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.save = new System.Windows.Forms.Button();
             this.cancel = new System.Windows.Forms.Button();
+            this.editTemplate = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -91,6 +92,16 @@
             this.cancel.Text = "Отмена";
             this.cancel.UseVisualStyleBackColor = true;
             // 
+            // editTemplate
+            // 
+            this.editTemplate.Location = new System.Drawing.Point(12, 78);
+            this.editTemplate.Name = "editTemplate";
+            this.editTemplate.Size = new System.Drawing.Size(237, 23);
+            this.editTemplate.TabIndex = 2;
+            this.editTemplate.Text = "Редактировать шаблон пакета";
+            this.editTemplate.UseVisualStyleBackColor = true;
+            this.editTemplate.Click += new System.EventHandler(this.editTemplate_Click);
+            // 
             // PacketForm
             // 
             this.AcceptButton = this.save;
@@ -98,6 +109,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancel;
             this.ClientSize = new System.Drawing.Size(546, 109);
+            this.Controls.Add(this.editTemplate);
             this.Controls.Add(this.cancel);
             this.Controls.Add(this.save);
             this.Controls.Add(this.tableLayoutPanel1);
@@ -107,7 +119,7 @@
             this.Name = "PacketForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Пакет";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
@@ -122,5 +134,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button save;
         private System.Windows.Forms.Button cancel;
+        private System.Windows.Forms.Button editTemplate;
     }
 }
