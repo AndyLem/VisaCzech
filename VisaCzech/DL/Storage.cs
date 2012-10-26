@@ -23,7 +23,7 @@ namespace VisaCzech.DL
             }
         }
 
-        private T Load(string fileName)
+        protected virtual T Load(string fileName)
         {
             try
             {
@@ -46,7 +46,7 @@ namespace VisaCzech.DL
             return Load(obj.Id + ".xml");
         }
 
-        private bool Save(T obj, string fileName)
+        protected virtual bool Save(T obj, string fileName)
         {
             try
             {
@@ -113,7 +113,7 @@ namespace VisaCzech.DL
             }
         }
 
-        public bool Delete(T obj)
+        public virtual bool Delete(T obj)
         {
             var fileName = string.Format("{0}.xml", obj.Id);
             return Delete(fileName);

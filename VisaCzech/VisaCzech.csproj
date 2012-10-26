@@ -58,7 +58,6 @@
     <Compile Include="BL\ObjFramework\ObjectContainerLinker\LinkAttribute.cs" />
     <Compile Include="BL\ScannerXmlParser\ImageConverter.cs" />
     <Compile Include="BL\ScannerXmlParser\MrzData.cs" />
-    <Compile Include="BL\ScannerXmlParser\ScannedPerson.cs" />
     <Compile Include="BL\ScannerXmlParser\ScannerXmlParser.cs" />
     <Compile Include="BL\TranslitConverter\TranslitConverter.cs" />
     <Compile Include="BL\WordFiller\BoolAttribute.cs" />

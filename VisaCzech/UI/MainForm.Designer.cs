@@ -82,7 +82,6 @@
             // 
             this.personFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.personFilter.Enabled = false;
             this.personFilter.Location = new System.Drawing.Point(56, 26);
             this.personFilter.Name = "personFilter";
             this.personFilter.Size = new System.Drawing.Size(264, 20);
@@ -260,14 +259,14 @@
             this.currentPacketList.Location = new System.Drawing.Point(6, 88);
             this.currentPacketList.MarkVisitedItems = true;
             this.currentPacketList.Name = "currentPacketList";
-            this.currentPacketList.NotVisitedColor = System.Drawing.Color.Gainsboro;
+            this.currentPacketList.NotVisitedColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.currentPacketList.ScrollAlwaysVisible = true;
-            this.currentPacketList.SelectedItemColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.currentPacketList.SelectedItemColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.currentPacketList.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.currentPacketList.ShowArrow = false;
             this.currentPacketList.Size = new System.Drawing.Size(464, 509);
             this.currentPacketList.TabIndex = 13;
-            this.currentPacketList.VisitedColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.currentPacketList.VisitedColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.currentPacketList.DrawItemText += new VisaCzech.UI.TouchListBox.OnDrawText(this.personsList_DrawItemText);
             // 
             // personsList
@@ -287,16 +286,17 @@
             this.personsList.IntegralHeight = false;
             this.personsList.ItemHeight = 30;
             this.personsList.Location = new System.Drawing.Point(6, 88);
-            this.personsList.MarkVisitedItems = false;
+            this.personsList.MarkVisitedItems = true;
             this.personsList.Name = "personsList";
-            this.personsList.NotVisitedColor = System.Drawing.Color.Gainsboro;
-            this.personsList.SelectedItemColor = System.Drawing.Color.Silver;
+            this.personsList.NotVisitedColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.personsList.SelectedItemColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.personsList.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.personsList.ShowArrow = false;
             this.personsList.Size = new System.Drawing.Size(314, 509);
             this.personsList.TabIndex = 7;
-            this.personsList.VisitedColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.personsList.VisitedColor = System.Drawing.Color.White;
             this.personsList.DrawItemText += new VisaCzech.UI.TouchListBox.OnDrawText(this.personsList_DrawItemText);
+            this.personsList.SelectedIndexChanged += new System.EventHandler(this.personsList_SelectedIndexChanged);
             this.personsList.DoubleClick += new System.EventHandler(this.personsList_DoubleClick);
             // 
             // MainForm

@@ -13,6 +13,7 @@ namespace VisaCzech.UI
     public partial class MainForm : Form
     {
         private Packet _currentPacket;
+        private bool ShowImages = true;
 
         public MainForm()
         {
@@ -149,12 +150,18 @@ namespace VisaCzech.UI
             p = (Person) listBox.Items[e.DrawItemArgs.Index];
             if (p == null) return;
             var height = e.DrawItemArgs.Bounds.Height;
-            var leftTextPos = e.DrawItemArgs.Bounds.Left;// +height * 1.5;
-            //if (p.Image != null)
-            //{
-            //    e.DrawItemArgs.Graphics.DrawImage(p.Image, e.DrawItemArgs.Bounds.Left, e.DrawItemArgs.Bounds.Top, height,
-            //                                      height);
-            //}
+
+            var leftTextPos = e.DrawItemArgs.Bounds.Left;
+            if (ShowImages)
+            {
+                leftTextPos += (int)(height*1.5);
+                if (p.Thumbnail != null)
+                {
+                    e.DrawItemArgs.Graphics.DrawImage(p.Thumbnail, e.DrawItemArgs.Bounds.Left, e.DrawItemArgs.Bounds.Top,
+                                                      height,
+                                                      height);
+                }
+            }
             using (var boldFont = new Font("Helvetica", e.DrawItemArgs.Font.Size+1, FontStyle.Bold))
             {
                 e.DrawItemArgs.Graphics.DrawString(string.Format("{0} {1}", p.Surname, p.Name), boldFont,
@@ -241,6 +248,12 @@ namespace VisaCzech.UI
             if (PrepareWordFillerOptions(out options)) return;
             var persons = currentPacketList.SelectedItems.Cast<Person>().ToList();
             WordFiller.FillTemplate(persons, options);
+        }
+
+        private void personsList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var touchListBox = sender as TouchListBox;
+            if (touchListBox != null) touchListBox.VisitItem((sender as ListBox).SelectedItem);
         }
     }
 }

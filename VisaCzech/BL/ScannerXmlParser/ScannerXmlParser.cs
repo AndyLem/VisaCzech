@@ -5,9 +5,9 @@ namespace VisaCzech.BL.ScannerXmlParser
 {
     public static class ScannerXmlParser
     {
-        public static ScannedPerson GetPerson(string[] xmlFileNames)
+        public static Person GetPerson(string[] xmlFileNames)
         {
-            var person = new ScannedPerson();
+            var person = new Person();
             foreach (var fileName in xmlFileNames)
             {
                 var dom = new XmlDocument();
@@ -24,7 +24,7 @@ namespace VisaCzech.BL.ScannerXmlParser
             return person;
         }
 
-        private static void FillPerson(ScannedPerson person, XmlDocument dom)
+        private static void FillPerson(Person person, XmlDocument dom)
         {
             if (dom == null) return;
             if (dom.DocumentElement == null) return;
@@ -106,7 +106,22 @@ namespace VisaCzech.BL.ScannerXmlParser
                 if (photoNode.Attributes != null && photoNode.Attributes["ImgRect"] != null)
                 {
                     var rectStr = photoNode.Attributes["ImgRect"].Value;
+                    rectStr = rectStr.Trim().Remove(rectStr.Length - 1).Remove(0, 1);
+                    var w = rectStr.Split(',');
+                    if (w.Length == 4)
+                    {
+                        try
+                        {
+                            var rect = new System.Drawing.Rectangle(int.Parse(w[0]), int.Parse(w[1]), int.Parse(w[2]), int.Parse(w[3]));
+                            rect.Height /= 2;
+                            person.Image = ImageConverter.CropImage(person.Image, rect);
+                        }
+                        catch (Exception)
+                        {
 
+                        }
+                        
+                    }
                 }
             }
                 // ReSharper disable EmptyGeneralCatchClause
