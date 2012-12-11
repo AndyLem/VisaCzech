@@ -22,11 +22,11 @@ namespace VisaCzech.UI
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void MainForm_Load(object sender, EventArgs e)
         {
             _notFilteredPersons.Clear();
             _notFilteredPersons.AddRange(PersonStorage.Instance.LoadAll());
-            personsList.Items.AddRange(_notFilteredPersons.ToArray());
+            FillPersonsListBox(_notFilteredPersons);
             packetsList.Items.AddRange(PacketStorage.Instance.LoadAll().ToArray());
             if (packetsList.Items.Count == 0)
             {
@@ -42,6 +42,12 @@ namespace VisaCzech.UI
             //catch
             //{}
             //    if (instance != null) MessageBox.Show(instance.GetScanifyAPIVersion());
+        }
+
+        private void FillPersonsListBox(IEnumerable<Person> list)
+        {
+            personsList.Items.Clear(); 
+            if (list != null) personsList.Items.AddRange(list.ToArray());
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -82,7 +88,8 @@ namespace VisaCzech.UI
 
         private bool PersonInFilter(Person p)
         {
-            return true;
+            var filter = personFilter.Text;
+            return string.IsNullOrEmpty(filter) || p.FilterOk(filter);
         }
 
         private void personsList_DoubleClick(object sender, EventArgs e)
@@ -90,13 +97,12 @@ namespace VisaCzech.UI
             if (personsList.SelectedItem == null) return;
             var form = new PersonForm();
             var person = personsList.SelectedItem as Person;
-            var allPersons = personsList.Items.Cast<Person>().ToList();
-            form.InitCombos(allPersons);
+            form.InitCombos(_notFilteredPersons);
             form.EditPerson(person);
             if (form.ShowDialog() != DialogResult.OK) return;
             var index = personsList.SelectedIndex;
             personsList.Items.RemoveAt(index);
-            personsList.Items.Insert(index, person);
+            if (person != null) personsList.Items.Insert(index, person);
             personsList.SelectedIndex = index;
         }
 
@@ -109,6 +115,7 @@ namespace VisaCzech.UI
                 MessageBox.Show(string.Format("Удалить {0}", person.ToString()), Resources.DeleteAnketa,
                                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
             personsList.Items.RemoveAt(index);
+            _notFilteredPersons.Remove(person);
             PersonStorage.Instance.Delete(person);
         }
 
@@ -165,7 +172,7 @@ namespace VisaCzech.UI
         /// <returns></returns>
         private static ICollection<Person> Clone(IEnumerable<Person> persons)
         {
-            return persons.Select(p => PersonStorage.Instance.Load(p)).ToList();
+            return persons.Select(p => new Person().Merge(p, true)).ToList();
         }
 
         private bool PrepareWordFillerOptions(out WordFillerOptions options)
@@ -206,7 +213,7 @@ namespace VisaCzech.UI
             {
                 e.DrawItemArgs.Graphics.DrawString(string.Format("{0} {1}", p.Surname, p.Name), boldFont,
                                                    Brushes.Black, (float) leftTextPos, e.DrawItemArgs.Bounds.Top);
-                e.DrawItemArgs.Graphics.DrawString(p.PersonalId, e.DrawItemArgs.Font, Brushes.Black,
+                e.DrawItemArgs.Graphics.DrawString(p.DocumentNumber, e.DrawItemArgs.Font, Brushes.Black,
                                                    (float)leftTextPos, e.DrawItemArgs.Bounds.Top+ height / 2);
 
                 if ((sender as Control).Name != "personsList") return;
@@ -298,7 +305,8 @@ namespace VisaCzech.UI
 
         private void personFilter_TextChanged(object sender, EventArgs e)
         {
-
+            var filteredPersons = _notFilteredPersons.Where(PersonInFilter).ToList();
+            FillPersonsListBox(filteredPersons);
         }
     }
 }

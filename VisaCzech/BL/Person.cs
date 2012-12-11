@@ -209,7 +209,7 @@ namespace VisaCzech.BL
             return Name + " " + Surname;
         }
 
-        public void Merge(Person person, bool mergeId = false)
+        public Person Merge(Person person, bool mergeId = false)
         {
             var tempId = Id;
             var fieldInfos = GetType().GetFields();
@@ -224,6 +224,14 @@ namespace VisaCzech.BL
             this._thumbnail = person._thumbnail;
             if (!mergeId)
                 Id = tempId;
+            return this;
+        }
+
+        public bool FilterOk(string filter)
+        {
+            var upperFilter = filter.ToUpper();
+            return Name.ToUpper().Contains(upperFilter) || Surname.ToUpper().Contains(upperFilter) ||
+                   DocumentNumber.ToUpper().Contains(upperFilter);
         }
     }
 
