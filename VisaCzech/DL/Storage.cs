@@ -70,7 +70,7 @@ namespace VisaCzech.DL
             return Save(obj, fileName);
         }
 
-        public IEnumerable<T> LoadAll()
+        public virtual IEnumerable<T> LoadAll()
         {
             IEnumerable<string> files;
             var objs = new List<T>();

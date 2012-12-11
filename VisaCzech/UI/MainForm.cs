@@ -13,7 +13,9 @@ namespace VisaCzech.UI
     public partial class MainForm : Form
     {
         private Packet _currentPacket;
-        private bool ShowImages = true;
+        private bool ShowImages = false;
+
+        private readonly List<Person> _notFilteredPersons = new List<Person>();
 
         public MainForm()
         {
@@ -22,13 +24,24 @@ namespace VisaCzech.UI
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            personsList.Items.AddRange(PersonStorage.Instance.LoadAll().ToArray());
+            _notFilteredPersons.Clear();
+            _notFilteredPersons.AddRange(PersonStorage.Instance.LoadAll());
+            personsList.Items.AddRange(_notFilteredPersons.ToArray());
             packetsList.Items.AddRange(PacketStorage.Instance.LoadAll().ToArray());
             if (packetsList.Items.Count == 0)
             {
                 CreateNewPacket();    
             }
             packetsList.SelectedIndex = packetsList.Items.Count - 1;
+
+            //ScAPI.IInstance instance = null;
+            //try
+            //{
+            //    instance = ScAPI.ScProxy.CreateInstance();
+            //}
+            //catch
+            //{}
+            //    if (instance != null) MessageBox.Show(instance.GetScanifyAPIVersion());
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -46,7 +59,7 @@ namespace VisaCzech.UI
                                       {
                                           var newPerson = new Person();
                                           newPerson.Merge(o as Person);
-                                          personsList.Items.Add(newPerson);
+                                          AddPersonToLists(newPerson);
                                           PersonStorage.Instance.Save(newPerson);
                                           if (!createToPacket.Checked) return;
                                           if (_currentPacket == null) CreateNewPacket();
@@ -57,6 +70,19 @@ namespace VisaCzech.UI
                                       };
             form.CreatePerson(_currentPacket);
             form.ShowDialog();
+        }
+
+        private void AddPersonToLists(Person p)
+        {
+            _notFilteredPersons.Add(p);
+            if (!PersonInFilter(p)) return;
+            personsList.Items.Add(p);
+            personsList.SelectedItem = p;
+        }
+
+        private bool PersonInFilter(Person p)
+        {
+            return true;
         }
 
         private void personsList_DoubleClick(object sender, EventArgs e)
@@ -127,7 +153,19 @@ namespace VisaCzech.UI
             if (PrepareWordFillerOptions(out options)) return;
             var persons = _currentPacket.EnumPersons(personsList.Items);
 
+            // Клонируем массив, чтобы не поиметь проблем с многозадачностью
+            persons = Clone(persons);
             WordFiller.FillTemplate(persons, options);
+        }
+
+        /// <summary>
+        /// Клонирует персонов, чтобы передать в поток заполнения шаблонов
+        /// </summary>
+        /// <param name="persons"></param>
+        /// <returns></returns>
+        private static ICollection<Person> Clone(IEnumerable<Person> persons)
+        {
+            return persons.Select(p => PersonStorage.Instance.Load(p)).ToList();
         }
 
         private bool PrepareWordFillerOptions(out WordFillerOptions options)
@@ -135,6 +173,8 @@ namespace VisaCzech.UI
             options = new WordFillerOptions();
             if (_currentPacket == null) return true;
             options.PacketName = _currentPacket.Name;
+            options.BackgroundProgressBar = this.backgroundProgress;
+            options.BackgroundStopButton = this.backgroundStop;
             var form = new WordFillerForm();
             form.Link(options);
             if (form.ShowDialog() != DialogResult.OK) return true;
@@ -254,6 +294,11 @@ namespace VisaCzech.UI
         {
             var touchListBox = sender as TouchListBox;
             if (touchListBox != null) touchListBox.VisitItem((sender as ListBox).SelectedItem);
+        }
+
+        private void personFilter_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

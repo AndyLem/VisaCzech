@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Linq;
 using VisaCzech.BL;
 using System.IO;
 using System.Xml.Serialization;
@@ -10,11 +11,18 @@ namespace VisaCzech.DL
     public sealed class PersonStorage : Storage<Person>
     {
         private static PersonStorage _instance;
-        private static string _imagesDir = "Images\\";
+        private const string ImagesDir = "Images\\";
+
+        private readonly List<Person> _fullList = new List<Person>();
 
         public static PersonStorage Instance
         {
             get { return _instance ?? (_instance = new PersonStorage()); }
+        }
+
+        public List<Person> FullList
+        {
+            get { return _fullList; }
         }
 
         private PersonStorage()
@@ -32,27 +40,28 @@ namespace VisaCzech.DL
                     var bmp = new Bitmap(obj.Image);
                     try
                     {
-                        Directory.CreateDirectory(DefaultPath + _imagesDir);
-                        bmp.Save(DefaultPath + _imagesDir + obj.Id + ".jpg");
+                        Directory.CreateDirectory(DefaultPath + ImagesDir);
+                        bmp.Save(DefaultPath + ImagesDir + obj.Id + ".jpg");
                     }
                     catch (Exception)
                     {
                     }
                 }
             }
+            if (_fullList.IndexOf(obj) == -1) _fullList.Add(obj);
             return res;
         }
 
         protected override Person Load(string fileName)
         {
             var res = base.Load(fileName);
-            Directory.CreateDirectory(DefaultPath + _imagesDir);
+            Directory.CreateDirectory(DefaultPath + ImagesDir);
 
-            if (File.Exists(DefaultPath + _imagesDir + res.Id + ".jpg"))
+            if (File.Exists(DefaultPath + ImagesDir + res.Id + ".jpg"))
             {
                 try
                 {
-                    var bmp = Image.FromFile(DefaultPath + _imagesDir + res.Id + ".jpg");
+                    var bmp = Image.FromFile(DefaultPath + ImagesDir + res.Id + ".jpg");
                     res.Image = bmp;
 
                 }
@@ -67,19 +76,29 @@ namespace VisaCzech.DL
         public override bool Delete(Person obj)
         {
             var res = base.Delete(obj);
-            Directory.CreateDirectory(DefaultPath + _imagesDir);
-            if (File.Exists(DefaultPath + _imagesDir + obj.Id + ".jpg"))
+            Directory.CreateDirectory(DefaultPath + ImagesDir);
+            if (File.Exists(DefaultPath + ImagesDir + obj.Id + ".jpg"))
             {
                 try
                 {
-                    File.Delete((DefaultPath + _imagesDir + obj.Id + ".jpg"));
+                    File.Delete((DefaultPath + ImagesDir + obj.Id + ".jpg"));
                 }
                 catch
                 {
                     
                 }
             }
+            if (_fullList.IndexOf(obj) != -1) _fullList.Remove(obj);
             return res;
+        }
+
+        public override IEnumerable<Person> LoadAll()
+        {
+            var res = base.LoadAll();
+            _fullList.Clear();
+            var loadAll = res as List<Person> ?? res.ToList();
+            _fullList.AddRange(loadAll);
+            return loadAll;
         }
     }
 }

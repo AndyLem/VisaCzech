@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using VisaCzech.BL.ObjFramework.ObjectContainerLinker;
+using System.Windows.Forms;
 
 namespace VisaCzech.BL.WordFiller
 {
@@ -15,5 +16,11 @@ namespace VisaCzech.BL.WordFiller
         public string TemplateName = string.Empty;
 
         public string PacketName;
+
+        [Link(ControlName = "isBackground")]
+        public bool IsBackground = true;
+
+        public ProgressBar BackgroundProgressBar;
+        public Button BackgroundStopButton;
     }
 }

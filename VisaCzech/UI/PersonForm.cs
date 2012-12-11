@@ -11,6 +11,8 @@ using VisaCzech.BL.ObjFramework.ObjectContainerLinker;
 using VisaCzech.DL;
 using VisaCzech.BL.ScannerXmlParser;
 using VisaCzech.BL.TranslitConverter;
+using VisaCzech.Properties;
+using System.IO;
 
 namespace VisaCzech.UI
 {
@@ -209,16 +211,31 @@ namespace VisaCzech.UI
 
         private void loadFromScanner_Click(object sender, EventArgs e)
         {
+            var pathObj = Settings.Default["ImportPath"];
+            var path = string.Empty;
+            if (pathObj == null)
+                path = AppDomain.CurrentDomain.BaseDirectory;
+
             var dlg = new OpenFileDialog 
             {
 // ReSharper disable LocalizableElement
                 Filter = "*.xml|*.xml", 
 // ReSharper restore LocalizableElement
-                InitialDirectory = AppDomain.CurrentDomain.BaseDirectory, 
+                InitialDirectory = path, 
                 CheckFileExists = true, 
                 Multiselect = true
             };
             if (dlg.ShowDialog() != DialogResult.OK) return;
+
+            var fileName = Path.GetFileName(path);
+            var newPath = path;
+            if (fileName != null)
+            {
+                newPath = path.Substring(0, path.Length - fileName.Length);
+            }
+
+            Settings.Default["ImportPath"] = newPath;
+
             var files = dlg.FileNames;
             var scannedPerson = ScannerXmlParser.GetPerson(files);
             _person.Merge(scannedPerson);

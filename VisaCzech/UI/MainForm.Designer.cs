@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.createToPacket = new System.Windows.Forms.CheckBox();
             this.addToPacket = new System.Windows.Forms.Button();
             this.personFilter = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -36,6 +37,7 @@
             this.createPerson = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.fillSelectedAnketas = new System.Windows.Forms.Button();
             this.renamePacket = new System.Windows.Forms.Button();
             this.deletePacket = new System.Windows.Forms.Button();
             this.packetsList = new System.Windows.Forms.ComboBox();
@@ -43,8 +45,8 @@
             this.newPacket = new System.Windows.Forms.Button();
             this.removeFromPacket = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
-            this.fillSelectedAnketas = new System.Windows.Forms.Button();
-            this.createToPacket = new System.Windows.Forms.CheckBox();
+            this.backgroundStop = new System.Windows.Forms.Button();
+            this.backgroundProgress = new System.Windows.Forms.ProgressBar();
             this.currentPacketList = new VisaCzech.UI.TouchListBox();
             this.personsList = new VisaCzech.UI.TouchListBox();
             this.panel1.SuspendLayout();
@@ -53,8 +55,8 @@
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)));
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.panel1.Controls.Add(this.createToPacket);
             this.panel1.Controls.Add(this.personsList);
             this.panel1.Controls.Add(this.addToPacket);
@@ -68,6 +70,18 @@
             this.panel1.Size = new System.Drawing.Size(323, 600);
             this.panel1.TabIndex = 0;
             // 
+            // createToPacket
+            // 
+            this.createToPacket.AutoSize = true;
+            this.createToPacket.Checked = true;
+            this.createToPacket.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.createToPacket.Location = new System.Drawing.Point(87, 63);
+            this.createToPacket.Name = "createToPacket";
+            this.createToPacket.Size = new System.Drawing.Size(123, 17);
+            this.createToPacket.TabIndex = 8;
+            this.createToPacket.Text = "и добавить в пакет";
+            this.createToPacket.UseVisualStyleBackColor = true;
+            // 
             // addToPacket
             // 
             this.addToPacket.Location = new System.Drawing.Point(287, 59);
@@ -80,12 +94,13 @@
             // 
             // personFilter
             // 
-            this.personFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.personFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.personFilter.Location = new System.Drawing.Point(56, 26);
             this.personFilter.Name = "personFilter";
             this.personFilter.Size = new System.Drawing.Size(264, 20);
             this.personFilter.TabIndex = 4;
+            this.personFilter.TextChanged += new System.EventHandler(this.personFilter_TextChanged);
             // 
             // label2
             // 
@@ -129,9 +144,11 @@
             // 
             // panel2
             // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Controls.Add(this.backgroundProgress);
+            this.panel2.Controls.Add(this.backgroundStop);
             this.panel2.Controls.Add(this.fillSelectedAnketas);
             this.panel2.Controls.Add(this.renamePacket);
             this.panel2.Controls.Add(this.deletePacket);
@@ -145,6 +162,17 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(473, 600);
             this.panel2.TabIndex = 1;
+            // 
+            // fillSelectedAnketas
+            // 
+            this.fillSelectedAnketas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.fillSelectedAnketas.Location = new System.Drawing.Point(214, 59);
+            this.fillSelectedAnketas.Name = "fillSelectedAnketas";
+            this.fillSelectedAnketas.Size = new System.Drawing.Size(141, 23);
+            this.fillSelectedAnketas.TabIndex = 17;
+            this.fillSelectedAnketas.Text = "Заполнить выделенные";
+            this.fillSelectedAnketas.UseVisualStyleBackColor = true;
+            this.fillSelectedAnketas.Click += new System.EventHandler(this.fillSelectedAnketas_Click);
             // 
             // renamePacket
             // 
@@ -218,34 +246,31 @@
             this.label3.Text = "Пакет";
             this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // fillSelectedAnketas
+            // backgroundStop
             // 
-            this.fillSelectedAnketas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.fillSelectedAnketas.Location = new System.Drawing.Point(214, 59);
-            this.fillSelectedAnketas.Name = "fillSelectedAnketas";
-            this.fillSelectedAnketas.Size = new System.Drawing.Size(141, 23);
-            this.fillSelectedAnketas.TabIndex = 17;
-            this.fillSelectedAnketas.Text = "Заполнить выделенные";
-            this.fillSelectedAnketas.UseVisualStyleBackColor = true;
-            this.fillSelectedAnketas.Click += new System.EventHandler(this.fillSelectedAnketas_Click);
+            this.backgroundStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.backgroundStop.Enabled = false;
+            this.backgroundStop.Location = new System.Drawing.Point(395, 574);
+            this.backgroundStop.Name = "backgroundStop";
+            this.backgroundStop.Size = new System.Drawing.Size(75, 23);
+            this.backgroundStop.TabIndex = 18;
+            this.backgroundStop.Text = "Прервать";
+            this.backgroundStop.UseVisualStyleBackColor = true;
             // 
-            // createToPacket
+            // backgroundProgress
             // 
-            this.createToPacket.AutoSize = true;
-            this.createToPacket.Checked = true;
-            this.createToPacket.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.createToPacket.Location = new System.Drawing.Point(87, 63);
-            this.createToPacket.Name = "createToPacket";
-            this.createToPacket.Size = new System.Drawing.Size(123, 17);
-            this.createToPacket.TabIndex = 8;
-            this.createToPacket.Text = "и добавить в пакет";
-            this.createToPacket.UseVisualStyleBackColor = true;
+            this.backgroundProgress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.backgroundProgress.Location = new System.Drawing.Point(6, 574);
+            this.backgroundProgress.Name = "backgroundProgress";
+            this.backgroundProgress.Size = new System.Drawing.Size(383, 23);
+            this.backgroundProgress.TabIndex = 19;
             // 
             // currentPacketList
             // 
-            this.currentPacketList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.currentPacketList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.currentPacketList.ArrowColor = System.Drawing.SystemColors.Control;
             this.currentPacketList.ArrowSize = 20;
             this.currentPacketList.ArrowSizeMode = VisaCzech.UI.TouchListBox.ArrowSizeModes.Pixels;
@@ -264,16 +289,16 @@
             this.currentPacketList.SelectedItemColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.currentPacketList.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.currentPacketList.ShowArrow = false;
-            this.currentPacketList.Size = new System.Drawing.Size(464, 509);
+            this.currentPacketList.Size = new System.Drawing.Size(464, 480);
             this.currentPacketList.TabIndex = 13;
             this.currentPacketList.VisitedColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.currentPacketList.DrawItemText += new VisaCzech.UI.TouchListBox.OnDrawText(this.personsList_DrawItemText);
             // 
             // personsList
             // 
-            this.personsList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.personsList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.personsList.ArrowColor = System.Drawing.SystemColors.Control;
             this.personsList.ArrowSize = 20;
             this.personsList.ArrowSizeMode = VisaCzech.UI.TouchListBox.ArrowSizeModes.Pixels;
@@ -339,6 +364,8 @@
         private System.Windows.Forms.Button deletePacket;
         private System.Windows.Forms.Button fillSelectedAnketas;
         private System.Windows.Forms.CheckBox createToPacket;
+        private System.Windows.Forms.ProgressBar backgroundProgress;
+        private System.Windows.Forms.Button backgroundStop;
 
     }
 }

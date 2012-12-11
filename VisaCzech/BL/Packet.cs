@@ -62,7 +62,6 @@ namespace VisaCzech.BL
                     list.Add(p);
             }
             return list;
-            return Persons.Select(p => fullPersonsList.Cast<Person>().Single(per => per.Id == p)).Where(person => person != null).ToList();
         }
 
         internal int IndexOfPerson(Person p)

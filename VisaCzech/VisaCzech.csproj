@@ -37,6 +37,9 @@
     <Reference Include="Microsoft.Office.Interop.Word, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="ScProxy.cs">
+      <HintPath>C:\Program Files (x86)\Cognitive\ScanifyAPI\libs\ScProxy.cs.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
@@ -62,6 +65,10 @@
     <Compile Include="BL\TranslitConverter\TranslitConverter.cs" />
     <Compile Include="BL\WordFiller\BoolAttribute.cs" />
     <Compile Include="BL\WordFiller\EnumAttribute.cs" />
+    <Compile Include="BL\WordFiller\FillerStatus\BackgroundStrategy.cs" />
+    <Compile Include="BL\WordFiller\FillerStatus\FormStrategy.cs" />
+    <Compile Include="BL\WordFiller\FillerStatus\IFillerStatusStrategy.cs" />
+    <Compile Include="BL\WordFiller\FillerStatus\StrategyFactory.cs" />
     <Compile Include="BL\WordFiller\ValidationFunctionFactory.cs" />
     <Compile Include="BL\WordFiller\StringAttribute.cs" />
     <Compile Include="BL\WordFiller\WordFiller.cs" />
@@ -132,6 +139,7 @@
     <EmbeddedResource Include="UI\WordFillerProgressForm.resx">
       <DependentUpon>WordFillerProgressForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

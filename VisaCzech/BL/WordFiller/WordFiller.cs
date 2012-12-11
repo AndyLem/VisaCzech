@@ -7,6 +7,7 @@ using Microsoft.Office.Interop.Word;
 using VisaCzech.Properties;
 using VisaCzech.UI;
 using System.ComponentModel;
+using VisaCzech.BL.WordFiller.FillerStatus;
 
 namespace VisaCzech.BL.WordFiller
 {
@@ -19,43 +20,15 @@ namespace VisaCzech.BL.WordFiller
         private static object _falseObj = false;
         private const string EmptyBox = "□";
         private static ValidationFunctionFactory _validationFunctionFactory;
+        private static IFillerStatusStrategy _fillerStatusStrategy;
 
-        private static WordFillerProgressForm _form;
-        private static bool _shouldStop;
-        private static bool _wasError;
-        private static BackgroundWorker _worker;
-        
 
         public static void FillTemplate(ICollection<Person> persons, WordFillerOptions options)
         {
-            _shouldStop = false;
-            _wasError = false;
-            _form = new WordFillerProgressForm();
-            _form.stop.Click += (sender, args) =>
-                                    {
-                                        _form.console.Items.Add("Ожидается завершение текущей операции");
-                                        _shouldStop = true; 
-                                    };
-            _form.Load += (sender, args) =>
-                              {
-                                  _worker = new BackgroundWorker
-                                                   {WorkerSupportsCancellation = true, WorkerReportsProgress = true};
-                                  _worker.ProgressChanged += (o, eventArgs) =>
-                                                                {
-                                                                    _form.progress.Value = eventArgs.ProgressPercentage;
-                                                                    _form.console.Items.Add(
-                                                                        eventArgs.UserState.ToString());
-                                                                };
-                                  _worker.RunWorkerCompleted += (o, eventArgs) =>
-                                        {
-                                            _form.stop.Text = Resources.WordFiller_FillTemplate_CloseForm;
-                                            _form.stop.Click +=
-                                                (sender1, args1) => _form.Close();
-                                        };
-                                  _worker.DoWork += (o, eventArgs) => FillTemplate(options.TemplateName, persons, options.SavePath);
-                                  _worker.RunWorkerAsync();
-                              };
-            _form.ShowDialog();
+            _fillerStatusStrategy = StrategyFactory.CreateStrategy(options);
+            _fillerStatusStrategy.Init(persons, options);
+            _fillerStatusStrategy.Worker.DoWork += (o, eventArgs) => FillTemplate(options.TemplateName, persons, options.SavePath);
+            _fillerStatusStrategy.Run();
         }
 
         private static void FillTemplate(object templateFileName, ICollection<Person> anketas, string resultPath)
@@ -70,21 +43,21 @@ namespace VisaCzech.BL.WordFiller
 
                 var progress = 0;
                 var progressStep = (int)(100/anketas.Count);
-                _worker.ReportProgress(0, "Идет формирование анкет");
+                _fillerStatusStrategy.Worker.ReportProgress(0, "Идет формирование анкет");
                 foreach (var person in anketas)
                 {
                     var newFileName = FillAnketa(app, templateFileName, person, resultPath);
                     progress += progressStep;
                     if (progress > 100) progress = 100;
-                    _worker.ReportProgress(progress, string.Format("Анкета для {0} {1} сформирована в файле {2}", person.Surname, person.Name, newFileName));
-                    if (_shouldStop) break;
+                    _fillerStatusStrategy.Worker.ReportProgress(progress, string.Format("Анкета для {0} {1} сформирована в файле {2}", person.Surname, person.Name, newFileName));
+                    if (_fillerStatusStrategy.ShouldStop) break;
                 }
-                _worker.ReportProgress(100, "Формирование анкет завершено");
+                _fillerStatusStrategy.Worker.ReportProgress(100, "Формирование анкет завершено");
             }
             catch (Exception e)
             {
-                _worker.ReportProgress(100, e.Message);
-                _wasError = true;
+                _fillerStatusStrategy.Worker.ReportProgress(100, e.Message);
+                _fillerStatusStrategy.WasError = true;
             }
             finally
             {
