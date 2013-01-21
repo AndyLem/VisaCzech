@@ -17,30 +17,31 @@ namespace VisaCzech.BL
 
         [String(TemplateString = "@@1_FAMILIA")]
         [Link(ControlName = "surname", LinkActionName = "SurnameChanged")]
-        [Field(FieldName = "SurName")]
+        [Field(FieldName = "IN_SurName")]
         public string Surname = string.Empty;
         
         [String(TemplateString = "@@2_FAMILIA_ROJD", ValidationFuncName = "CheckSurname2")]
         [Link(ControlName = "surname2")]
+        [Field(FieldName = "IN_SurName")]
         public string SurnameAtBirth = string.Empty;
 
         [String(TemplateString = "@@3_IMYA")]
         [Link(ControlName = "name")]
-        [Field(FieldName = "Name")]
+        [Field(FieldName = "IN_Name")]
         public string Name = string.Empty;
 
         [String(TemplateString = "@@4_DATA_ROJD")]
         [Link(ControlName = "birthDate")]
-        [Field(FieldName = "DateOfBirth")]
+        [Field(FieldName = "IN_BirthDate")]
         public string BirthDate = string.Empty;
 
         [String(TemplateString = "@@5_PLACE_BIRTH")]
         [Link(ControlName = "birthPlace")]
-        [Field(FieldName = "PlaceOfBirth")]
         public string BirthPlace = "Minsk";
 
         [String(TemplateString = "@@6_STRANA_ROJD")]
         [Link(ControlName = "birthCountry")]
+        [Field(FieldName = "IN_CNT")]
         public string BirthCountry = "BLR";
 
         [String(TemplateString = "@@7_GRAJDANSTVO")]
@@ -52,6 +53,7 @@ namespace VisaCzech.BL
         public string BirthCitizenship = "BLR";
 
         [Link(ControlName = "sex", LinkActionName = "SexChanged", AllowFillComboBox = false)]
+        [Field(FieldName = "IN_Sex")]
         public string SexValue = "Мужской";
         [Enum(TemplateString = "@8_", EnumValues = 2)]
         public Sex Sex = Sex.Male;
@@ -70,7 +72,7 @@ namespace VisaCzech.BL
 
         [String(TemplateString = "@@11_ID_PASSPORT")]
         [Link(ControlName = "personalId")]
-        [Field(FieldName = "PersonID")]
+        [Field(FieldName = "IN_KOD")]
         public string PersonalId = string.Empty;
 
         [Link(ControlName = "docType", LinkActionName = "DocTypeChanged", AllowFillComboBox = false)]
@@ -83,6 +85,7 @@ namespace VisaCzech.BL
 
         [String(TemplateString = "@@13_SERIYA_NUMBER_PASSPORT")]
         [Link(ControlName = "docNumber")]
+        [Field(FieldName = "IN_SerNum")]
         public string DocumentNumber = string.Empty;
 
         [String(TemplateString = "@@14_DATA_VIDACHI")]
@@ -92,7 +95,7 @@ namespace VisaCzech.BL
 
         [String(TemplateString = "@@15_DEYSTVIT_DO")]
         [Link(ControlName = "docValid")]
-        [Field(FieldName = "ValidDate")]
+        [Field(FieldName = "IN_Expiry")]
         public string DocumentValidDate = string.Empty;
 
         [String(TemplateString = "@@16_VIDAN_PASS")]

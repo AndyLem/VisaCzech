@@ -130,7 +130,8 @@ namespace VisaCzech.UI
             if (_currentPacket == null)
                 CreateNewPacket();
             if (_currentPacket == null) return;
-            foreach (var p in from Person p in personsList.SelectedItems where _currentPacket.IndexOfPerson(p) == -1 select p)
+            var lst = from Person p in personsList.SelectedItems where _currentPacket.IndexOfPerson(p) == -1 select p;
+            foreach (var p in lst)
             {
                 _currentPacket.AddPerson(p);
                 currentPacketList.Items.Add(p);
