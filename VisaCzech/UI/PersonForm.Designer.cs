@@ -112,16 +112,17 @@
             this.hostHotel = new System.Windows.Forms.ComboBox();
             this.hostHotelAddress = new System.Windows.Forms.ComboBox();
             this.hostHotelPhone = new System.Windows.Forms.TextBox();
+            this.work = new System.Windows.Forms.ComboBox();
+            this.homeAddress = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.loadFromScanner = new System.Windows.Forms.Button();
             this.saved = new System.Windows.Forms.Label();
             this.cancelBtn = new System.Windows.Forms.Button();
             this.saveBtn = new System.Windows.Forms.Button();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.scan = new System.Windows.Forms.Button();
             this.toTranslit = new System.Windows.Forms.CheckBox();
             this.panel6 = new System.Windows.Forms.Panel();
-            this.work = new System.Windows.Forms.ComboBox();
-            this.homeAddress = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -133,32 +134,32 @@
             // surname
             // 
             this.surname.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.surname.Location = new System.Drawing.Point(240, 3);
+            this.surname.Location = new System.Drawing.Point(277, 3);
             this.surname.Name = "surname";
-            this.surname.Size = new System.Drawing.Size(550, 20);
+            this.surname.Size = new System.Drawing.Size(635, 20);
             this.surname.TabIndex = 0;
             // 
             // surname2
             // 
             this.surname2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.surname2.Location = new System.Drawing.Point(240, 28);
+            this.surname2.Location = new System.Drawing.Point(277, 28);
             this.surname2.Name = "surname2";
-            this.surname2.Size = new System.Drawing.Size(550, 20);
+            this.surname2.Size = new System.Drawing.Size(635, 20);
             this.surname2.TabIndex = 1;
             // 
             // name
             // 
             this.name.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.name.Location = new System.Drawing.Point(240, 53);
+            this.name.Location = new System.Drawing.Point(277, 53);
             this.name.Name = "name";
-            this.name.Size = new System.Drawing.Size(550, 20);
+            this.name.Size = new System.Drawing.Size(635, 20);
             this.name.TabIndex = 2;
             // 
             // label1
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(178, 6);
+            this.label1.Location = new System.Drawing.Point(215, 6);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(56, 13);
             this.label1.TabIndex = 3;
@@ -169,7 +170,7 @@
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(104, 31);
+            this.label2.Location = new System.Drawing.Point(141, 31);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(130, 13);
             this.label2.TabIndex = 4;
@@ -180,7 +181,7 @@
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(205, 56);
+            this.label3.Location = new System.Drawing.Point(242, 56);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(29, 13);
             this.label3.TabIndex = 5;
@@ -304,12 +305,12 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(793, 900);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(915, 900);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // visaEnd
             // 
-            this.visaEnd.Location = new System.Drawing.Point(240, 653);
+            this.visaEnd.Location = new System.Drawing.Point(277, 653);
             this.visaEnd.Name = "visaEnd";
             this.visaEnd.Size = new System.Drawing.Size(193, 20);
             this.visaEnd.TabIndex = 26;
@@ -318,7 +319,7 @@
             // 
             this.label33.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(160, 656);
+            this.label33.Location = new System.Drawing.Point(197, 656);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(74, 13);
             this.label33.TabIndex = 54;
@@ -327,7 +328,7 @@
             // 
             // visaStart
             // 
-            this.visaStart.Location = new System.Drawing.Point(240, 628);
+            this.visaStart.Location = new System.Drawing.Point(277, 628);
             this.visaStart.Name = "visaStart";
             this.visaStart.Size = new System.Drawing.Size(193, 20);
             this.visaStart.TabIndex = 25;
@@ -336,7 +337,7 @@
             // 
             this.label32.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(161, 631);
+            this.label32.Location = new System.Drawing.Point(198, 631);
             this.label32.Name = "label32";
             this.label32.Size = new System.Drawing.Size(73, 13);
             this.label32.TabIndex = 52;
@@ -353,10 +354,10 @@
             this.panel4.Controls.Add(this.visa3From);
             this.panel4.Controls.Add(this.label31);
             this.panel4.Controls.Add(this.visa3Enabled);
-            this.panel4.Location = new System.Drawing.Point(242, 603);
+            this.panel4.Location = new System.Drawing.Point(279, 603);
             this.panel4.Margin = new System.Windows.Forms.Padding(5, 3, 0, 3);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(551, 19);
+            this.panel4.Size = new System.Drawing.Size(636, 19);
             this.panel4.TabIndex = 24;
             // 
             // visa3To
@@ -415,10 +416,10 @@
             this.panel3.Controls.Add(this.visa1From);
             this.panel3.Controls.Add(this.label29);
             this.panel3.Controls.Add(this.visa1Enabled);
-            this.panel3.Location = new System.Drawing.Point(242, 553);
+            this.panel3.Location = new System.Drawing.Point(279, 553);
             this.panel3.Margin = new System.Windows.Forms.Padding(5, 3, 0, 3);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(551, 19);
+            this.panel3.Size = new System.Drawing.Size(636, 19);
             this.panel3.TabIndex = 22;
             // 
             // visa1To
@@ -471,7 +472,7 @@
             // 
             this.label23.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(58, 531);
+            this.label23.Location = new System.Drawing.Point(95, 531);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(176, 13);
             this.label23.TabIndex = 43;
@@ -482,7 +483,7 @@
             // 
             this.label21.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(12, 506);
+            this.label21.Location = new System.Drawing.Point(49, 506);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(222, 13);
             this.label21.TabIndex = 41;
@@ -493,7 +494,7 @@
             // 
             this.label5.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(142, 106);
+            this.label5.Location = new System.Drawing.Point(179, 106);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(92, 13);
             this.label5.TabIndex = 8;
@@ -503,7 +504,7 @@
             // birthDate
             // 
             this.birthDate.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.birthDate.Location = new System.Drawing.Point(240, 78);
+            this.birthDate.Location = new System.Drawing.Point(277, 78);
             this.birthDate.Name = "birthDate";
             this.birthDate.Size = new System.Drawing.Size(143, 20);
             this.birthDate.TabIndex = 3;
@@ -512,7 +513,7 @@
             // 
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(148, 81);
+            this.label4.Location = new System.Drawing.Point(185, 81);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(86, 13);
             this.label4.TabIndex = 7;
@@ -523,7 +524,7 @@
             // 
             this.label6.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(138, 131);
+            this.label6.Location = new System.Drawing.Point(175, 131);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(96, 13);
             this.label6.TabIndex = 9;
@@ -534,7 +535,7 @@
             // 
             this.label8.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(50, 156);
+            this.label8.Location = new System.Drawing.Point(87, 156);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(184, 13);
             this.label8.TabIndex = 13;
@@ -545,7 +546,7 @@
             // 
             this.label10.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(86, 181);
+            this.label10.Location = new System.Drawing.Point(123, 181);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(148, 13);
             this.label10.TabIndex = 14;
@@ -556,7 +557,7 @@
             // 
             this.label11.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(207, 206);
+            this.label11.Location = new System.Drawing.Point(244, 206);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(27, 13);
             this.label11.TabIndex = 15;
@@ -567,7 +568,7 @@
             // 
             this.label12.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(117, 231);
+            this.label12.Location = new System.Drawing.Point(154, 231);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(117, 13);
             this.label12.TabIndex = 16;
@@ -578,7 +579,7 @@
             // 
             this.label13.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(179, 256);
+            this.label13.Location = new System.Drawing.Point(216, 256);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(55, 13);
             this.label13.TabIndex = 17;
@@ -589,7 +590,7 @@
             // 
             this.label14.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(153, 281);
+            this.label14.Location = new System.Drawing.Point(190, 281);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(81, 13);
             this.label14.TabIndex = 18;
@@ -600,7 +601,7 @@
             // 
             this.label15.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(151, 306);
+            this.label15.Location = new System.Drawing.Point(188, 306);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(83, 13);
             this.label15.TabIndex = 19;
@@ -611,7 +612,7 @@
             // 
             this.label9.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(136, 331);
+            this.label9.Location = new System.Drawing.Point(173, 331);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(98, 13);
             this.label9.TabIndex = 12;
@@ -622,7 +623,7 @@
             // 
             this.label7.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(161, 356);
+            this.label7.Location = new System.Drawing.Point(198, 356);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(73, 13);
             this.label7.TabIndex = 10;
@@ -633,7 +634,7 @@
             // 
             this.label16.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(139, 381);
+            this.label16.Location = new System.Drawing.Point(176, 381);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(95, 13);
             this.label16.TabIndex = 20;
@@ -644,7 +645,7 @@
             // 
             this.label17.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(171, 406);
+            this.label17.Location = new System.Drawing.Point(208, 406);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(63, 13);
             this.label17.TabIndex = 21;
@@ -655,7 +656,7 @@
             // 
             this.label18.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(139, 431);
+            this.label18.Location = new System.Drawing.Point(176, 431);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(95, 13);
             this.label18.TabIndex = 22;
@@ -666,7 +667,7 @@
             // 
             this.label19.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(182, 456);
+            this.label19.Location = new System.Drawing.Point(219, 456);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(52, 13);
             this.label19.TabIndex = 25;
@@ -677,7 +678,7 @@
             // 
             this.label20.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(169, 481);
+            this.label20.Location = new System.Drawing.Point(206, 481);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(65, 13);
             this.label20.TabIndex = 24;
@@ -689,7 +690,7 @@
             this.birthPlace.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.birthPlace.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.birthPlace.FormattingEnabled = true;
-            this.birthPlace.Location = new System.Drawing.Point(240, 103);
+            this.birthPlace.Location = new System.Drawing.Point(277, 103);
             this.birthPlace.Name = "birthPlace";
             this.birthPlace.Size = new System.Drawing.Size(252, 21);
             this.birthPlace.TabIndex = 4;
@@ -699,7 +700,7 @@
             this.birthCountry.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.birthCountry.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.birthCountry.FormattingEnabled = true;
-            this.birthCountry.Location = new System.Drawing.Point(240, 128);
+            this.birthCountry.Location = new System.Drawing.Point(277, 128);
             this.birthCountry.Name = "birthCountry";
             this.birthCountry.Size = new System.Drawing.Size(252, 21);
             this.birthCountry.TabIndex = 5;
@@ -709,7 +710,7 @@
             this.citizen.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.citizen.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.citizen.FormattingEnabled = true;
-            this.citizen.Location = new System.Drawing.Point(240, 153);
+            this.citizen.Location = new System.Drawing.Point(277, 153);
             this.citizen.Name = "citizen";
             this.citizen.Size = new System.Drawing.Size(252, 21);
             this.citizen.TabIndex = 6;
@@ -719,7 +720,7 @@
             this.birthCitizen.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.birthCitizen.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.birthCitizen.FormattingEnabled = true;
-            this.birthCitizen.Location = new System.Drawing.Point(240, 178);
+            this.birthCitizen.Location = new System.Drawing.Point(277, 178);
             this.birthCitizen.Name = "birthCitizen";
             this.birthCitizen.Size = new System.Drawing.Size(252, 21);
             this.birthCitizen.TabIndex = 7;
@@ -731,7 +732,7 @@
             this.sex.Items.AddRange(new object[] {
             "Мужской",
             "Женский"});
-            this.sex.Location = new System.Drawing.Point(240, 203);
+            this.sex.Location = new System.Drawing.Point(277, 203);
             this.sex.Name = "sex";
             this.sex.Size = new System.Drawing.Size(121, 21);
             this.sex.TabIndex = 8;
@@ -747,7 +748,7 @@
             "Не проживает с супругом",
             "Вдовец/вдова",
             "Другое"});
-            this.family.Location = new System.Drawing.Point(240, 228);
+            this.family.Location = new System.Drawing.Point(277, 228);
             this.family.Name = "family";
             this.family.Size = new System.Drawing.Size(193, 21);
             this.family.TabIndex = 9;
@@ -755,14 +756,14 @@
             // parent
             // 
             this.parent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.parent.Location = new System.Drawing.Point(240, 253);
+            this.parent.Location = new System.Drawing.Point(277, 253);
             this.parent.Name = "parent";
-            this.parent.Size = new System.Drawing.Size(550, 20);
+            this.parent.Size = new System.Drawing.Size(635, 20);
             this.parent.TabIndex = 10;
             // 
             // personalId
             // 
-            this.personalId.Location = new System.Drawing.Point(240, 278);
+            this.personalId.Location = new System.Drawing.Point(277, 278);
             this.personalId.Name = "personalId";
             this.personalId.Size = new System.Drawing.Size(193, 20);
             this.personalId.TabIndex = 11;
@@ -778,28 +779,28 @@
             "Оф. паспорт",
             "Спец. паспорт",
             "Другой"});
-            this.docType.Location = new System.Drawing.Point(240, 303);
+            this.docType.Location = new System.Drawing.Point(277, 303);
             this.docType.Name = "docType";
             this.docType.Size = new System.Drawing.Size(121, 21);
             this.docType.TabIndex = 12;
             // 
             // docNumber
             // 
-            this.docNumber.Location = new System.Drawing.Point(240, 328);
+            this.docNumber.Location = new System.Drawing.Point(277, 328);
             this.docNumber.Name = "docNumber";
             this.docNumber.Size = new System.Drawing.Size(121, 20);
             this.docNumber.TabIndex = 13;
             // 
             // docIssued
             // 
-            this.docIssued.Location = new System.Drawing.Point(240, 353);
+            this.docIssued.Location = new System.Drawing.Point(277, 353);
             this.docIssued.Name = "docIssued";
             this.docIssued.Size = new System.Drawing.Size(193, 20);
             this.docIssued.TabIndex = 14;
             // 
             // docValid
             // 
-            this.docValid.Location = new System.Drawing.Point(240, 378);
+            this.docValid.Location = new System.Drawing.Point(277, 378);
             this.docValid.Name = "docValid";
             this.docValid.Size = new System.Drawing.Size(193, 20);
             this.docValid.TabIndex = 15;
@@ -812,9 +813,9 @@
             this.docIssuedBy.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.docIssuedBy.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.docIssuedBy.FormattingEnabled = true;
-            this.docIssuedBy.Location = new System.Drawing.Point(240, 403);
+            this.docIssuedBy.Location = new System.Drawing.Point(277, 403);
             this.docIssuedBy.Name = "docIssuedBy";
-            this.docIssuedBy.Size = new System.Drawing.Size(550, 21);
+            this.docIssuedBy.Size = new System.Drawing.Size(635, 21);
             this.docIssuedBy.TabIndex = 16;
             // 
             // profession
@@ -822,7 +823,7 @@
             this.profession.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.profession.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.profession.FormattingEnabled = true;
-            this.profession.Location = new System.Drawing.Point(240, 478);
+            this.profession.Location = new System.Drawing.Point(277, 478);
             this.profession.Name = "profession";
             this.profession.Size = new System.Drawing.Size(240, 21);
             this.profession.TabIndex = 19;
@@ -831,7 +832,7 @@
             // 
             this.label24.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(193, 556);
+            this.label24.Location = new System.Drawing.Point(230, 556);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(41, 13);
             this.label24.TabIndex = 44;
@@ -842,7 +843,7 @@
             // 
             this.label22.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(193, 581);
+            this.label22.Location = new System.Drawing.Point(230, 581);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(41, 13);
             this.label22.TabIndex = 42;
@@ -853,7 +854,7 @@
             // 
             this.label25.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(193, 606);
+            this.label25.Location = new System.Drawing.Point(230, 606);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(41, 13);
             this.label25.TabIndex = 46;
@@ -870,10 +871,10 @@
             this.panel2.Controls.Add(this.visa2From);
             this.panel2.Controls.Add(this.label26);
             this.panel2.Controls.Add(this.visa2Enabled);
-            this.panel2.Location = new System.Drawing.Point(242, 578);
+            this.panel2.Location = new System.Drawing.Point(279, 578);
             this.panel2.Margin = new System.Windows.Forms.Padding(5, 3, 0, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(551, 19);
+            this.panel2.Size = new System.Drawing.Size(636, 19);
             this.panel2.TabIndex = 23;
             // 
             // visa2To
@@ -924,14 +925,14 @@
             // 
             // homePhone
             // 
-            this.homePhone.Location = new System.Drawing.Point(240, 453);
+            this.homePhone.Location = new System.Drawing.Point(277, 453);
             this.homePhone.Name = "homePhone";
             this.homePhone.Size = new System.Drawing.Size(121, 20);
             this.homePhone.TabIndex = 18;
             // 
             // duration
             // 
-            this.duration.Location = new System.Drawing.Point(240, 528);
+            this.duration.Location = new System.Drawing.Point(277, 528);
             this.duration.Name = "duration";
             this.duration.Size = new System.Drawing.Size(100, 20);
             this.duration.TabIndex = 21;
@@ -940,7 +941,7 @@
             // 
             this.label37.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label37.AutoSize = true;
-            this.label37.Location = new System.Drawing.Point(133, 856);
+            this.label37.Location = new System.Drawing.Point(170, 856);
             this.label37.Name = "label37";
             this.label37.Size = new System.Drawing.Size(101, 13);
             this.label37.TabIndex = 59;
@@ -949,7 +950,7 @@
             // 
             // fillDate
             // 
-            this.fillDate.Location = new System.Drawing.Point(240, 853);
+            this.fillDate.Location = new System.Drawing.Point(277, 853);
             this.fillDate.Name = "fillDate";
             this.fillDate.Size = new System.Drawing.Size(193, 20);
             this.fillDate.TabIndex = 34;
@@ -958,7 +959,7 @@
             // 
             this.label35.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(127, 831);
+            this.label35.Location = new System.Drawing.Point(164, 831);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(107, 13);
             this.label35.TabIndex = 57;
@@ -969,7 +970,7 @@
             // 
             this.label38.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label38.AutoSize = true;
-            this.label38.Location = new System.Drawing.Point(141, 806);
+            this.label38.Location = new System.Drawing.Point(178, 806);
             this.label38.Name = "label38";
             this.label38.Size = new System.Drawing.Size(93, 13);
             this.label38.TabIndex = 60;
@@ -980,7 +981,7 @@
             // 
             this.label36.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(182, 781);
+            this.label36.Location = new System.Drawing.Point(219, 781);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(52, 13);
             this.label36.TabIndex = 58;
@@ -992,7 +993,7 @@
             this.label34.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label34.AutoEllipsis = true;
             this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(94, 756);
+            this.label34.Location = new System.Drawing.Point(131, 756);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(140, 13);
             this.label34.TabIndex = 56;
@@ -1004,7 +1005,7 @@
             this.fillPlace.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.fillPlace.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.fillPlace.FormattingEnabled = true;
-            this.fillPlace.Location = new System.Drawing.Point(240, 828);
+            this.fillPlace.Location = new System.Drawing.Point(277, 828);
             this.fillPlace.Name = "fillPlace";
             this.fillPlace.Size = new System.Drawing.Size(193, 21);
             this.fillPlace.TabIndex = 33;
@@ -1017,14 +1018,14 @@
             this.hostPerson.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.hostPerson.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.hostPerson.FormattingEnabled = true;
-            this.hostPerson.Location = new System.Drawing.Point(240, 803);
+            this.hostPerson.Location = new System.Drawing.Point(277, 803);
             this.hostPerson.Name = "hostPerson";
-            this.hostPerson.Size = new System.Drawing.Size(550, 21);
+            this.hostPerson.Size = new System.Drawing.Size(635, 21);
             this.hostPerson.TabIndex = 32;
             // 
             // hostPhone
             // 
-            this.hostPhone.Location = new System.Drawing.Point(240, 778);
+            this.hostPhone.Location = new System.Drawing.Point(277, 778);
             this.hostPhone.Name = "hostPhone";
             this.hostPhone.Size = new System.Drawing.Size(121, 20);
             this.hostPhone.TabIndex = 31;
@@ -1037,16 +1038,16 @@
             this.host.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.host.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.host.FormattingEnabled = true;
-            this.host.Location = new System.Drawing.Point(240, 753);
+            this.host.Location = new System.Drawing.Point(277, 753);
             this.host.Name = "host";
-            this.host.Size = new System.Drawing.Size(550, 21);
+            this.host.Size = new System.Drawing.Size(635, 21);
             this.host.TabIndex = 30;
             // 
             // label39
             // 
             this.label39.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label39.AutoSize = true;
-            this.label39.Location = new System.Drawing.Point(120, 681);
+            this.label39.Location = new System.Drawing.Point(157, 681);
             this.label39.Name = "label39";
             this.label39.Size = new System.Drawing.Size(114, 13);
             this.label39.TabIndex = 61;
@@ -1057,7 +1058,7 @@
             // 
             this.label40.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label40.AutoSize = true;
-            this.label40.Location = new System.Drawing.Point(100, 706);
+            this.label40.Location = new System.Drawing.Point(137, 706);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(134, 13);
             this.label40.TabIndex = 62;
@@ -1068,7 +1069,7 @@
             // 
             this.label41.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label41.AutoSize = true;
-            this.label41.Location = new System.Drawing.Point(125, 731);
+            this.label41.Location = new System.Drawing.Point(162, 731);
             this.label41.Name = "label41";
             this.label41.Size = new System.Drawing.Size(109, 13);
             this.label41.TabIndex = 63;
@@ -1083,9 +1084,9 @@
             this.hostHotel.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.hostHotel.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.hostHotel.FormattingEnabled = true;
-            this.hostHotel.Location = new System.Drawing.Point(240, 678);
+            this.hostHotel.Location = new System.Drawing.Point(277, 678);
             this.hostHotel.Name = "hostHotel";
-            this.hostHotel.Size = new System.Drawing.Size(550, 21);
+            this.hostHotel.Size = new System.Drawing.Size(635, 21);
             this.hostHotel.TabIndex = 27;
             // 
             // hostHotelAddress
@@ -1096,19 +1097,41 @@
             this.hostHotelAddress.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.hostHotelAddress.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.hostHotelAddress.FormattingEnabled = true;
-            this.hostHotelAddress.Location = new System.Drawing.Point(240, 703);
+            this.hostHotelAddress.Location = new System.Drawing.Point(277, 703);
             this.hostHotelAddress.Name = "hostHotelAddress";
-            this.hostHotelAddress.Size = new System.Drawing.Size(550, 21);
+            this.hostHotelAddress.Size = new System.Drawing.Size(635, 21);
             this.hostHotelAddress.TabIndex = 28;
             // 
             // hostHotelPhone
             // 
             this.hostHotelPhone.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.hostHotelPhone.Location = new System.Drawing.Point(240, 728);
+            this.hostHotelPhone.Location = new System.Drawing.Point(277, 728);
             this.hostHotelPhone.Name = "hostHotelPhone";
             this.hostHotelPhone.Size = new System.Drawing.Size(121, 20);
             this.hostHotelPhone.TabIndex = 29;
+            // 
+            // work
+            // 
+            this.work.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.work.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.work.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.work.FormattingEnabled = true;
+            this.work.Location = new System.Drawing.Point(277, 503);
+            this.work.Name = "work";
+            this.work.Size = new System.Drawing.Size(635, 21);
+            this.work.TabIndex = 64;
+            // 
+            // homeAddress
+            // 
+            this.homeAddress.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.homeAddress.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.homeAddress.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.homeAddress.FormattingEnabled = true;
+            this.homeAddress.Location = new System.Drawing.Point(277, 428);
+            this.homeAddress.Name = "homeAddress";
+            this.homeAddress.Size = new System.Drawing.Size(635, 21);
+            this.homeAddress.TabIndex = 65;
             // 
             // panel1
             // 
@@ -1118,16 +1141,16 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 47);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(834, 410);
+            this.panel1.Size = new System.Drawing.Size(956, 410);
             this.panel1.TabIndex = 7;
             // 
             // loadFromScanner
             // 
-            this.loadFromScanner.Location = new System.Drawing.Point(12, 12);
+            this.loadFromScanner.Location = new System.Drawing.Point(173, 14);
             this.loadFromScanner.Name = "loadFromScanner";
             this.loadFromScanner.Size = new System.Drawing.Size(175, 23);
             this.loadFromScanner.TabIndex = 10;
-            this.loadFromScanner.Text = "Загрузить со сканера";
+            this.loadFromScanner.Text = "Загрузить из файла";
             this.loadFromScanner.UseVisualStyleBackColor = true;
             this.loadFromScanner.Click += new System.EventHandler(this.loadFromScanner_Click);
             // 
@@ -1136,7 +1159,7 @@
             this.saved.AutoSize = true;
             this.saved.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.saved.ForeColor = System.Drawing.Color.Green;
-            this.saved.Location = new System.Drawing.Point(361, 17);
+            this.saved.Location = new System.Drawing.Point(556, 19);
             this.saved.Name = "saved";
             this.saved.Size = new System.Drawing.Size(70, 13);
             this.saved.TabIndex = 9;
@@ -1146,7 +1169,7 @@
             // cancelBtn
             // 
             this.cancelBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelBtn.Location = new System.Drawing.Point(274, 12);
+            this.cancelBtn.Location = new System.Drawing.Point(469, 14);
             this.cancelBtn.Name = "cancelBtn";
             this.cancelBtn.Size = new System.Drawing.Size(75, 23);
             this.cancelBtn.TabIndex = 1;
@@ -1156,7 +1179,7 @@
             // 
             // saveBtn
             // 
-            this.saveBtn.Location = new System.Drawing.Point(193, 12);
+            this.saveBtn.Location = new System.Drawing.Point(388, 14);
             this.saveBtn.Name = "saveBtn";
             this.saveBtn.Size = new System.Drawing.Size(75, 23);
             this.saveBtn.TabIndex = 0;
@@ -1166,6 +1189,7 @@
             // 
             // panel5
             // 
+            this.panel5.Controls.Add(this.scan);
             this.panel5.Controls.Add(this.toTranslit);
             this.panel5.Controls.Add(this.loadFromScanner);
             this.panel5.Controls.Add(this.saved);
@@ -1174,8 +1198,18 @@
             this.panel5.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel5.Location = new System.Drawing.Point(0, 0);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(834, 47);
+            this.panel5.Size = new System.Drawing.Size(956, 47);
             this.panel5.TabIndex = 8;
+            // 
+            // scan
+            // 
+            this.scan.Location = new System.Drawing.Point(12, 14);
+            this.scan.Name = "scan";
+            this.scan.Size = new System.Drawing.Size(155, 23);
+            this.scan.TabIndex = 12;
+            this.scan.Text = "Сканировать";
+            this.scan.UseVisualStyleBackColor = true;
+            this.scan.Click += new System.EventHandler(this.scan_Click);
             // 
             // toTranslit
             // 
@@ -1183,7 +1217,7 @@
             this.toTranslit.AutoSize = true;
             this.toTranslit.Checked = true;
             this.toTranslit.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.toTranslit.Location = new System.Drawing.Point(550, 18);
+            this.toTranslit.Location = new System.Drawing.Point(672, 18);
             this.toTranslit.Name = "toTranslit";
             this.toTranslit.Size = new System.Drawing.Size(250, 17);
             this.toTranslit.TabIndex = 11;
@@ -1195,37 +1229,15 @@
             this.panel6.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel6.Location = new System.Drawing.Point(0, 457);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(834, 29);
+            this.panel6.Size = new System.Drawing.Size(956, 29);
             this.panel6.TabIndex = 9;
-            // 
-            // work
-            // 
-            this.work.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.work.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.work.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.work.FormattingEnabled = true;
-            this.work.Location = new System.Drawing.Point(240, 503);
-            this.work.Name = "work";
-            this.work.Size = new System.Drawing.Size(550, 21);
-            this.work.TabIndex = 64;
-            // 
-            // homeAddress
-            // 
-            this.homeAddress.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.homeAddress.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.homeAddress.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.homeAddress.FormattingEnabled = true;
-            this.homeAddress.Location = new System.Drawing.Point(240, 428);
-            this.homeAddress.Name = "homeAddress";
-            this.homeAddress.Size = new System.Drawing.Size(550, 21);
-            this.homeAddress.TabIndex = 65;
             // 
             // PersonForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(834, 486);
+            this.ClientSize = new System.Drawing.Size(956, 486);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.panel6);
@@ -1351,5 +1363,6 @@
         private System.Windows.Forms.TextBox hostHotelPhone;
         private System.Windows.Forms.ComboBox work;
         private System.Windows.Forms.ComboBox homeAddress;
+        private System.Windows.Forms.Button scan;
     }
 }

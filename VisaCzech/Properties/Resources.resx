@@ -129,4 +129,10 @@
   <data name="WordFiller_FillTemplate_CloseForm">
     <value xml:space="preserve">Закрыть</value>
   </data>
+  <data name="NoScanners" xml:space="preserve">
+    <value>Не найдено устройств сканирования</value>
+  </data>
+  <data name="ImageNotRecognized" xml:space="preserve">
+    <value>Изображение не распознано</value>
+  </data>
 </root>

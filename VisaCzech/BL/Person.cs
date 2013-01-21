@@ -1,8 +1,9 @@
-﻿using VisaCzech.BL.ObjFramework.ObjectContainerLinker;
-using System;
-using VisaCzech.BL.WordFiller;
+﻿using System;
 using System.Drawing;
 using System.Xml.Serialization;
+using VisaCzech.BL.CognitiveScanner;
+using VisaCzech.BL.ObjFramework.ObjectContainerLinker;
+using VisaCzech.BL.WordFiller;
 
 namespace VisaCzech.BL
 {
@@ -16,6 +17,7 @@ namespace VisaCzech.BL
 
         [String(TemplateString = "@@1_FAMILIA")]
         [Link(ControlName = "surname", LinkActionName = "SurnameChanged")]
+        [Field(FieldName = "SurName")]
         public string Surname = string.Empty;
         
         [String(TemplateString = "@@2_FAMILIA_ROJD", ValidationFuncName = "CheckSurname2")]
@@ -24,14 +26,17 @@ namespace VisaCzech.BL
 
         [String(TemplateString = "@@3_IMYA")]
         [Link(ControlName = "name")]
+        [Field(FieldName = "Name")]
         public string Name = string.Empty;
 
         [String(TemplateString = "@@4_DATA_ROJD")]
         [Link(ControlName = "birthDate")]
+        [Field(FieldName = "DateOfBirth")]
         public string BirthDate = string.Empty;
 
         [String(TemplateString = "@@5_PLACE_BIRTH")]
         [Link(ControlName = "birthPlace")]
+        [Field(FieldName = "PlaceOfBirth")]
         public string BirthPlace = "Minsk";
 
         [String(TemplateString = "@@6_STRANA_ROJD")]
@@ -65,6 +70,7 @@ namespace VisaCzech.BL
 
         [String(TemplateString = "@@11_ID_PASSPORT")]
         [Link(ControlName = "personalId")]
+        [Field(FieldName = "PersonID")]
         public string PersonalId = string.Empty;
 
         [Link(ControlName = "docType", LinkActionName = "DocTypeChanged", AllowFillComboBox = false)]
@@ -81,10 +87,12 @@ namespace VisaCzech.BL
 
         [String(TemplateString = "@@14_DATA_VIDACHI")]
         [Link(ControlName = "docIssued")]
+        [Field(FieldName = "IssuedDate")]
         public string DocumentIssuedDate = string.Empty;
 
         [String(TemplateString = "@@15_DEYSTVIT_DO")]
         [Link(ControlName = "docValid")]
+        [Field(FieldName = "ValidDate")]
         public string DocumentValidDate = string.Empty;
 
         [String(TemplateString = "@@16_VIDAN_PASS")]
@@ -220,8 +228,8 @@ namespace VisaCzech.BL
                 if (string.IsNullOrEmpty(val.ToString())) continue;
                 info.SetValue(this, val);
             }
-            this._image = person._image;
-            this._thumbnail = person._thumbnail;
+            _image = person._image;
+            _thumbnail = person._thumbnail;
             if (!mergeId)
                 Id = tempId;
             return this;

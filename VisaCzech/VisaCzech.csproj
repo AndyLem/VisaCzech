@@ -55,6 +55,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BL\CognitiveScanner\FieldAttribute.cs" />
+    <Compile Include="BL\CognitiveScanner\Scanner.cs" />
     <Compile Include="BL\ID.cs" />
     <Compile Include="BL\ObjFramework\ObjectContainerLinker\LinkActionFactory.cs" />
     <Compile Include="BL\ObjFramework\ObjectContainerLinker\Linker.cs" />

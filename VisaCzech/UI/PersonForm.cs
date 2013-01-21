@@ -13,6 +13,7 @@ using VisaCzech.BL.ScannerXmlParser;
 using VisaCzech.BL.TranslitConverter;
 using VisaCzech.Properties;
 using System.IO;
+using VisaCzech.BL.CognitiveScanner;
 
 namespace VisaCzech.UI
 {
@@ -240,6 +241,32 @@ namespace VisaCzech.UI
             var scannedPerson = ScannerXmlParser.GetPerson(files);
             _person.Merge(scannedPerson);
             _linker.MoveDataFromObject();
+        }
+
+        private void scan_Click(object sender, EventArgs e)
+        {
+            
+            if (Scanner.Instance.Valid)
+            {
+                if (!Scanner.Instance.HasScanner)
+                    Scanner.Instance.InitTwain();
+                if (!Scanner.Instance.HasScanner)
+                {
+                    MessageBox.Show(Resources.NoScanners);
+                    return;
+                }
+                if (!Scanner.Instance.DoScan())
+                {
+                    MessageBox.Show(Resources.ImageNotRecognized);
+                    return;
+                }
+                var scannedPerson = Scanner.Instance.GetPerson();
+                if (scannedPerson != null)
+                {
+                    _person.Merge(scannedPerson);
+                    _linker.MoveDataFromObject();
+                }
+            }
         }
     }
 }
