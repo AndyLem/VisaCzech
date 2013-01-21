@@ -38,14 +38,19 @@ namespace VisaCzech.BL.Background
             {
                 _form.stop.Text = Resources.WordFiller_FillTemplate_CloseForm;
                 _form.stop.Click +=
-                    (sender1, args1) => _form.Close();
+                    (sender, args1) => _form.Close();
                 if (!options.IsAutoClose) return;
-                var tim = new Timer(options.AutoCloseDelay);
+                var tim = new Timer(500);
+                var elapsed = 0.0d;
                 tim.Elapsed += (sender, args) =>
                                    {
+                                       elapsed += tim.Interval;
+                                       _form.stop.Text = string.Format("{0} ({1})", Resources.WordFiller_FillTemplate_CloseForm,(int)((options.AutoCloseDelay - elapsed)/1000));
+                                       if (elapsed < options.AutoCloseDelay) return;
                                        tim.Stop();
                                        _form.Close();
                                    };
+                _form.stop.Click += (sender, args) => tim.Stop();
                 tim.Start();
             };
 

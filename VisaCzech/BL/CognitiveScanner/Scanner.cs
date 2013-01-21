@@ -98,6 +98,11 @@ namespace VisaCzech.BL.CognitiveScanner
                 if (_package.Documents.Length > 0)
                     LastScannedDocument = _package.Documents[0];
                 _backgroundStrategy.Worker.ReportProgress(100, "Операция завершена");
+                _backgroundStrategy.Worker.ReportProgress(100, string.Format("Имя: {0} {1}", GetFieldValue("IN_Name"), GetFieldValue("IN_SurName")));
+                _backgroundStrategy.Worker.ReportProgress(100, string.Format("Личный номер: {0}", GetFieldValue("IN_KOD")));
+                _backgroundStrategy.Worker.ReportProgress(100, string.Format("MRZ: {0}", GetFieldValue("MRZ")));
+
+
                 Success = (LastScannedDocument != null) && (LastScannedForm != null);
                 return Success;
             }

@@ -259,7 +259,8 @@ namespace VisaCzech.UI
                 var ops = new BackgroundOptions
                               {
                                   IsBackground = true,
-                                  IsAutoClose = true
+                                  IsAutoClose = true,
+                                  AutoCloseDelay = 10000
                               };
                 
                 Scanner.Instance.Init(ops);
