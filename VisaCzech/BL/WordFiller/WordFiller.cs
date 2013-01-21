@@ -4,10 +4,11 @@ using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 using Microsoft.Office.Interop.Word;
+using VisaCzech.BL.Background;
 using VisaCzech.Properties;
 using VisaCzech.UI;
 using System.ComponentModel;
-using VisaCzech.BL.WordFiller.FillerStatus;
+
 
 namespace VisaCzech.BL.WordFiller
 {
@@ -20,13 +21,13 @@ namespace VisaCzech.BL.WordFiller
         private static object _falseObj = false;
         private const string EmptyBox = "□";
         private static ValidationFunctionFactory _validationFunctionFactory;
-        private static IFillerStatusStrategy _fillerStatusStrategy;
+        private static IBackgroundStrategy _fillerStatusStrategy;
 
 
         public static void FillTemplate(ICollection<Person> persons, WordFillerOptions options)
         {
-            _fillerStatusStrategy = StrategyFactory.CreateStrategy(options);
-            _fillerStatusStrategy.Init(persons, options);
+            _fillerStatusStrategy = StrategyFactory.CreateStrategy(options.IsBackground);
+            _fillerStatusStrategy.Init(options.BackgroundOps);
             _fillerStatusStrategy.Worker.DoWork += (o, eventArgs) => FillTemplate(options.TemplateName, persons, options.SavePath);
             _fillerStatusStrategy.Run();
         }

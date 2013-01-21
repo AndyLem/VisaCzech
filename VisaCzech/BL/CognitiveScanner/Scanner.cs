@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using ScAPI;
+using VisaCzech.BL.Background;
 using Exception = System.Exception;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Threading;
 
 namespace VisaCzech.BL.CognitiveScanner
 {
@@ -18,8 +21,12 @@ namespace VisaCzech.BL.CognitiveScanner
         private readonly IInstance _scanInstance;
 
         public IDocument LastScannedDocument { get; private set; }
-
+        private IPackage _package;
         public IForm LastScannedForm { get; private set; }
+
+        public bool Success { get; private set; }
+        
+        private IBackgroundStrategy _backgroundStrategy;
 
         public bool Valid
         {
@@ -37,54 +44,82 @@ namespace VisaCzech.BL.CognitiveScanner
             if (Valid) _scanInstance.ContextFile = "scapi.ini";
         }
 
-        public bool DoScan()
+        public void Init(BackgroundOptions ops)
+        {
+            _backgroundStrategy = StrategyFactory.CreateStrategy(false);
+            _backgroundStrategy.Init(ops);
+            _backgroundStrategy.Worker.DoWork += (o, eventArgs) => DoRecognize();
+            DoScan();
+            _backgroundStrategy.Run();
+        }
+
+        private bool DoRecognize()
         {
             try
             {
-                if (_scanDevice == null) return false;
-                if (_scanInstance == null) return false;
-                _scanDevice.ConfigName = "ScanInoPassportBy";
-
-                var package = _scanInstance.CreatePackage();
-                if (package == null) return false;
-
-                var image = package.Scan(_scanDevice, 0);
-                if (image == null) return false;
-
                 var recognized = false;
                 var rotations = 0;
+                var percent = 0;
                 do
                 {
-                    package.Recog();
-                    if ((package.Documents != null) && 
-                        (package.Forms != null) && 
-                        (package.Documents.Any()) && 
-                        (package.Forms.Any()))
+                    _backgroundStrategy.Worker.ReportProgress(percent, "Попытка распознавания");
+                    _package.Recog();
+                    if ((_package.Documents != null) &&
+                        (_package.Forms != null) &&
+                        (_package.Documents.Any()) &&
+                        (_package.Forms.Any()))
                     {
+                        _backgroundStrategy.Worker.ReportProgress(100, "Изображение распознано");
                         recognized = true;
                     }
                     else
                     {
-                        if (!RotateImage(ref package)) break;
+                        _backgroundStrategy.Worker.ReportProgress(percent, "Изображение не распознано. Поворачиваем на 90 градусов");
+                        if (!RotateImage(ref _package))
+                        {
+                            _backgroundStrategy.Worker.ReportProgress(100, "Не удалось повернуть изображение");
+                            break;
+                        }
                         rotations++;
+                        percent += 20;
                     }
 
                 } while (!recognized && rotations < 3);
 
-                if (!recognized) return false;
+                if (!recognized)
+                {
+                    _backgroundStrategy.Worker.ReportProgress(100, "Не удалось распознать изображение");
+                    return false;
+                }
 
-                if (package.Forms != null && package.Forms.Length > 0)
-                    LastScannedForm = package.Forms[0];
+                if (_package.Forms != null && _package.Forms.Length > 0)
+                    LastScannedForm = _package.Forms[0];
 
-                if (package.Documents.Length > 0)
-                    LastScannedDocument = package.Documents[0];
-                return (LastScannedDocument != null) && (LastScannedForm != null);
+                if (_package.Documents.Length > 0)
+                    LastScannedDocument = _package.Documents[0];
+                _backgroundStrategy.Worker.ReportProgress(100, "Операция завершена");
+                Success = (LastScannedDocument != null) && (LastScannedForm != null);
+                return Success;
             }
             catch (Exception ex)
             {
+                _backgroundStrategy.Worker.ReportProgress(100, "Возникла ошибка "+ex.Message);
                 return false;
             }
 
+        }
+
+        private void DoScan()
+        {
+            Success = false;
+            LastScannedDocument = null;
+            LastScannedForm = null;
+            if (_scanDevice == null) return;
+            if (_scanInstance == null) return;
+            _scanDevice.ConfigName = "ScanInoPassportBy";
+            _package = _scanInstance.CreatePackage();
+            if (_package == null) return;
+            _package.Scan(_scanDevice, 0);
         }
 
         private bool RotateImage(ref IPackage package)

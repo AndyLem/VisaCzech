@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using VisaCzech.BL;
+using VisaCzech.BL.Background;
 using VisaCzech.BL.ObjFramework.ObjectContainerLinker;
 using VisaCzech.DL;
 using VisaCzech.BL.ScannerXmlParser;
@@ -255,16 +256,21 @@ namespace VisaCzech.UI
                     MessageBox.Show(Resources.NoScanners);
                     return;
                 }
-                if (!Scanner.Instance.DoScan())
+                var ops = new BackgroundOptions
+                              {
+                                  IsBackground = true,
+                                  IsAutoClose = true
+                              };
+                
+                Scanner.Instance.Init(ops);
+                if (Scanner.Instance.Success)
                 {
-                    MessageBox.Show(Resources.ImageNotRecognized);
-                    return;
-                }
-                var scannedPerson = Scanner.Instance.GetPerson();
-                if (scannedPerson != null)
-                {
-                    _person.Merge(scannedPerson);
-                    _linker.MoveDataFromObject();
+                    var scannedPerson = Scanner.Instance.GetPerson();
+                    if (scannedPerson != null)
+                    {
+                        _person.Merge(scannedPerson);
+                        _linker.MoveDataFromObject();
+                    }
                 }
             }
         }

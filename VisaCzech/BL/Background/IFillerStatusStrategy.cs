@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel;
 
-namespace VisaCzech.BL.WordFiller.FillerStatus
+namespace VisaCzech.BL.Background
 {
-    public interface IFillerStatusStrategy
+    public interface IBackgroundStrategy
     {
         BackgroundWorker Worker { get; }
         bool ShouldStop { get; set; }
         bool WasError { get; set; }
-        void Init(ICollection<Person> persons, WordFillerOptions options);
+        void Init(BackgroundOptions options);
         bool Run();
     }
 }

@@ -5,13 +5,14 @@ using System.Linq;
 using System.Text;
 using VisaCzech.Properties;
 using VisaCzech.UI;
+using System.Timers;
 
-namespace VisaCzech.BL.WordFiller.FillerStatus
+namespace VisaCzech.BL.Background
 {
-    public class FormStrategy : IFillerStatusStrategy
+    public class FormStrategy : IBackgroundStrategy
     {
         private static BackgroundWorker _worker;
-        private static WordFillerProgressForm _form;
+        private static BackgroundProgressForm _form;
 
         public FormStrategy()
         {
@@ -23,9 +24,9 @@ namespace VisaCzech.BL.WordFiller.FillerStatus
             get { return _worker; }
         }
 
-        public void Init(ICollection<Person> persons, WordFillerOptions options)
+        public void Init(BackgroundOptions options)
         {
-            _form = new WordFillerProgressForm();
+            _form = new BackgroundProgressForm();
             _worker = new BackgroundWorker { WorkerSupportsCancellation = true, WorkerReportsProgress = true };
             _worker.ProgressChanged += (o, eventArgs) =>
             {
@@ -38,6 +39,14 @@ namespace VisaCzech.BL.WordFiller.FillerStatus
                 _form.stop.Text = Resources.WordFiller_FillTemplate_CloseForm;
                 _form.stop.Click +=
                     (sender1, args1) => _form.Close();
+                if (!options.IsAutoClose) return;
+                var tim = new Timer(options.AutoCloseDelay);
+                tim.Elapsed += (sender, args) =>
+                                   {
+                                       tim.Stop();
+                                       _form.Close();
+                                   };
+                tim.Start();
             };
 
             _form.stop.Click += (sender, args) =>

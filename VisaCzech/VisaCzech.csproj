@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BL\Background\BackgroundOptions.cs" />
     <Compile Include="BL\CognitiveScanner\FieldAttribute.cs" />
     <Compile Include="BL\CognitiveScanner\Scanner.cs" />
     <Compile Include="BL\ID.cs" />
@@ -67,10 +68,10 @@
     <Compile Include="BL\TranslitConverter\TranslitConverter.cs" />
     <Compile Include="BL\WordFiller\BoolAttribute.cs" />
     <Compile Include="BL\WordFiller\EnumAttribute.cs" />
-    <Compile Include="BL\WordFiller\FillerStatus\BackgroundStrategy.cs" />
-    <Compile Include="BL\WordFiller\FillerStatus\FormStrategy.cs" />
-    <Compile Include="BL\WordFiller\FillerStatus\IFillerStatusStrategy.cs" />
-    <Compile Include="BL\WordFiller\FillerStatus\StrategyFactory.cs" />
+    <Compile Include="BL\Background\BackgroundStrategy.cs" />
+    <Compile Include="BL\Background\FormStrategy.cs" />
+    <Compile Include="BL\Background\IFillerStatusStrategy.cs" />
+    <Compile Include="BL\Background\StrategyFactory.cs" />
     <Compile Include="BL\WordFiller\ValidationFunctionFactory.cs" />
     <Compile Include="BL\WordFiller\StringAttribute.cs" />
     <Compile Include="BL\WordFiller\WordFiller.cs" />
@@ -110,11 +111,11 @@
     <Compile Include="UI\WordFillerForm.Designer.cs">
       <DependentUpon>WordFillerForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\WordFillerProgressForm.cs">
+    <Compile Include="UI\BackgroundProgressForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\WordFillerProgressForm.Designer.cs">
-      <DependentUpon>WordFillerProgressForm.cs</DependentUpon>
+    <Compile Include="UI\BackgroundProgressForm.Designer.cs">
+      <DependentUpon>BackgroundProgressForm.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="UI\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -138,8 +139,8 @@
     <EmbeddedResource Include="UI\WordFillerForm.resx">
       <DependentUpon>WordFillerForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\WordFillerProgressForm.resx">
-      <DependentUpon>WordFillerProgressForm.cs</DependentUpon>
+    <EmbeddedResource Include="UI\BackgroundProgressForm.resx">
+      <DependentUpon>BackgroundProgressForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using VisaCzech.BL.Background;
 using VisaCzech.BL.ObjFramework.ObjectContainerLinker;
 using System.Windows.Forms;
 
@@ -20,7 +21,6 @@ namespace VisaCzech.BL.WordFiller
         [Link(ControlName = "isBackground")]
         public bool IsBackground = true;
 
-        public ProgressBar BackgroundProgressBar;
-        public Button BackgroundStopButton;
+        public BackgroundOptions BackgroundOps;
     }
 }

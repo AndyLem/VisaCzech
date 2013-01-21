@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using VisaCzech.BL.Background;
 using VisaCzech.BL.WordFiller;
 using VisaCzech.Properties;
 using VisaCzech.DL;
@@ -180,12 +181,14 @@ namespace VisaCzech.UI
         {
             options = new WordFillerOptions();
             if (_currentPacket == null) return true;
+            options.BackgroundOps = new BackgroundOptions();
             options.PacketName = _currentPacket.Name;
-            options.BackgroundProgressBar = this.backgroundProgress;
-            options.BackgroundStopButton = this.backgroundStop;
+            options.BackgroundOps.BackgroundProgressBar = this.backgroundProgress;
+            options.BackgroundOps.BackgroundStopButton = this.backgroundStop;
             var form = new WordFillerForm();
             form.Link(options);
             if (form.ShowDialog() != DialogResult.OK) return true;
+            options.BackgroundOps.IsBackground = options.IsBackground;
             options.TemplateName = TemplateStorage.GetFullTemplateName(options.TemplateName);
             return false;
         }

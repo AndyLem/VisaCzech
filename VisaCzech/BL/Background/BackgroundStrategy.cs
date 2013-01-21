@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using VisaCzech.Properties;
 
-namespace VisaCzech.BL.WordFiller.FillerStatus
+namespace VisaCzech.BL.Background
 {
-    public class BackgroundStrategy : IFillerStatusStrategy
+    public class BackgroundStrategy : IBackgroundStrategy
     {
         private static BackgroundWorker _worker;
 
@@ -16,7 +16,7 @@ namespace VisaCzech.BL.WordFiller.FillerStatus
             get { return _worker; }
         }
 
-        public void Init(ICollection<Person> persons, WordFillerOptions options)
+        public void Init(BackgroundOptions options)
         {
             _worker = new BackgroundWorker { WorkerSupportsCancellation = true, WorkerReportsProgress = true };
             _worker.ProgressChanged +=

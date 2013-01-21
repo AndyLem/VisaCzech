@@ -1,6 +1,6 @@
 ﻿namespace VisaCzech.UI
 {
-    partial class WordFillerProgressForm
+    partial class BackgroundProgressForm
     {
         /// <summary>
         /// Required designer variable.

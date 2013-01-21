@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace VisaCzech.UI
 {
-    public partial class WordFillerProgressForm : Form
+    public partial class BackgroundProgressForm : Form
     {
-        public WordFillerProgressForm()
+        public BackgroundProgressForm()
         {
             InitializeComponent();
         }
