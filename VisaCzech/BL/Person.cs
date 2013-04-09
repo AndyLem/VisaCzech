@@ -77,7 +77,7 @@ namespace VisaCzech.BL
 
         [Link(ControlName = "docType", LinkActionName = "DocTypeChanged", AllowFillComboBox = false)]
         public string DocumentTypeValue = "Паспорт";
-        [Enum(TemplateString = "@12_", EnumValues = 6)]
+        [Enum(TemplateString = "@12_", EnumValues = 7)]
         public DocType DocumentType = DocType.Passport;
         [String(TemplateString = "@@12_OTHER_DOCTYPE")]
         [Link(ControlName = "otherDocType")]
@@ -244,6 +244,174 @@ namespace VisaCzech.BL
             return Name.ToUpper().Contains(upperFilter) || Surname.ToUpper().Contains(upperFilter) ||
                    DocumentNumber.ToUpper().Contains(upperFilter);
         }
+
+        /*  BG XML Fields */
+
+
+        public string hdr_kscreated { get; set; }
+
+        public string hdr_regnom { get; set; }
+
+        public string hdr_user { get; set; }
+
+        public string AddressCountry { get; set; }
+
+        public string AddressCity { get; set; }
+
+        public string AddressStreet { get; set; }
+
+        public string AddressZipCode { get; set; }
+
+        public string Email { get; set; }
+
+        public string WorkName { get; set; }
+
+        public string WorkCity { get; set; }
+
+        public string WorkCountry { get; set; }
+
+        public string WorkAddress { get; set; }
+
+        public string WorkZip { get; set; }
+
+        public string WorkPhoneNumber { get; set; }
+
+        public string WorkFaxNumber { get; set; }
+
+        public string WorkEmail { get; set; }
+
+        public string FatherName { get; set; }
+
+        public string FatherSurname { get; set; }
+
+        public string MotherName { get; set; }
+
+        public string MotherSurname { get; set; }
+
+        public string SpouseSurname { get; set; }
+
+        public string SpouseSurnameAtBirth { get; set; }
+
+        public string SpouseName { get; set; }
+
+        public string SpouseBirthDate { get; set; }
+
+        public string SpouseBirthCountry { get; set; }
+
+        public string SpouseBirthCity { get; set; }
+
+        public string VisaType { get; set; }
+
+        public string NumberOfEntries { get; set; }
+
+        public string ProcessingSpeed { get; set; }
+
+        public string MultiVisaPeriod { get; set; }
+
+        public object Purpose { get; set; }
+
+        public string OtherPurpose { get; set; }
+
+        public object DateOfApply { get; set; }
+
+        public bool Gratis { get; set; }
+
+        public string TransitDestinationPermit { get; set; }
+
+        public string Fee { get; set; }
+
+        public string FeeCurrency { get; set; }
+
+        public string DestinationCountry { get; set; }
+
+        public string DestinationCity { get; set; }
+
+        public string BorderOfFirstEntry { get; set; }
+
+        public string BorderCheckpoint { get; set; }
+
+        public string TransitRoute { get; set; }
+
+        public string VisaAdditionalInfo { get; set; }
+
+        public object HostType { get; set; }
+
+        public string InvitationNumber { get; set; }
+
+        public string HostPersonName { get; set; }
+
+        public string HostPersonSurname { get; set; }
+
+        public string HostPersonCitizenship { get; set; }
+
+        public string HostPersonID { get; set; }
+
+        public string HostPersonCountry { get; set; }
+
+        public string HostPersonCity { get; set; }
+
+        public string HostPersonZipCode { get; set; }
+
+        public string HostPersonAddress { get; set; }
+
+        public string HostPersonPhone { get; set; }
+
+        public string HostPersonFax { get; set; }
+
+        public string HostPersonEmail { get; set; }
+
+        public string HostCompanyID { get; set; }
+
+        public string HostCompanyCountry { get; set; }
+
+        public string HostCompanyCity { get; set; }
+
+        public string HostCompanyZipCode { get; set; }
+
+        public string HostCompanyAddress { get; set; }
+
+        public string HotelFax { get; set; }
+
+        public string HostCompanyEmail { get; set; }
+
+        public bool OrganizedTourism { get; set; }
+
+        public string VoucherNumber { get; set; }
+
+        public object VoucherValidFrom { get; set; }
+
+        public object VoucherValidTo { get; set; }
+
+        public string VoucherIssuedBy { get; set; }
+
+        public string HostCompanyName { get; set; }
+
+        public string HostCompanyPhone { get; set; }
+
+        public string Visa1Country { get; set; }
+
+        public string Visa1Type { get; set; }
+
+        public string Visa1Number { get; set; }
+
+        public string Visa1NumberOfEntries { get; set; }
+
+
+        public string Visa2Country { get; set; }
+
+        public string Visa2Type { get; set; }
+
+        public string Visa2Number { get; set; }
+
+        public string Visa2NumberOfEntries { get; set; }
+
+        public string Visa3Country { get; set; }
+
+        public string Visa3Type { get; set; }
+
+        public string Visa3Number { get; set; }
+
+        public string Visa3NumberOfEntries { get; set; }
     }
 
     public enum Status
@@ -265,6 +433,7 @@ namespace VisaCzech.BL
     public enum DocType
     {
         Passport = 0,
+        ForeignerPassport,
         DiplomaticPassport,
         WorkPassport,
         OfficialPassport,

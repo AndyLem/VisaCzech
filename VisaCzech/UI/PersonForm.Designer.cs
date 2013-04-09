@@ -774,6 +774,7 @@
             this.docType.FormattingEnabled = true;
             this.docType.Items.AddRange(new object[] {
             "Паспорт",
+            "Загран. паспорт",
             "Дип. паспорт",
             "Служ. паспорт",
             "Оф. паспорт",

@@ -31,7 +31,7 @@ namespace VisaCzech.UI
             packetsList.Items.AddRange(PacketStorage.Instance.LoadAll().ToArray());
             if (packetsList.Items.Count == 0)
             {
-                CreateNewPacket();    
+                CreateNewPacket();
             }
             packetsList.SelectedIndex = packetsList.Items.Count - 1;
 
@@ -47,7 +47,7 @@ namespace VisaCzech.UI
 
         private void FillPersonsListBox(IEnumerable<Person> list)
         {
-            personsList.Items.Clear(); 
+            personsList.Items.Clear();
             if (list != null) personsList.Items.AddRange(list.ToArray());
         }
 
@@ -123,7 +123,7 @@ namespace VisaCzech.UI
         private void newPacket_Click(object sender, EventArgs e)
         {
             CreateNewPacket();
-            
+
         }
 
         private void addToPacket_Click(object sender, EventArgs e)
@@ -155,7 +155,7 @@ namespace VisaCzech.UI
             }
             PacketStorage.Instance.Save(_currentPacket);
         }
-        
+
         private void fillAnketas_Click(object sender, EventArgs e)
         {
             WordFillerOptions options;
@@ -205,7 +205,7 @@ namespace VisaCzech.UI
             var leftTextPos = e.DrawItemArgs.Bounds.Left;
             if (ShowImages)
             {
-                leftTextPos += (int)(height*1.5);
+                leftTextPos += (int) (height*1.5);
                 if (p.Thumbnail != null)
                 {
                     e.DrawItemArgs.Graphics.DrawImage(p.Thumbnail, e.DrawItemArgs.Bounds.Left, e.DrawItemArgs.Bounds.Top,
@@ -213,12 +213,12 @@ namespace VisaCzech.UI
                                                       height);
                 }
             }
-            using (var boldFont = new Font("Helvetica", e.DrawItemArgs.Font.Size+1, FontStyle.Bold))
+            using (var boldFont = new Font("Helvetica", e.DrawItemArgs.Font.Size + 1, FontStyle.Bold))
             {
                 e.DrawItemArgs.Graphics.DrawString(string.Format("{0} {1}", p.Surname, p.Name), boldFont,
                                                    Brushes.Black, (float) leftTextPos, e.DrawItemArgs.Bounds.Top);
                 e.DrawItemArgs.Graphics.DrawString(p.DocumentNumber, e.DrawItemArgs.Font, Brushes.Black,
-                                                   (float)leftTextPos, e.DrawItemArgs.Bounds.Top+ height / 2);
+                                                   (float) leftTextPos, e.DrawItemArgs.Bounds.Top + height/2);
 
                 if ((sender as Control).Name != "personsList") return;
                 var dateOfCreation = p.DateOfCreation.ToShortDateString();
@@ -263,7 +263,9 @@ namespace VisaCzech.UI
         private void deletePacket_Click(object sender, EventArgs e)
         {
             if (_currentPacket == null) return;
-            if (MessageBox.Show(string.Format("Удалить пакет {0}?", _currentPacket.Name), "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+            if (
+                MessageBox.Show(string.Format("Удалить пакет {0}?", _currentPacket.Name), "", MessageBoxButtons.YesNo,
+                                MessageBoxIcon.Question) != DialogResult.Yes)
                 return;
             if (!PacketStorage.Instance.Delete(_currentPacket)) return;
             packetsList.Items.Remove(_currentPacket);
@@ -312,5 +314,16 @@ namespace VisaCzech.UI
             var filteredPersons = _notFilteredPersons.Where(PersonInFilter).ToList();
             FillPersonsListBox(filteredPersons);
         }
+
+        private void btnSaveBGXml_Click(object sender, EventArgs e)
+        {
+            var dlg = new FolderBrowserDialog {SelectedPath = AppDomain.CurrentDomain.BaseDirectory};
+            if (dlg.ShowDialog() != DialogResult.OK) return;
+            var savePath = dlg.SelectedPath;
+            var persons = currentPacketList.SelectedItems.Cast<Person>().ToList();
+            BGXmlExporter.Export(persons, savePath);
+
+        }
     }
+
 }
