@@ -100,6 +100,18 @@
     <Compile Include="DL\PersonStorage.cs" />
     <Compile Include="DL\Storage.cs" />
     <Compile Include="DL\TemplateStorage.cs" />
+    <Compile Include="UI\BG\HeaderForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\BG\HeaderForm.Designer.cs">
+      <DependentUpon>HeaderForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\BG\HostForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\BG\HostForm.Designer.cs">
+      <DependentUpon>HostForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -135,6 +147,12 @@
     <Compile Include="UI\BackgroundProgressForm.Designer.cs">
       <DependentUpon>BackgroundProgressForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UI\BG\HeaderForm.resx">
+      <DependentUpon>HeaderForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\BG\HostForm.resx">
+      <DependentUpon>HostForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -153,6 +171,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\PersonForm.resx">
       <DependentUpon>PersonForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\WordFillerForm.resx">
       <DependentUpon>WordFillerForm.cs</DependentUpon>
@@ -171,7 +190,21 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="UI\Images\ico_approved.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UI\Images\ico_delete.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UI\Images\ico_exit.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UI\Images\ico_mail_open.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UI\Images\ico_posted.gif" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

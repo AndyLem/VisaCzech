@@ -71,7 +71,7 @@ namespace VisaCzech.BL.TranslitConverter
 
         static TranslitConverter()
         {
-            Gost.Add("Є", "EH");
+            Gost.Add("Є", "Eh");
             Gost.Add("І", "I");
             Gost.Add("і", "i");
             Gost.Add("№", "#");
@@ -82,11 +82,11 @@ namespace VisaCzech.BL.TranslitConverter
             Gost.Add("Г", "G");
             Gost.Add("Д", "D");
             Gost.Add("Е", "E");
-            Gost.Add("Ё", "JO");
-            Gost.Add("Ж", "ZH");
+            Gost.Add("Ё", "Jo");
+            Gost.Add("Ж", "Zh");
             Gost.Add("З", "Z");
             Gost.Add("И", "I");
-            Gost.Add("Й", "JJ");
+            Gost.Add("Й", "Jj");
             Gost.Add("К", "K");
             Gost.Add("Л", "L");
             Gost.Add("М", "M");
@@ -98,17 +98,17 @@ namespace VisaCzech.BL.TranslitConverter
             Gost.Add("Т", "T");
             Gost.Add("У", "U");
             Gost.Add("Ф", "F");
-            Gost.Add("Х", "KH");
+            Gost.Add("Х", "Kh");
             Gost.Add("Ц", "C");
             Gost.Add("Ч", "CH");
-            Gost.Add("Ш", "SH");
-            Gost.Add("Щ", "SHH");
+            Gost.Add("Ш", "Sh");
+            Gost.Add("Щ", "Shh");
             Gost.Add("Ъ", "'");
             Gost.Add("Ы", "Y");
             Gost.Add("Ь", "");
-            Gost.Add("Э", "EH");
-            Gost.Add("Ю", "YU");
-            Gost.Add("Я", "YA");
+            Gost.Add("Э", "Eh");
+            Gost.Add("Ю", "Yu");
+            Gost.Add("Я", "Ya");
             Gost.Add("а", "a");
             Gost.Add("б", "b");
             Gost.Add("в", "v");
@@ -146,7 +146,7 @@ namespace VisaCzech.BL.TranslitConverter
             Gost.Add("»", "");
             Gost.Add("—", "-");
 
-            Iso.Add("Є", "YE");
+            Iso.Add("Є", "Ye");
             Iso.Add("І", "I");
             Iso.Add("Ѓ", "G");
             Iso.Add("і", "i");
@@ -159,8 +159,8 @@ namespace VisaCzech.BL.TranslitConverter
             Iso.Add("Г", "G");
             Iso.Add("Д", "D");
             Iso.Add("Е", "E");
-            Iso.Add("Ё", "YO");
-            Iso.Add("Ж", "ZH");
+            Iso.Add("Ё", "Yo");
+            Iso.Add("Ж", "Zh");
             Iso.Add("З", "Z");
             Iso.Add("И", "I");
             Iso.Add("Й", "J");
@@ -177,15 +177,15 @@ namespace VisaCzech.BL.TranslitConverter
             Iso.Add("Ф", "F");
             Iso.Add("Х", "X");
             Iso.Add("Ц", "C");
-            Iso.Add("Ч", "CH");
-            Iso.Add("Ш", "SH");
-            Iso.Add("Щ", "SHH");
+            Iso.Add("Ч", "Ch");
+            Iso.Add("Ш", "Sh");
+            Iso.Add("Щ", "Shh");
             Iso.Add("Ъ", "'");
             Iso.Add("Ы", "Y");
             Iso.Add("Ь", "");
             Iso.Add("Э", "E");
-            Iso.Add("Ю", "YU");
-            Iso.Add("Я", "YA");
+            Iso.Add("Ю", "Yu");
+            Iso.Add("Я", "Ya");
             Iso.Add("а", "a");
             Iso.Add("б", "b");
             Iso.Add("в", "v");

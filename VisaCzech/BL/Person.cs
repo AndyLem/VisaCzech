@@ -67,7 +67,6 @@ namespace VisaCzech.BL
         public string OtherStatus = string.Empty;
 
         [String(TemplateString = "@@10_RODITEL")]
-        [Link(ControlName = "parent")]
         public string Parent = string.Empty;
 
         [String(TemplateString = "@@11_ID_PASSPORT")]
@@ -103,8 +102,7 @@ namespace VisaCzech.BL
         public string DocumentIssuedBy = "BLR";
 
         [String(TemplateString = "@@17_DOM_ADRES_MILO")]
-        [Link(ControlName = "homeAddress")]
-        public string AddressAndEmail = string.Empty;
+        public string AddressAndEmail = string.Empty;       // Combines from Home[...] fields
 
         [String(TemplateString = "@@17_TEL_DOM")]
         [Link(ControlName = "homePhone")]
@@ -115,7 +113,6 @@ namespace VisaCzech.BL
         public string Profession = string.Empty;
 
         [String(TemplateString = "@@20_RABOTA_SHKOLA")]
-        [Link(ControlName = "work")]
         public string WorkOrSchoolAddress = string.Empty;
 
         [String(TemplateString = "@@25_PRODOLJIT_DNEY")]
@@ -247,171 +244,214 @@ namespace VisaCzech.BL
 
         /*  BG XML Fields */
 
+        [Link(ControlName = "ksCreated")] 
+        public string hdr_kscreated = string.Empty;
 
-        public string hdr_kscreated { get; set; }
+        [Link(ControlName = "regNom")]
+        public string hdr_regnom = string.Empty;
 
-        public string hdr_regnom { get; set; }
+        [Link(ControlName = "user")]
+        public string hdr_user = string.Empty;
 
-        public string hdr_user { get; set; }
+        [Link(ControlName = "homeCountry", AllowFillComboBox = true, LinkActionName = "FillHomeAddress")]
+        public string AddressCountry = string.Empty;
 
-        public string AddressCountry { get; set; }
+        [Link(ControlName = "homeCity", AllowFillComboBox = true, LinkActionName = "FillHomeAddress")]
+        public string AddressCity = string.Empty;
 
-        public string AddressCity { get; set; }
+        [Link(ControlName = "homeAddress", AllowFillComboBox = true, LinkActionName = "FillHomeAddress")]
+        public string AddressStreet = string.Empty;
 
-        public string AddressStreet { get; set; }
+        [Link(ControlName = "homeZip", AllowFillComboBox = true, LinkActionName = "FillHomeAddress")]
+        public string AddressZipCode = string.Empty;
 
-        public string AddressZipCode { get; set; }
+        [Link(ControlName = "email", LinkActionName = "FillHomeAddress")]
+        public string Email = string.Empty;
 
-        public string Email { get; set; }
+        [Link(ControlName = "workName", AllowFillComboBox = true, LinkActionName = "FillWorkAddress")]
+        public string WorkName = string.Empty;
 
-        public string WorkName { get; set; }
+        [Link(ControlName = "workCity", AllowFillComboBox = true, LinkActionName = "FillWorkAddress")]
+        public string WorkCity = string.Empty;
 
-        public string WorkCity { get; set; }
+        [Link(ControlName = "workCountry", AllowFillComboBox = true, LinkActionName = "FillWorkAddress")]
+        public string WorkCountry = string.Empty;
 
-        public string WorkCountry { get; set; }
+        [Link(ControlName = "workAddress", AllowFillComboBox = true, LinkActionName = "FillWorkAddress")]
+        public string WorkAddress = string.Empty;
 
-        public string WorkAddress { get; set; }
+        [Link(ControlName = "workZip", AllowFillComboBox = true, LinkActionName = "FillWorkAddress")]
+        public string WorkZip = string.Empty;
 
-        public string WorkZip { get; set; }
+        [Link(ControlName = "workPhone", AllowFillComboBox = true)]
+        public string WorkPhoneNumber = string.Empty;
 
-        public string WorkPhoneNumber { get; set; }
+        [Link(ControlName = "workFax", AllowFillComboBox = true)]
+        public string WorkFaxNumber = string.Empty;
 
-        public string WorkFaxNumber { get; set; }
+        [Link(ControlName = "workEmail", AllowFillComboBox = true, LinkActionName = "FillWorkAddress")]
+        public string WorkEmail = string.Empty;
 
-        public string WorkEmail { get; set; }
+        [Link(ControlName = "fatherName", LinkActionName = "FillParents")]
+        public string FatherName = string.Empty;
 
-        public string FatherName { get; set; }
+        [Link(ControlName = "fatherSurname", LinkActionName = "FillParents")]
+        public string FatherSurname = string.Empty;
 
-        public string FatherSurname { get; set; }
+        [Link(ControlName = "motherName", LinkActionName = "FillParents")]
+        public string MotherName = string.Empty;
 
-        public string MotherName { get; set; }
+        [Link(ControlName = "motherSurname", LinkActionName = "FillParents")]
+        public string MotherSurname = string.Empty;
 
-        public string MotherSurname { get; set; }
+        [Link(ControlName = "spouseSurname")]
+        public string SpouseSurname = string.Empty;
 
-        public string SpouseSurname { get; set; }
+        [Link(ControlName = "spouseSurnameAtBirth")]
+        public string SpouseSurnameAtBirth = string.Empty;
 
-        public string SpouseSurnameAtBirth { get; set; }
+        [Link(ControlName = "spouseName")]
+        public string SpouseName = string.Empty;
 
-        public string SpouseName { get; set; }
+        [Link(ControlName = "spouseBirthDate")]
+        public string SpouseBirthDate = string.Empty;
 
-        public string SpouseBirthDate { get; set; }
+        [Link(ControlName = "spouseBirthCountry", AllowFillComboBox = true)]
+        public string SpouseBirthCountry = string.Empty;
 
-        public string SpouseBirthCountry { get; set; }
+        [Link(ControlName = "spouseBirthCity", AllowFillComboBox = true)]
+        public string SpouseBirthCity = string.Empty;
 
-        public string SpouseBirthCity { get; set; }
+        [Link(ControlName = "visaType", LinkActionName = "SetVisaType")]
+        public string VisaTypeValue = "Краткосрочная";
+        public VisaType VisaType;
 
-        public string VisaType { get; set; }
+        [Link(ControlName = "numberOfEntries", LinkActionName = "SetEntries")]
+        public string NumberOfEntriesValue = "Одно";
+        public Entries NumberOfEntries = Entries.SingleEntry;
 
-        public string NumberOfEntries { get; set; }
+        [Link(ControlName = "processingSpeed")]
+        public bool ProcessingSpeed = false;
 
-        public string ProcessingSpeed { get; set; }
+        [Link(ControlName = "multiPeriod", LinkActionName = "SetMultiPeriod")]
+        public string MultiVisaPeriodValue = "До трех месяцев";
+        public VisaPeriod MultiVisaPeriod = VisaPeriod.To3M;
 
-        public string MultiVisaPeriod { get; set; }
+        [Link(ControlName = "purpose", LinkActionName = "SetPurpose")]
+        public string PurposeValue = "Организованный туризм";
+        public Purpose Purpose = Purpose.OrganizedTourism;
 
-        public object Purpose { get; set; }
+        [Link(ControlName = "otherPurpose", AllowFillComboBox = true)]
+        public string OtherPurpose = string.Empty;
 
-        public string OtherPurpose { get; set; }
+        [Link(ControlName = "dateOfApply")]
+        public string DateOfApply = string.Empty;
 
-        public object DateOfApply { get; set; }
+        [Link(ControlName = "gratis", LinkActionName = "CheckGratis")]
+        public bool Gratis = false;
 
-        public bool Gratis { get; set; }
+        [Link(ControlName = "transitEntryPermit")]
+        public bool TransitDestinationPermit = true;
 
-        public string TransitDestinationPermit { get; set; }
+        [Link(ControlName = "fee")]
+        public string Fee = string.Empty;
 
-        public string Fee { get; set; }
+        [Link(ControlName = "feeCurrency")]
+        public string FeeCurrency = string.Empty;
 
-        public string FeeCurrency { get; set; }
+        [Link(ControlName = "destinationCountry")]
+        public string DestinationCountry = string.Empty;
+        
+        [Link(ControlName = "destinationCity")]
+        public string DestinationCity = string.Empty;
 
-        public string DestinationCountry { get; set; }
+        [Link(ControlName = "firstBorder")]
+        public string BorderOfFirstEntry = string.Empty;
 
-        public string DestinationCity { get; set; }
+        [Link(ControlName = "borderCheckpoint")]
+        public string BorderCheckpoint = string.Empty;
 
-        public string BorderOfFirstEntry { get; set; }
+        [Link(ControlName = "transitRoute")]
+        public string TransitRoute = string.Empty;
 
-        public string BorderCheckpoint { get; set; }
+        [Link(ControlName = "additionalInfo")]
+        public string VisaAdditionalInfo = string.Empty;
 
-        public string TransitRoute { get; set; }
+        public object HostType = string.Empty;
 
-        public string VisaAdditionalInfo { get; set; }
+        public string InvitationNumber = string.Empty;
 
-        public object HostType { get; set; }
+        public string HostPersonName = string.Empty;
 
-        public string InvitationNumber { get; set; }
+        public string HostPersonSurname = string.Empty;
 
-        public string HostPersonName { get; set; }
+        public string HostPersonCitizenship = string.Empty;
 
-        public string HostPersonSurname { get; set; }
+        public string HostPersonID = string.Empty;
 
-        public string HostPersonCitizenship { get; set; }
+        public string HostPersonCountry = string.Empty;
 
-        public string HostPersonID { get; set; }
+        public string HostPersonCity = string.Empty;
 
-        public string HostPersonCountry { get; set; }
+        public string HostPersonZipCode = string.Empty;
 
-        public string HostPersonCity { get; set; }
+        public string HostPersonAddress = string.Empty;
 
-        public string HostPersonZipCode { get; set; }
+        public string HostPersonPhone = string.Empty;
 
-        public string HostPersonAddress { get; set; }
+        public string HostPersonFax = string.Empty;
 
-        public string HostPersonPhone { get; set; }
+        public string HostPersonEmail = string.Empty;
 
-        public string HostPersonFax { get; set; }
+        public string HostCompanyID = string.Empty;
 
-        public string HostPersonEmail { get; set; }
+        public string HostCompanyCountry = string.Empty;
 
-        public string HostCompanyID { get; set; }
+        public string HostCompanyCity = string.Empty;
 
-        public string HostCompanyCountry { get; set; }
+        public string HostCompanyZipCode = string.Empty;
 
-        public string HostCompanyCity { get; set; }
+        public string HostCompanyAddress = string.Empty;
 
-        public string HostCompanyZipCode { get; set; }
+        public string HotelFax = string.Empty;
 
-        public string HostCompanyAddress { get; set; }
+        public string HostCompanyEmail = string.Empty;
 
-        public string HotelFax { get; set; }
+        public string VoucherNumber = string.Empty;
 
-        public string HostCompanyEmail { get; set; }
+        public object VoucherValidFrom = string.Empty;
 
-        public bool OrganizedTourism { get; set; }
+        public object VoucherValidTo = string.Empty;
 
-        public string VoucherNumber { get; set; }
+        public string VoucherIssuedBy = string.Empty;
 
-        public object VoucherValidFrom { get; set; }
+        public string HostCompanyName = string.Empty;
 
-        public object VoucherValidTo { get; set; }
+        public string HostCompanyPhone = string.Empty;
 
-        public string VoucherIssuedBy { get; set; }
+        public string Visa1Country = string.Empty;
 
-        public string HostCompanyName { get; set; }
+        public VisaType Visa1Type = VisaType.ShortStay;
 
-        public string HostCompanyPhone { get; set; }
+        public string Visa1Number = string.Empty;
 
-        public string Visa1Country { get; set; }
+        public string Visa1NumberOfEntries = string.Empty;
 
-        public string Visa1Type { get; set; }
+        public string Visa2Country = string.Empty;
 
-        public string Visa1Number { get; set; }
+        public VisaType Visa2Type = VisaType.ShortStay;
 
-        public string Visa1NumberOfEntries { get; set; }
+        public string Visa2Number = string.Empty;
 
+        public string Visa2NumberOfEntries = string.Empty;
 
-        public string Visa2Country { get; set; }
+        public string Visa3Country = string.Empty;
 
-        public string Visa2Type { get; set; }
+        public VisaType Visa3Type = VisaType.ShortStay;
 
-        public string Visa2Number { get; set; }
+        public string Visa3Number = string.Empty;
 
-        public string Visa2NumberOfEntries { get; set; }
-
-        public string Visa3Country { get; set; }
-
-        public string Visa3Type { get; set; }
-
-        public string Visa3Number { get; set; }
-
-        public string Visa3NumberOfEntries { get; set; }
+        public string Visa3NumberOfEntries = string.Empty;
     }
 
     public enum Status
@@ -439,5 +479,60 @@ namespace VisaCzech.BL
         OfficialPassport,
         SpecialPassport,
         Other
+    }
+
+    public enum VisaType
+    {
+        AirportTransit = 0,
+        Transit,
+        ShortStay,
+        LongStay
+    }
+
+    public enum Entries
+    {
+        SingleEntry = 0,
+        DoubleEntries,
+        MultipleEntries
+    }
+
+    public enum VisaPeriod
+    {
+        To3M = 0,
+        To6M,
+        To1Y,
+        To2Y,
+        To3Y,
+        To4Y,
+        To5Y
+    }
+
+    public enum Purpose
+    {
+        Business = 0,
+        Marriage,
+        Professional,
+        Diplomatic,
+        Other,
+        Family,
+        Humanitarian,
+        Cultural,
+        Medical,
+        Residence,
+        Work,
+        Commercial,
+        Official,
+        Sport,
+        Transit,
+        OrganizedTourism,
+        Tourism,
+        Study
+    }
+
+    public enum HostType
+    {
+        Person = 0,
+        Company,
+        Hotel
     }
 }

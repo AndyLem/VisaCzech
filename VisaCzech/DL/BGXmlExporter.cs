@@ -87,15 +87,15 @@ namespace VisaCzech.DL
             root.molba.molbaRow.dat_vli = ConvertDate(person.VisaStartDate);
             root.molba.molbaRow.dat_izl = ConvertDate(person.VisaEndDate);
             root.molba.molbaRow.vidvis = ConvertVisaType(person.VisaType);                                   // ***
-            root.molba.molbaRow.brvl = person.NumberOfEntries;                              // ***
-            root.molba.molbaRow.vidus = person.ProcessingSpeed;                             // ***
-            root.molba.molbaRow.valvis = person.MultiVisaPeriod;                            // ***
+            root.molba.molbaRow.brvl = ConvertEntries(person.NumberOfEntries);                              // ***
+            root.molba.molbaRow.vidus = person.ProcessingSpeed ? "B" : "O";                             // ***
+            root.molba.molbaRow.valvis = ConvertMultiVisaPeriod(person.MultiVisaPeriod);                            // ***
             root.molba.molbaRow.brdni = person.Duration;
             root.molba.molbaRow.cel = ConvertPurpose(person.Purpose);                       // ***
             root.molba.molbaRow.celdruga = person.OtherPurpose;                             // ***
-            root.molba.molbaRow.mol_dat_vav = ConvertDate(person.DateOfApply, "yyyy-MM-ddThh:mm:ss.cccc");  // ***
+            root.molba.molbaRow.mol_dat_vav = person.DateOfApply;  // ***
             root.molba.molbaRow.gratis = person.Gratis ? "Y" : "N";                         // ***
-            root.molba.molbaRow.imavisa = person.TransitDestinationPermit;                  // ***
+            root.molba.molbaRow.imavisa = person.TransitDestinationPermit ? "Y" : "N";                  // ***
             root.molba.molbaRow.cenamol = person.Fee;                                       // ***
             root.molba.molbaRow.cenacurr = person.FeeCurrency;                              // ***
             root.molba.molbaRow.maindest = person.DestinationCountry;                       // ***
@@ -105,7 +105,7 @@ namespace VisaCzech.DL
             root.molba.molbaRow.marsrut = person.TransitRoute;                              // ***
             root.molba.molbaRow.Text_ini = person.VisaAdditionalInfo;                       // ***
 
-            if (!person.OrganizedTourism)
+            if (person.Purpose != Purpose.OrganizedTourism)
             {
                 root.domakin.domakinRow.dm_vid = ConvertHosting(person.HostType); // ***
                 root.domakin.domakinRow.nom_pok = person.InvitationNumber; // ***
@@ -196,6 +196,16 @@ namespace VisaCzech.DL
             return root;
         }
 
+        private static string ConvertMultiVisaPeriod(VisaPeriod visaPeriod)
+        {
+            throw new NotImplementedException();
+        }
+
+        private static string ConvertEntries(Entries entries)
+        {
+            throw new NotImplementedException();
+        }
+
         private static string ConvertHosting(object p)
         {
             return string.Empty; throw new NotImplementedException();
@@ -206,7 +216,7 @@ namespace VisaCzech.DL
             return string.Empty; throw new NotImplementedException();
         }
 
-        private static string ConvertVisaType(string p)
+        private static string ConvertVisaType(VisaType p)
         {
             return string.Empty; throw new NotImplementedException();
         }

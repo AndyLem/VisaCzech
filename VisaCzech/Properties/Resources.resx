@@ -123,16 +123,32 @@
   <data name="WordFiller_FillError" xml:space="preserve">
     <value>При заполнении анкет произошла ошибка </value>
   </data>
-  <data name="WordFiller_FillComplete">
-    <value xml:space="preserve">Завершено</value>
+  <data name="WordFiller_FillComplete" xml:space="preserve">
+    <value>Завершено</value>
   </data>
-  <data name="WordFiller_FillTemplate_CloseForm">
-    <value xml:space="preserve">Закрыть</value>
+  <data name="WordFiller_FillTemplate_CloseForm" xml:space="preserve">
+    <value>Закрыть</value>
   </data>
   <data name="NoScanners" xml:space="preserve">
     <value>Не найдено устройств сканирования</value>
   </data>
   <data name="ImageNotRecognized" xml:space="preserve">
     <value>Изображение не распознано</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="blank" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\UI\Images\ico_posted.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="check" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\UI\Images\ico_approved.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cross" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\UI\Images\ico_delete.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="exit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\UI\Images\ico_exit.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="open" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\UI\Images\ico_mail_open.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

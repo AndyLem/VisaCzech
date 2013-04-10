@@ -15,6 +15,7 @@ using VisaCzech.BL.TranslitConverter;
 using VisaCzech.Properties;
 using System.IO;
 using VisaCzech.BL.CognitiveScanner;
+using VisaCzech.UI.BG;
 
 namespace VisaCzech.UI
 {
@@ -35,6 +36,7 @@ namespace VisaCzech.UI
         public bool AutoSavePerson = true;
 
         private Mode FormMode;
+        private DialogResult saveDialogResult;
 
         public PersonForm()
         {
@@ -106,6 +108,50 @@ namespace VisaCzech.UI
                         if (person.BirthCitizenship == null || (person.Citizenship.StartsWith(person.BirthCitizenship)))
                             birthCitizen.Text = person.Citizenship;
                 });
+            _linker.ActionFactory.RegisterAction("FillHomeAddress", (control, linkedObject) =>
+                {
+                    var person = (Person)linkedObject;
+                    person.AddressAndEmail = string.Format("{0}, {1}, {2}, {3}. {4}", person.AddressZipCode,
+                                                           person.AddressStreet, person.AddressCity,
+                                                           person.AddressCountry, person.Email);
+                });
+            _linker.ActionFactory.RegisterAction("FillWorkAddress", (control, linkedObject) =>
+            {
+                var person = (Person)linkedObject;
+                person.WorkOrSchoolAddress = string.Format("{0}, {1}, {2}, {3}. {4}", person.WorkZip,
+                                                       person.WorkAddress, person.WorkCity,
+                                                       person.WorkCountry, person.WorkEmail);
+            });
+            _linker.ActionFactory.RegisterAction("FillParents", (control, linkedObject) =>
+            {
+                var person = (Person)linkedObject;
+                person.Parent = string.Format("{0} {1}, {2} {3}", person.FatherSurname, person.FatherName, person.MotherSurname, person.MotherName).Trim(' ', ','); 
+            });
+            _linker.ActionFactory.RegisterAction("SetVisaType", (control, linkedObject) =>
+            {
+                var person = (Person)linkedObject;
+                person.VisaType = (VisaType) (((ComboBox)control).SelectedIndex);
+            });
+            _linker.ActionFactory.RegisterAction("SetEntries", (control, linkedObject) =>
+            {
+                var person = (Person)linkedObject;
+                person.NumberOfEntries = (Entries)(((ComboBox)control).SelectedIndex);
+            });
+            _linker.ActionFactory.RegisterAction("SetMultiPeriod", (control, linkedObject) =>
+            {
+                var person = (Person)linkedObject;
+                person.MultiVisaPeriod = (VisaPeriod)(((ComboBox)control).SelectedIndex);
+            });
+            _linker.ActionFactory.RegisterAction("SetPurpose", (control, linkedObject) =>
+            {
+                var person = (Person)linkedObject;
+                person.Purpose = (Purpose)(((ComboBox)control).SelectedIndex);
+            });
+            _linker.ActionFactory.RegisterAction("CheckGratis", (control, linkedObject) =>
+            {
+                fee.Enabled =
+                    feeCurrency.Enabled = !gratis.Checked;
+            });
         }
 
         private void PersonForm_Load(object sender, EventArgs e)
@@ -131,21 +177,21 @@ namespace VisaCzech.UI
         {
             _person = person;
             FormMode = Mode.Edit;
-            cancelBtn.Hide();
-            saveBtn.DialogResult = DialogResult.OK;
+            btnClose.Visible = false;
+            saveDialogResult = DialogResult.OK;
         }
 
         public void CreatePerson(Packet templatePacket = null)
         {
             FormMode = Mode.Create;
-            saveBtn.DialogResult = DialogResult.None;
-            cancelBtn.Show();
+            saveDialogResult = DialogResult.None;
+            btnClose.Visible = true;
             _templatePacket = templatePacket;
         }
 
         private void saveBtn_Click(object sender, EventArgs e)
         {
-            if (toTranslit.Checked)
+            if (NeedTranslit())
                 ConvertAllToTranslit();
 
             _linker.MoveDataToObject();
@@ -154,19 +200,12 @@ namespace VisaCzech.UI
             {
                 if (AutoSavePerson)
                     PersonStorage.Instance.Save(_person);
+                ShowSavedLabel();
                 return;
             }
 
             if (PersonCreated != null) PersonCreated(_person, EventArgs.Empty);
-            var tim = new Timer { Interval = 2500 };
-            saved.Show();
-            tim.Tick += (o, args) =>
-            {
-                tim.Stop();
-                saved.Hide();
-            };
-            tim.Start();
-
+            ShowSavedLabel();
 
             _linker = null;
             CreateNewPerson();
@@ -176,6 +215,27 @@ namespace VisaCzech.UI
             _linker.LinkObjectToControl(this, _person);
             _linker.MoveDataFromObject();
             _linker.MoveDataToObject();
+
+            DialogResult = saveDialogResult;
+            if (saveDialogResult != DialogResult.None)
+                Close();
+        }
+
+        private void ShowSavedLabel()
+        {
+            var tim = new Timer {Interval = 2500};
+            lblSaved.Visible = true;
+            tim.Tick += (o, args) =>
+                            {
+                                tim.Stop();
+                                lblSaved.Visible = false;
+                            };
+            tim.Start();
+        }
+
+        private bool NeedTranslit()
+        {
+            return btnConvertMenu.Text == btnConvert.Text;
         }
 
         private void ConvertAllToTranslit()
@@ -195,14 +255,16 @@ namespace VisaCzech.UI
                     var cb = ctrl as ComboBox;
                     if (cb.DropDownStyle == ComboBoxStyle.DropDownList) continue;
                     var txt = cb.Text;
-                    cb.Text = TranslitConverter.Front(txt);
+                    var conv = TranslitConverter.Front(txt);
+                    cb.Text = conv;
                 }
             }
         }
 
         private void cancelBtn_Click(object sender, EventArgs e)
         {
-            // PersonStorage.LoadPerson(ref _person);
+            DialogResult = DialogResult.Cancel; 
+            Close(); // PersonStorage.LoadPerson(ref _person);
         }
 
         internal void InitCombos(IEnumerable<Person> allPersons)
@@ -274,6 +336,30 @@ namespace VisaCzech.UI
                     }
                 }
             }
+        }
+
+        private void btnConvert_Click(object sender, EventArgs e)
+        {
+            btnConvertMenu.Text = btnConvert.Text;
+        }
+
+        private void btnNotConvert_Click(object sender, EventArgs e)
+        {
+            btnConvertMenu.Text = btnNotConvert.Text;
+        }
+
+        private void btnBGHeader_Click(object sender, EventArgs e)
+        {
+            var form = new HeaderForm();
+            form.EditPerson(_person);
+            form.ShowDialog();
+        }
+
+        private void btnHost_Click(object sender, EventArgs e)
+        {
+            //var form = new HostForm();
+            //form.EditPerson(_person);
+            //form.ShowDialog();
         }
     }
 }

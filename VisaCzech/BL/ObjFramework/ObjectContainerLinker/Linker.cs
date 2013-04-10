@@ -205,13 +205,17 @@ namespace VisaCzech.BL.ObjFramework.ObjectContainerLinker
             var info = _links[sender].Item1;
             var attr = _links[sender].Item2; 
             var dtp = sender as DateTimePicker;
-            if (dtp != null) info.SetValue(_obj, ConvertDateToText(dtp.Value));
+            if (dtp != null)
+                info.SetValue(_obj, ConvertDateToText(dtp.Value, dtp.Tag as string));
             DoLinkAction(sender, attr);
         }
 
-        private static string ConvertDateToText(DateTime dateTime)
+        private static string ConvertDateToText(DateTime dateTime, string format = null)
         {
-            return dateTime.ToString("ddMMyyyy");
+            if (string.IsNullOrEmpty(format))
+                return dateTime.ToString("ddMMyyyy");
+            else
+                return dateTime.ToString(format);
         }
         
         private void TbxOnTextChanged(object sender, EventArgs eventArgs)
