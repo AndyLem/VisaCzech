@@ -121,13 +121,13 @@ namespace VisaCzech.DL
                 root.domakin.domakinRow.dom_fax = person.HostPersonFax; // ***
                 root.domakin.domakinRow.dom_email = person.HostPersonEmail; // ***
                 root.domakin.domakinRow.ved_ekpou = person.HostCompanyID; // ***
-                root.domakin.domakinRow.ved_ime = person.HotelName;
+                root.domakin.domakinRow.ved_ime = person.HostHotelName;
                 root.domakin.domakinRow.ved_darj = ConvertCountry(person.HostCompanyCountry); // ***
                 root.domakin.domakinRow.ved_nm = person.HostCompanyCity; // ***
                 root.domakin.domakinRow.ved_pk = person.HostCompanyZipCode; // ***
-                root.domakin.domakinRow.ved_adres = person.HostCompanyAddress; // ***
-                root.domakin.domakinRow.ved_tel = person.HotelPhone;
-                root.domakin.domakinRow.ved_fax = person.HotelFax; // ***
+                root.domakin.domakinRow.ved_adres = person.HostHotelFullAddress; // ***
+                root.domakin.domakinRow.ved_tel = person.HostHotelPhone;
+                root.domakin.domakinRow.ved_fax = person.HostCompanyFax; // ***
                 root.domakin.domakinRow.ved_email = person.HostCompanyEmail; // ***
             }
             else
@@ -137,7 +137,7 @@ namespace VisaCzech.DL
                 root.voit.voitRow.voit_datdo = ConvertDate(person.VoucherValidTo);
                 root.voit.voitRow.vime = person.VoucherIssuedBy;
                 root.voit.voitRow.bgime = person.HostCompanyName;
-                root.voit.voitRow.bgadres = (person.HostCompanyAddress + " " + person.HostCompanyCity).Trim();
+                root.voit.voitRow.bgadres = person.HostHotelFullAddress;
                 root.voit.voitRow.tel = person.HostCompanyPhone;
             }
 

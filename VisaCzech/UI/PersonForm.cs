@@ -152,6 +152,40 @@ namespace VisaCzech.UI
                 fee.Enabled =
                     feeCurrency.Enabled = !gratis.Checked;
             });
+            _linker.ActionFactory.RegisterAction("SetHostType", (control, linkedObject) =>
+            {
+                var person = (Person)linkedObject;
+                person.HostType = (HostType)(((ComboBox)control).SelectedIndex);
+                // Enable/disable controls here
+            });
+            _linker.ActionFactory.RegisterAction("SetHostPersonInfo", (control, linkedObject) =>
+            {
+                var person = (Person)linkedObject;
+                person.HostPersonNameAddressPhoneEmail =
+                    string.Format("{0} {1}, {2}, {3}, {4}, {5}. tel. {6}, email {7}",
+                                  person.HostPersonName, person.HostPersonSurname, 
+                                  person.HostPersonZipCode, person.HostPersonAddress,
+                                  person.HostPersonCity, person.HostPersonCountry, 
+                                  person.HostPersonPhone, person.HostPersonEmail);
+            });
+            _linker.ActionFactory.RegisterAction("SetHostFullAddress", (control, linkedObject) =>
+            {
+                var person = (Person)linkedObject;
+                person.HostCompanyNameAndAddress =
+                    string.Format("{0}, {1}, {2}, {3}. tel. {4}, email {5}",
+                                  person.HostCompanyZipCode, person.HostCompanyAddress,
+                                  person.HostCompanyCity, person.HostCompanyCountry,
+                                  person.HostCompanyPhone, person.HostCompanyEmail);
+            });
+            _linker.ActionFactory.RegisterAction("SetHotelFullAddress", (control, linkedObject) =>
+            {
+                var person = (Person)linkedObject;
+                person.HostHotelFullAddress =
+                    string.Format("{0}, {1}, {2}, {3}. tel. {4}, email {5}",
+                                  person.HostHotelZipCode, person.HostHotelAddress,
+                                  person.HostHotelCity, person.HostHotelCountry,
+                                  person.HostHotelPhone, person.HostHotelEmail);
+            });
         }
 
         private void PersonForm_Load(object sender, EventArgs e)
@@ -191,6 +225,8 @@ namespace VisaCzech.UI
 
         private void saveBtn_Click(object sender, EventArgs e)
         {
+            DialogResult = saveDialogResult;
+
             if (NeedTranslit())
                 ConvertAllToTranslit();
 
@@ -201,6 +237,8 @@ namespace VisaCzech.UI
                 if (AutoSavePerson)
                     PersonStorage.Instance.Save(_person);
                 ShowSavedLabel();
+                if (saveDialogResult != DialogResult.None)
+                    Close(); 
                 return;
             }
 
@@ -216,7 +254,6 @@ namespace VisaCzech.UI
             _linker.MoveDataFromObject();
             _linker.MoveDataToObject();
 
-            DialogResult = saveDialogResult;
             if (saveDialogResult != DialogResult.None)
                 Close();
         }

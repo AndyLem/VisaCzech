@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace VisaCzech.BL.ObjFramework.ObjectContainerLinker
 {
@@ -15,7 +16,14 @@ namespace VisaCzech.BL.ObjFramework.ObjectContainerLinker
         public void RegisterAction(string actionName, Action<object, object> action)
         {
             if (_actions.ContainsKey(actionName)) return;
-            _actions.Add(actionName, action);
+            try
+            {
+                _actions.Add(actionName, action);
+            }
+            catch
+            {
+                MessageBox.Show(actionName);
+            }
         }
 
         public Action<object, object> this[string actionName]

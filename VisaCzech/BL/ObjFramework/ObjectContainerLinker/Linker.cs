@@ -159,8 +159,15 @@ namespace VisaCzech.BL.ObjFramework.ObjectContainerLinker
                 if (val != null) (ctrl as CheckBox).Checked = (bool) val;
             }
             else return;
-            _links.Add(ctrl, new Tuple<FieldInfo, LinkAttribute>(info, attr));
-            DoLinkAction(ctrl, attr);
+            try
+            {
+                _links.Add(ctrl, new Tuple<FieldInfo, LinkAttribute>(info, attr));
+                DoLinkAction(ctrl, attr);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(ctrl.Name);
+            }
         }
 
         private static Control FindControl(Control container, string ctrlName)
