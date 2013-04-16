@@ -159,12 +159,6 @@ namespace VisaCzech.BL
 
         #endregion
         
-
-        
-
-
-
-
         [String(TemplateString = "@@36_MESTO_SOSTAVLENIYA")]
         [Link(ControlName = "fillPlace", InitOnlyEmpty = true)]
         public string PlaceOfFilling = "Minsk";
