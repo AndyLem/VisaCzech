@@ -182,6 +182,14 @@ namespace VisaCzech.BL.CognitiveScanner
             }
 
             var mrz = GetFieldValue("MRZ");
+            DateTime bd;
+            if (DateTime.TryParse(person.BirthDate, out bd))
+            {
+                if (bd.Year < 1920)
+                    bd = new DateTime(bd.Year+100, bd.Month, bd.Day);
+                person.BirthDate = bd.ToShortDateString();
+            }
+
             return mrz.Length > 0 ? AnalyzeMRZ(person, mrz) : person;
         }
 

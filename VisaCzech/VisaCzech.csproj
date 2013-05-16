@@ -94,6 +94,7 @@
     <Compile Include="BL\Packet.cs" />
     <Compile Include="BL\Person.cs" />
     <Compile Include="BL\WordFiller\WordFillerOptions.cs" />
+    <Compile Include="DL\BGContent.cs" />
     <Compile Include="DL\BGModelIO.cs" />
     <Compile Include="DL\BGXmlExporter.cs" />
     <Compile Include="DL\PacketStorage.cs" />

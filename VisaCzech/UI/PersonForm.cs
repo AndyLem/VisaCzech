@@ -66,31 +66,43 @@ namespace VisaCzech.UI
                                                                                (DocType)cbb.SelectedIndex;
                                                                        });
             _linker.ActionFactory.RegisterAction("Visa1EnabledChanged", (control, linkedObject) =>
-                                                                            {
-                                                                                var person = (Person)linkedObject;
-                                                                                this.visa1To.Enabled =
-                                                                                    this.visa1From.Enabled =
-                                                                                    visa2Enabled.Enabled =
-                                                                                    person.Visa1Enabled;
-                                                                                if (!visa2Enabled.Enabled)
-                                                                                    visa2Enabled.Checked = false;
-                                                                                
-                                                                            });
+                {
+                    var person = (Person) linkedObject;
+                    this.visa1To.Enabled =
+                        this.visa1From.Enabled =
+                        this.visa1Country.Enabled = 
+                        this.visa1Type.Enabled = 
+                        this.visa1Number.Enabled = 
+                        this.visa1Entries.Enabled = 
+                        visa2Enabled.Enabled =
+                        person.Visa1Enabled;
+                    if (!visa2Enabled.Enabled)
+                        visa2Enabled.Checked = false;
+
+                });
             _linker.ActionFactory.RegisterAction("Visa2EnabledChanged", (control, linkedObject) =>
-                                                                            {
-                                                                                var person = (Person)linkedObject;
-                                                                                this.visa2To.Enabled =
-                                                                                    this.visa2From.Enabled =
-                                                                                    visa3Enabled.Enabled =
-                                                                                    person.Visa2Enabled;
-                                                                                if (!visa3Enabled.Enabled)
-                                                                                    visa3Enabled.Checked = false;
-                                                                            });
+                {
+                    var person = (Person)linkedObject;
+                    this.visa2To.Enabled =
+                        this.visa2From.Enabled =
+                        this.visa2Country.Enabled =
+                        this.visa2Type.Enabled =
+                        this.visa2Number.Enabled =
+                        this.visa2Entries.Enabled = 
+                        visa3Enabled.Enabled =
+                        person.Visa2Enabled;
+                    if (!visa3Enabled.Enabled)
+                        visa3Enabled.Checked = false;
+                });
             _linker.ActionFactory.RegisterAction("Visa3EnabledChanged", (control, linkedObject) =>
                 {
                     var person = (Person)linkedObject;
                     this.visa3To.Enabled =
                         this.visa3From.Enabled =
+                        this.visa3Country.Enabled =
+                        this.visa3Type.Enabled =
+                        this.visa3Number.Enabled =
+                        this.visa3Entries.Enabled = 
                         person.Visa3Enabled;
                 });
             _linker.ActionFactory.RegisterAction("SurnameChanged", (control, linkedObject) =>
@@ -111,14 +123,14 @@ namespace VisaCzech.UI
             _linker.ActionFactory.RegisterAction("FillHomeAddress", (control, linkedObject) =>
                 {
                     var person = (Person)linkedObject;
-                    person.AddressAndEmail = string.Format("{0}, {1}, {2}, {3}. {4}", person.AddressZipCode,
+                    person.AddressAndEmail = string.Format("{0} {1} {2} {3} {4}", person.AddressZipCode,
                                                            person.AddressStreet, person.AddressCity,
                                                            person.AddressCountry, person.Email);
                 });
             _linker.ActionFactory.RegisterAction("FillWorkAddress", (control, linkedObject) =>
             {
                 var person = (Person)linkedObject;
-                person.WorkOrSchoolAddress = string.Format("{0}, {1}, {2}, {3}. {4}", person.WorkZip,
+                person.WorkOrSchoolAddress = string.Format("{0} {1} {2} {3} {4}", person.WorkZip,
                                                        person.WorkAddress, person.WorkCity,
                                                        person.WorkCountry, person.WorkEmail);
             });
@@ -162,7 +174,7 @@ namespace VisaCzech.UI
             {
                 var person = (Person)linkedObject;
                 person.HostPersonNameAddressPhoneEmail =
-                    string.Format("{0} {1}, {2}, {3}, {4}, {5}. tel. {6}, email {7}",
+                    string.Format("{0} {1} {2} {3} {4} {5} {6} {7}",
                                   person.HostPersonName, person.HostPersonSurname, 
                                   person.HostPersonZipCode, person.HostPersonAddress,
                                   person.HostPersonCity, person.HostPersonCountry, 
@@ -172,7 +184,7 @@ namespace VisaCzech.UI
             {
                 var person = (Person)linkedObject;
                 person.HostCompanyNameAndAddress =
-                    string.Format("{0}, {1}, {2}, {3}. tel. {4}, email {5}",
+                    string.Format("{1} {2} {3} {4} {5}",
                                   person.HostCompanyZipCode, person.HostCompanyAddress,
                                   person.HostCompanyCity, person.HostCompanyCountry,
                                   person.HostCompanyPhone, person.HostCompanyEmail);
@@ -181,10 +193,57 @@ namespace VisaCzech.UI
             {
                 var person = (Person)linkedObject;
                 person.HostHotelFullAddress =
-                    string.Format("{0}, {1}, {2}, {3}. tel. {4}, email {5}",
+                    string.Format("{1} {2} {3} {4} {5}",
                                   person.HostHotelZipCode, person.HostHotelAddress,
                                   person.HostHotelCity, person.HostHotelCountry,
                                   person.HostHotelPhone, person.HostHotelEmail);
+            });
+            _linker.ActionFactory.RegisterAction("SetProfId", (control, linkedObject) =>
+            {
+                var person = (Person)linkedObject;
+                person.ProfessionId = (control as ComboBox).SelectedIndex;
+            });
+            _linker.ActionFactory.RegisterAction("SetApplicantID", (control, linkedObject) =>
+            {
+                var person = (Person)linkedObject;
+                if (person.DocumentNumber.Length > 2)
+                    person.hdr_regnom = person.DocumentNumber.Remove(0,2).Trim().PadLeft(8, '0');
+            });
+            _linker.ActionFactory.RegisterAction("SetVisa1Type", (control, linkedObject) =>
+            {
+                var person = (Person)linkedObject;
+                person.Visa1Type = (VisaType)(((ComboBox)control).SelectedIndex);
+            });
+            _linker.ActionFactory.RegisterAction("SetVisa2Type", (control, linkedObject) =>
+            {
+                var person = (Person)linkedObject;
+                person.Visa2Type = (VisaType)(((ComboBox)control).SelectedIndex);
+            });
+            _linker.ActionFactory.RegisterAction("SetVisa3Type", (control, linkedObject) =>
+            {
+                var person = (Person)linkedObject;
+                person.Visa3Type = (VisaType)(((ComboBox)control).SelectedIndex);
+            });
+            _linker.ActionFactory.RegisterAction("SetVisa1Entries", (control, linkedObject) =>
+            {
+                var person = (Person)linkedObject;
+                var sindex = ((ComboBox) control).SelectedIndex;
+                if (sindex == -1) sindex = 0;
+                person.Visa1NumberOfEntries = (Entries)(sindex);
+            });
+            _linker.ActionFactory.RegisterAction("SetVisa2Entries", (control, linkedObject) =>
+            {
+                var person = (Person)linkedObject;
+                var sindex = ((ComboBox)control).SelectedIndex;
+                if (sindex == -1) sindex = 0;
+                person.Visa2NumberOfEntries = (Entries)(sindex);
+            });
+            _linker.ActionFactory.RegisterAction("SetVisa3Entries", (control, linkedObject) =>
+            {
+                var person = (Person)linkedObject;
+                var sindex = ((ComboBox)control).SelectedIndex;
+                if (sindex == -1) sindex = 0;
+                person.Visa3NumberOfEntries = (Entries)(sindex);
             });
         }
 
@@ -207,9 +266,12 @@ namespace VisaCzech.UI
                     _person.Merge(_templatePacket.TemplatePerson);
         }
 
-        public void EditPerson(Person person)
+        public void EditPerson(Person person, Packet templatePacket = null)
         {
             _person = person;
+            if (templatePacket != null)
+                if (templatePacket.TemplatePerson != null)
+                    _person.MergeBlanks(templatePacket.TemplatePerson);
             FormMode = Mode.Edit;
             btnClose.Visible = false;
             saveDialogResult = DialogResult.OK;

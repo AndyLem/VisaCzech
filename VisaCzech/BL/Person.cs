@@ -27,7 +27,9 @@ namespace VisaCzech.BL
         [String(TemplateString = "@@3_IMYA")] [Link(ControlName = "name")] [Field(FieldName = "IN_Name")] 
         public string Name = string.Empty;
 
-        [String(TemplateString = "@@4_DATA_ROJD")] [Link(ControlName = "birthDate")] [Field(FieldName = "IN_BirthDate")] 
+        [String(TemplateString = "@@4_DATA_ROJD")] 
+        [Link(ControlName = "birthDate")] 
+        [Field(FieldName = "IN_BirthDate")] 
         public string BirthDate = string.Empty;
 
         [String(TemplateString = "@@5_PLACE_BIRTH")] [Link(ControlName = "birthPlace")] 
@@ -75,7 +77,10 @@ namespace VisaCzech.BL
         [String(TemplateString = "@@12_OTHER_DOCTYPE")] [Link(ControlName = "otherDocType")] public string
             OtherDocumentType = string.Empty;
 
-        [String(TemplateString = "@@13_SERIYA_NUMBER_PASSPORT")] [Link(ControlName = "docNumber")] [Field(FieldName = "IN_SerNum")] public string DocumentNumber = string.Empty;
+        [String(TemplateString = "@@13_SERIYA_NUMBER_PASSPORT")]
+        [Link(ControlName = "docNumber", LinkActionName = "SetApplicantID")]
+        [Field(FieldName = "IN_SerNum")] 
+        public string DocumentNumber = string.Empty;
 
         [String(TemplateString = "@@14_DATA_VIDACHI")] [Link(ControlName = "docIssued")] [Field(FieldName = "IssuedDate")] public string DocumentIssuedDate = string.Empty;
 
@@ -96,8 +101,9 @@ namespace VisaCzech.BL
         public string PhoneNumber = string.Empty;
 
         [String(TemplateString = "@@19_PROF_DEYATELNOST")]
-        [Link(ControlName = "profession")]
-        public string Profession = string.Empty;
+        [Link(ControlName = "profession", LinkActionName = "SetProfId")]
+        public string Profession = "Другая";
+        public int ProfessionId = 30;
 
         [String(TemplateString = "@@20_RABOTA_SHKOLA")]
         public string WorkOrSchoolAddress = string.Empty;
@@ -130,32 +136,51 @@ namespace VisaCzech.BL
         [Link(ControlName = "visa3From")] [String(TemplateString = "@@26_VISA3_OT", ValidationFuncName = "IsVisa3Checked")] public string Visa3From =
             string.Empty;
 
-        [Link(ControlName = "visa3To")] [String(TemplateString = "@@26_VISA3_DO", ValidationFuncName = "IsVisa3Checked")] public string Visa3To =
-            string.Empty;
+        [Link(ControlName = "visa3To")] 
+        [String(TemplateString = "@@26_VISA3_DO", ValidationFuncName = "IsVisa3Checked")] 
+        public string Visa3To = string.Empty;
 
+        [Link(ControlName = "visa1Country")]
         public string Visa1Country = string.Empty;
 
+        [Link(ControlName = "visa1Type", LinkActionName = "SetVisa1Type")] 
+        public string Visa1TypeValue = "Краткосрочная";
         public VisaType Visa1Type = VisaType.ShortStay;
 
+        [Link(ControlName = "visa1Number")]
         public string Visa1Number = string.Empty;
 
-        public string Visa1NumberOfEntries = string.Empty;
+        [Link(ControlName = "visa1Entries", LinkActionName = "SetVisa1Entries")]
+        public string Visa1NumberOfEntriesValue = "Одно";
+        public Entries Visa1NumberOfEntries = Entries.SingleEntry;
 
+        [Link(ControlName = "visa2Country")]
         public string Visa2Country = string.Empty;
 
+        [Link(ControlName = "visa2Type", LinkActionName = "SetVisa2Type")]
+        public string Visa2TypeValue = "Краткосрочная";
         public VisaType Visa2Type = VisaType.ShortStay;
 
+        [Link(ControlName = "visa2Number")]
         public string Visa2Number = string.Empty;
 
-        public string Visa2NumberOfEntries = string.Empty;
+        [Link(ControlName = "visa2Entries", LinkActionName = "SetVisa2Entries")]
+        public string Visa2NumberOfEntriesValue = "Одно";
+        public Entries Visa2NumberOfEntries = Entries.SingleEntry;
 
+        [Link(ControlName = "visa3Country")]
         public string Visa3Country = string.Empty;
 
+        [Link(ControlName = "visa3Type", LinkActionName = "SetVisa3Type")]
+        public string Visa3TypeValue = "Краткосрочная";
         public VisaType Visa3Type = VisaType.ShortStay;
 
+        [Link(ControlName = "visa3Number")]
         public string Visa3Number = string.Empty;
 
-        public string Visa3NumberOfEntries = string.Empty;
+        [Link(ControlName = "visa3Entries", LinkActionName = "SetVisa3Entries")]
+        public string Visa3NumberOfEntriesValue = "Одно";
+        public Entries Visa3NumberOfEntries = Entries.SingleEntry;
 
         #endregion
         
@@ -219,6 +244,26 @@ namespace VisaCzech.BL
             return this;
         }
 
+        public Person MergeBlanks(Person person)
+        {
+            var tempId = Id;
+            var fieldInfos = GetType().GetFields();
+            foreach (var info in fieldInfos)
+            {
+                if (string.IsNullOrEmpty(info.GetValue(this).ToString()))
+                {
+                    var val = info.GetValue(person);
+                    if (val == null) continue;
+                    if (string.IsNullOrEmpty(val.ToString())) continue;
+                    info.SetValue(this, val);
+                }
+            }
+            _image = person._image;
+            _thumbnail = person._thumbnail;
+            Id = tempId;
+            return this;
+        }
+
         public bool FilterOk(string filter)
         {
             var upperFilter = filter.ToUpper();
@@ -232,7 +277,7 @@ namespace VisaCzech.BL
 
         #region BG Header
 
-        [Link(ControlName = "ksCreated")] public string hdr_kscreated = string.Empty;
+        [Link(ControlName = "ksCreated")] public string hdr_kscreated = "MIN";
 
         [Link(ControlName = "regNom")] public string hdr_regnom = string.Empty;
 
@@ -319,12 +364,12 @@ namespace VisaCzech.BL
         [Link(ControlName = "visaEnd", InitOnlyEmpty = true)]
         public string VisaEndDate = string.Empty;
 
-        [Link(ControlName = "visaType", LinkActionName = "SetVisaType")] public string VisaTypeValue = "Краткосрочная";
+        [Link(ControlName = "visaType", LinkActionName = "SetVisaType")] 
+        public string VisaTypeValue = "Краткосрочная";
         public VisaType VisaType;
 
-        [Link(ControlName = "numberOfEntries", LinkActionName = "SetEntries")] public string NumberOfEntriesValue =
-            "Одно";
-
+        [Link(ControlName = "numberOfEntries", LinkActionName = "SetEntries")]
+        public string NumberOfEntriesValue = "Одно";
         public Entries NumberOfEntries = Entries.SingleEntry;
 
         [Link(ControlName = "processingSpeed")] public bool ProcessingSpeed = false;
@@ -485,12 +530,16 @@ namespace VisaCzech.BL
         
         #region Voucher
 
+        [Link(ControlName = "voucherNumber")]
         public string VoucherNumber = string.Empty;
 
+        [Link(ControlName = "voucherValidFrom")]
         public object VoucherValidFrom = string.Empty;
 
+        [Link(ControlName = "voucherValidTo")]
         public object VoucherValidTo = string.Empty;
 
+        [Link(ControlName = "voucherIssuedBy")]
         public string VoucherIssuedBy = string.Empty;
 
         #endregion

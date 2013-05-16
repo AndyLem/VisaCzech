@@ -220,7 +220,7 @@ namespace VisaCzech.BL.ObjFramework.ObjectContainerLinker
         private static string ConvertDateToText(DateTime dateTime, string format = null)
         {
             if (string.IsNullOrEmpty(format))
-                return dateTime.ToString("ddMMyyyy");
+                return dateTime.ToString("dd.MM.yyyy");
             else
                 return dateTime.ToString(format);
         }

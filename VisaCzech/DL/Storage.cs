@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 using VisaCzech.BL;
 using System.IO;
 using System.Xml.Serialization;
@@ -58,8 +59,9 @@ namespace VisaCzech.DL
                 fs.Close();
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
+                MessageBox.Show(ex.Message);
                 return false;
             }
         }

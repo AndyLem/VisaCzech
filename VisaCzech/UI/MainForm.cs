@@ -99,7 +99,7 @@ namespace VisaCzech.UI
             var form = new PersonForm();
             var person = personsList.SelectedItem as Person;
             form.InitCombos(_notFilteredPersons);
-            form.EditPerson(person);
+            form.EditPerson(person, _currentPacket);
             if (form.ShowDialog() != DialogResult.OK) return;
             var index = personsList.SelectedIndex;
             personsList.Items.RemoveAt(index);

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Linq;
+using System.Windows.Forms;
 using VisaCzech.BL;
 using System.IO;
 using System.Xml.Serialization;
@@ -43,8 +44,9 @@ namespace VisaCzech.DL
                         Directory.CreateDirectory(DefaultPath + ImagesDir);
                         bmp.Save(DefaultPath + ImagesDir + obj.Id + ".jpg");
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
+                        MessageBox.Show(ex.Message);
                     }
                 }
             }
