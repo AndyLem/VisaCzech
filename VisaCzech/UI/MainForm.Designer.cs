@@ -37,6 +37,7 @@
             this.createPerson = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnSaveBGXml = new System.Windows.Forms.Button();
             this.backgroundProgress = new System.Windows.Forms.ProgressBar();
             this.backgroundStop = new System.Windows.Forms.Button();
             this.fillSelectedAnketas = new System.Windows.Forms.Button();
@@ -47,7 +48,6 @@
             this.newPacket = new System.Windows.Forms.Button();
             this.removeFromPacket = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
-            this.btnSaveBGXml = new System.Windows.Forms.Button();
             this.currentPacketList = new VisaCzech.UI.TouchListBox();
             this.personsList = new VisaCzech.UI.TouchListBox();
             this.panel1.SuspendLayout();
@@ -165,6 +165,17 @@
             this.panel2.Size = new System.Drawing.Size(473, 600);
             this.panel2.TabIndex = 1;
             // 
+            // btnSaveBGXml
+            // 
+            this.btnSaveBGXml.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSaveBGXml.Location = new System.Drawing.Point(65, 59);
+            this.btnSaveBGXml.Name = "btnSaveBGXml";
+            this.btnSaveBGXml.Size = new System.Drawing.Size(143, 23);
+            this.btnSaveBGXml.TabIndex = 20;
+            this.btnSaveBGXml.Text = "Сохранить XML";
+            this.btnSaveBGXml.UseVisualStyleBackColor = true;
+            this.btnSaveBGXml.Click += new System.EventHandler(this.btnSaveBGXml_Click);
+            // 
             // backgroundProgress
             // 
             this.backgroundProgress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -223,6 +234,7 @@
             this.packetsList.Location = new System.Drawing.Point(6, 26);
             this.packetsList.Name = "packetsList";
             this.packetsList.Size = new System.Drawing.Size(202, 21);
+            this.packetsList.Sorted = true;
             this.packetsList.TabIndex = 14;
             this.packetsList.SelectedIndexChanged += new System.EventHandler(this.packetsList_SelectedIndexChanged);
             // 
@@ -267,17 +279,6 @@
             this.label3.TabIndex = 1;
             this.label3.Text = "Пакет";
             this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // btnSaveBGXml
-            // 
-            this.btnSaveBGXml.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveBGXml.Location = new System.Drawing.Point(65, 59);
-            this.btnSaveBGXml.Name = "btnSaveBGXml";
-            this.btnSaveBGXml.Size = new System.Drawing.Size(143, 23);
-            this.btnSaveBGXml.TabIndex = 20;
-            this.btnSaveBGXml.Text = "Сохранить XML";
-            this.btnSaveBGXml.UseVisualStyleBackColor = true;
-            this.btnSaveBGXml.Click += new System.EventHandler(this.btnSaveBGXml_Click);
             // 
             // currentPacketList
             // 

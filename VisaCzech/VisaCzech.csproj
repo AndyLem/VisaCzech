@@ -74,10 +74,16 @@
     <Compile Include="BL\BGModel\Voit.cs" />
     <Compile Include="BL\CognitiveScanner\FieldAttribute.cs" />
     <Compile Include="BL\CognitiveScanner\Scanner.cs" />
+    <Compile Include="BL\Converters\DateTimeConverter.cs" />
     <Compile Include="BL\ID.cs" />
     <Compile Include="BL\ObjFramework\ObjectContainerLinker\LinkActionFactory.cs" />
     <Compile Include="BL\ObjFramework\ObjectContainerLinker\Linker.cs" />
     <Compile Include="BL\ObjFramework\ObjectContainerLinker\LinkAttribute.cs" />
+    <Compile Include="BL\PersonCheckers\BaseChecker.cs" />
+    <Compile Include="BL\PersonCheckers\CheckersFactory.cs" />
+    <Compile Include="BL\PersonCheckers\IChecker.cs" />
+    <Compile Include="BL\PersonCheckers\ICheckersFactory.cs" />
+    <Compile Include="BL\PersonCheckers\PassportValidityChecker.cs" />
     <Compile Include="BL\ScannerXmlParser\ImageConverter.cs" />
     <Compile Include="BL\ScannerXmlParser\MrzData.cs" />
     <Compile Include="BL\ScannerXmlParser\ScannerXmlParser.cs" />
@@ -98,6 +104,7 @@
     <Compile Include="DL\BGModelIO.cs" />
     <Compile Include="DL\BGXmlExporter.cs" />
     <Compile Include="DL\PacketStorage.cs" />
+    <Compile Include="DL\PersonsListExporter.cs" />
     <Compile Include="DL\PersonStorage.cs" />
     <Compile Include="DL\Storage.cs" />
     <Compile Include="DL\TemplateStorage.cs" />
@@ -112,6 +119,12 @@
     </Compile>
     <Compile Include="UI\BG\HostForm.Designer.cs">
       <DependentUpon>HostForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\CheckResultForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\CheckResultForm.Designer.cs">
+      <DependentUpon>CheckResultForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\MainForm.cs">
       <SubType>Form</SubType>
@@ -153,6 +166,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\BG\HostForm.resx">
       <DependentUpon>HostForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\CheckResultForm.resx">
+      <DependentUpon>CheckResultForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

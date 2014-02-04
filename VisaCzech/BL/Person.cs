@@ -10,6 +10,8 @@ namespace VisaCzech.BL
 {
     public class Person : ID
     {
+        public static readonly string NOT_VALID_DATE = "01.01.1800";
+
         public Person()
         {
             Id = Guid.NewGuid().ToString();
@@ -21,7 +23,9 @@ namespace VisaCzech.BL
         [String(TemplateString = "@@1_FAMILIA")] [Link(ControlName = "surname", LinkActionName = "SurnameChanged")] [Field(FieldName = "IN_SurName")] 
         public string Surname = string.Empty;
 
-        [String(TemplateString = "@@2_FAMILIA_ROJD", ValidationFuncName = "CheckSurname2")] [Link(ControlName = "surname2")] [Field(FieldName = "IN_SurName")] 
+        [String(TemplateString = "@@2_FAMILIA_ROJD", ValidationFuncName = "CheckSurname2")]
+        [Link(ControlName = "surname2", HideForBG = true)]
+        [Field(FieldName = "IN_SurName")] 
         public string SurnameAtBirth = string.Empty;
 
         [String(TemplateString = "@@3_IMYA")] [Link(ControlName = "name")] [Field(FieldName = "IN_Name")] 
@@ -63,7 +67,7 @@ namespace VisaCzech.BL
         public string Parent = string.Empty;
 
         [String(TemplateString = "@@11_ID_PASSPORT")]
-        [Link(ControlName = "personalId")]
+        [Link(ControlName = "personalId", HideForBG = true)]
         [Field(FieldName = "IN_KOD")]
         public string PersonalId = string.Empty;
 
@@ -82,9 +86,15 @@ namespace VisaCzech.BL
         [Field(FieldName = "IN_SerNum")] 
         public string DocumentNumber = string.Empty;
 
-        [String(TemplateString = "@@14_DATA_VIDACHI")] [Link(ControlName = "docIssued")] [Field(FieldName = "IssuedDate")] public string DocumentIssuedDate = string.Empty;
+        [String(TemplateString = "@@14_DATA_VIDACHI")] 
+        [Link(ControlName = "docIssued")] 
+        //[Field(FieldName = "IssuedDate")] 
+        public string DocumentIssuedDate = NOT_VALID_DATE;
 
-        [String(TemplateString = "@@15_DEYSTVIT_DO")] [Link(ControlName = "docValid")] [Field(FieldName = "IN_Expiry")] public string DocumentValidDate = string.Empty;
+        [String(TemplateString = "@@15_DEYSTVIT_DO")] 
+        [Link(ControlName = "docValid")] 
+        [Field(FieldName = "IN_Expiry")] 
+        public string DocumentValidDate = string.Empty;
 
         [String(TemplateString = "@@16_VIDAN_PASS")] [Link(ControlName = "docIssuedBy")] public string DocumentIssuedBy
             = "BLR";
@@ -97,7 +107,7 @@ namespace VisaCzech.BL
         public string AddressAndEmail = string.Empty;       // Combines from Home[...] fields
 
         [String(TemplateString = "@@17_TEL_DOM")]
-        [Link(ControlName = "homePhone")]
+        [Link(ControlName = "homePhone", HideForBG = true)]
         public string PhoneNumber = string.Empty;
 
         [String(TemplateString = "@@19_PROF_DEYATELNOST")]
@@ -185,11 +195,11 @@ namespace VisaCzech.BL
         #endregion
         
         [String(TemplateString = "@@36_MESTO_SOSTAVLENIYA")]
-        [Link(ControlName = "fillPlace", InitOnlyEmpty = true)]
+        [Link(ControlName = "fillPlace", InitOnlyEmpty = true, HideForBG = true)]
         public string PlaceOfFilling = "Minsk";
 
         [String(TemplateString = "@@36_DATA_SOSTAVLENIYA")]
-        [Link(ControlName = "fillDate")]
+        [Link(ControlName = "fillDate", HideForBG = true)]
         public string DateOfFilling = string.Empty;
 
         public DateTime DateOfCreation = DateTime.Now;
@@ -296,10 +306,12 @@ namespace VisaCzech.BL
         [Link(ControlName = "homeAddress", AllowFillComboBox = true, LinkActionName = "FillHomeAddress")] public string
             AddressStreet = string.Empty;
 
-        [Link(ControlName = "homeZip", AllowFillComboBox = true, LinkActionName = "FillHomeAddress")] public string
+        [Link(ControlName = "homeZip", AllowFillComboBox = true, LinkActionName = "FillHomeAddress", HideForBG = true)]
+        public string
             AddressZipCode = string.Empty;
 
-        [Link(ControlName = "email", LinkActionName = "FillHomeAddress")] public string Email = string.Empty;
+        [Link(ControlName = "email", LinkActionName = "FillHomeAddress", HideForBG = true)]
+        public string Email = string.Empty;
 
         #endregion
         
@@ -317,27 +329,34 @@ namespace VisaCzech.BL
         [Link(ControlName = "workAddress", AllowFillComboBox = true, LinkActionName = "FillWorkAddress")] public string
             WorkAddress = string.Empty;
 
-        [Link(ControlName = "workZip", AllowFillComboBox = true, LinkActionName = "FillWorkAddress")] public string
+        [Link(ControlName = "workZip", AllowFillComboBox = true, LinkActionName = "FillWorkAddress", HideForBG = true)]
+        public string
             WorkZip = string.Empty;
 
-        [Link(ControlName = "workPhone", AllowFillComboBox = true)] public string WorkPhoneNumber = string.Empty;
+        [Link(ControlName = "workPhone", AllowFillComboBox = true, HideForBG = true)]
+        public string WorkPhoneNumber = string.Empty;
 
-        [Link(ControlName = "workFax", AllowFillComboBox = true)] public string WorkFaxNumber = string.Empty;
+        [Link(ControlName = "workFax", AllowFillComboBox = true, HideForBG = true)]
+        public string WorkFaxNumber = string.Empty;
 
-        [Link(ControlName = "workEmail", AllowFillComboBox = true, LinkActionName = "FillWorkAddress")] public string
-            WorkEmail = string.Empty;
+        [Link(ControlName = "workEmail", AllowFillComboBox = true, LinkActionName = "FillWorkAddress", HideForBG = true)] 
+        public string WorkEmail = string.Empty;
 
         #endregion
         
         #region Father, mother, spouse
 
-        [Link(ControlName = "fatherName", LinkActionName = "FillParents")] public string FatherName = string.Empty;
+        [Link(ControlName = "fatherName", LinkActionName = "FillParents", HideForBG = true)]
+        public string FatherName = string.Empty;
 
-        [Link(ControlName = "fatherSurname", LinkActionName = "FillParents")] public string FatherSurname = string.Empty;
+        [Link(ControlName = "fatherSurname", LinkActionName = "FillParents", HideForBG = true)]
+        public string FatherSurname = string.Empty;
 
-        [Link(ControlName = "motherName", LinkActionName = "FillParents")] public string MotherName = string.Empty;
+        [Link(ControlName = "motherName", LinkActionName = "FillParents", HideForBG = true)]
+        public string MotherName = string.Empty;
 
-        [Link(ControlName = "motherSurname", LinkActionName = "FillParents")] public string MotherSurname = string.Empty;
+        [Link(ControlName = "motherSurname", LinkActionName = "FillParents", HideForBG = true)]
+        public string MotherSurname = string.Empty;
 
         [Link(ControlName = "spouseSurname")] public string SpouseSurname = string.Empty;
 
@@ -372,7 +391,8 @@ namespace VisaCzech.BL
         public string NumberOfEntriesValue = "Одно";
         public Entries NumberOfEntries = Entries.SingleEntry;
 
-        [Link(ControlName = "processingSpeed")] public bool ProcessingSpeed = false;
+        [Link(ControlName = "processingSpeed", HideForBG = true)]
+        public bool ProcessingSpeed = false;
 
         [Link(ControlName = "multiPeriod", LinkActionName = "SetMultiPeriod")] public string MultiVisaPeriodValue =
             "До трех месяцев";
@@ -384,17 +404,23 @@ namespace VisaCzech.BL
 
         public Purpose Purpose = Purpose.OrganizedTourism;
 
-        [Link(ControlName = "otherPurpose", AllowFillComboBox = true)] public string OtherPurpose = string.Empty;
+        [Link(ControlName = "otherPurpose", AllowFillComboBox = true, HideForBG = true)]
+        public string OtherPurpose = string.Empty;
 
-        [Link(ControlName = "dateOfApply")] public string DateOfApply = string.Empty;
+        [Link(ControlName = "dateOfApply", HideForBG = true)]
+        public string DateOfApply = string.Empty;
 
-        [Link(ControlName = "gratis", LinkActionName = "CheckGratis")] public bool Gratis = false;
+        [Link(ControlName = "gratis", LinkActionName = "CheckGratis", HideForBG = true)]
+        public bool Gratis = false;
 
-        [Link(ControlName = "transitEntryPermit")] public bool TransitDestinationPermit = true;
+        [Link(ControlName = "transitEntryPermit", HideForBG = true)] 
+        public bool TransitDestinationPermit = true;
 
-        [Link(ControlName = "fee")] public string Fee = string.Empty;
+        [Link(ControlName = "fee", HideForBG = true)]
+        public string Fee = string.Empty;
 
-        [Link(ControlName = "feeCurrency")] public string FeeCurrency = string.Empty;
+        [Link(ControlName = "feeCurrency", HideForBG = true)]
+        public string FeeCurrency = string.Empty;
 
         [Link(ControlName = "destinationCountry")] public string DestinationCountry = string.Empty;
 
@@ -404,9 +430,11 @@ namespace VisaCzech.BL
 
         [Link(ControlName = "borderCheckpoint")] public string BorderCheckpoint = string.Empty;
 
-        [Link(ControlName = "transitRoute")] public string TransitRoute = string.Empty;
+        [Link(ControlName = "transitRoute", HideForBG = true)]
+        public string TransitRoute = string.Empty;
 
-        [Link(ControlName = "additionalInfo")] public string VisaAdditionalInfo = string.Empty;
+        [Link(ControlName = "additionalInfo", HideForBG = true)]
+        public string VisaAdditionalInfo = string.Empty;
 
 
         #endregion
@@ -445,10 +473,10 @@ namespace VisaCzech.BL
         [Link(ControlName = "hostHotelZipCode", LinkActionName = "SetHotelFullAddress")]
         public string HostHotelZipCode = string.Empty;
 
-        [Link(ControlName = "hostHotelFax", LinkActionName = "SetHotelFullAddress")]
+        [Link(ControlName = "hostHotelFax", LinkActionName = "SetHotelFullAddress", HideForBG = true)]
         public string HostHotelFax = string.Empty;
 
-        [Link(ControlName = "hostHotelEmail", LinkActionName = "SetHotelFullAddress")]
+        [Link(ControlName = "hostHotelEmail", LinkActionName = "SetHotelFullAddress", HideForBG = true)]
         public string HostHotelEmail = string.Empty;
 
         #endregion
@@ -458,37 +486,48 @@ namespace VisaCzech.BL
         [String(TemplateString = "@@32_DANNIE_LICO_COMPANII_PRIGLASHENIE")]
         public string HostPersonNameAddressPhoneEmail = string.Empty;
 
-        [Link(ControlName = "hostPersonName", InitOnlyEmpty = true, LinkActionName = "SetHostPersonInfo")] public string
+        [Link(ControlName = "hostPersonName", InitOnlyEmpty = true, LinkActionName = "SetHostPersonInfo", HideForBG = true)]
+        public string
             HostPersonName = string.Empty;
 
-        [Link(ControlName = "hostPersonSurname", InitOnlyEmpty = true, LinkActionName = "SetHostPersonInfo")] public
+        [Link(ControlName = "hostPersonSurname", InitOnlyEmpty = true, LinkActionName = "SetHostPersonInfo", HideForBG = true)]
+        public
             string HostPersonSurname = string.Empty;
 
-        [Link(ControlName = "hostPersonCitizenship", InitOnlyEmpty = true, LinkActionName = "SetHostPersonInfo")] public
+        [Link(ControlName = "hostPersonCitizenship", InitOnlyEmpty = true, LinkActionName = "SetHostPersonInfo", HideForBG = true)]
+        public
             string HostPersonCitizenship = string.Empty;
 
-        [Link(ControlName = "hostPersonID", InitOnlyEmpty = true, LinkActionName = "SetHostPersonInfo")] public string
+        [Link(ControlName = "hostPersonID", InitOnlyEmpty = true, LinkActionName = "SetHostPersonInfo", HideForBG = true)]
+        public string
             HostPersonID = string.Empty;
 
-        [Link(ControlName = "hostPersonCountry", InitOnlyEmpty = true, LinkActionName = "SetHostPersonInfo")] public
+        [Link(ControlName = "hostPersonCountry", InitOnlyEmpty = true, LinkActionName = "SetHostPersonInfo", HideForBG = true)]
+        public
             string HostPersonCountry = string.Empty;
 
-        [Link(ControlName = "hostPersonCity", InitOnlyEmpty = true, LinkActionName = "SetHostPersonInfo")] public string
+        [Link(ControlName = "hostPersonCity", InitOnlyEmpty = true, LinkActionName = "SetHostPersonInfo", HideForBG = true)]
+        public string
             HostPersonCity = string.Empty;
 
-        [Link(ControlName = "hostPersonZipCode", InitOnlyEmpty = true, LinkActionName = "SetHostPersonInfo")] public
+        [Link(ControlName = "hostPersonZipCode", InitOnlyEmpty = true, LinkActionName = "SetHostPersonInfo", HideForBG = true)]
+        public
             string HostPersonZipCode = string.Empty;
 
-        [Link(ControlName = "hostPersonAddress", InitOnlyEmpty = true, LinkActionName = "SetHostPersonInfo")] public
+        [Link(ControlName = "hostPersonAddress", InitOnlyEmpty = true, LinkActionName = "SetHostPersonInfo", HideForBG = true)]
+        public
             string HostPersonAddress = string.Empty;
 
-        [Link(ControlName = "hostPersonPhone", InitOnlyEmpty = true, LinkActionName = "SetHostPersonInfo")] public
+        [Link(ControlName = "hostPersonPhone", InitOnlyEmpty = true, LinkActionName = "SetHostPersonInfo", HideForBG = true)]
+        public
             string HostPersonPhone = string.Empty;
 
-        [Link(ControlName = "hostPersonFax", InitOnlyEmpty = true, LinkActionName = "SetHostPersonInfo")] public string
+        [Link(ControlName = "hostPersonFax", InitOnlyEmpty = true, LinkActionName = "SetHostPersonInfo", HideForBG = true)]
+        public string
             HostPersonFax = string.Empty;
 
-        [Link(ControlName = "hostPersonEmail", InitOnlyEmpty = true, LinkActionName = "SetHostPersonInfo")] public
+        [Link(ControlName = "hostPersonEmail", InitOnlyEmpty = true, LinkActionName = "SetHostPersonInfo", HideForBG = true)]
+        public
             string HostPersonEmail = string.Empty;
 
         #endregion
@@ -502,28 +541,28 @@ namespace VisaCzech.BL
         [Link(ControlName = "hostCompanyPhone", InitOnlyEmpty = true)]
         public string HostCompanyPhone = string.Empty;
 
-        [Link(ControlName = "hostCompanyID")] 
+        [Link(ControlName = "hostCompanyID", HideForBG = true)] 
         public string HostCompanyID = string.Empty;
 
         [Link(ControlName = "hostCompanyName", LinkActionName = "SetHostFullAddress")] 
         public string HostCompanyName = string.Empty;
 
-        [Link(ControlName = "hostCompanyCountry", LinkActionName = "SetHostFullAddress")] 
+        [Link(ControlName = "hostCompanyCountry", LinkActionName = "SetHostFullAddress", HideForBG = true)] 
         public string HostCompanyCountry = string.Empty;
 
-        [Link(ControlName = "hostCompanyCity", LinkActionName = "SetHostFullAddress")] 
+        [Link(ControlName = "hostCompanyCity", LinkActionName = "SetHostFullAddress", HideForBG = true)] 
         public string HostCompanyCity = string.Empty;
 
-        [Link(ControlName = "hostCompanyAddress", LinkActionName = "SetHostFullAddress")] 
+        [Link(ControlName = "hostCompanyAddress", LinkActionName = "SetHostFullAddress", HideForBG = true)] 
         public string HostCompanyAddress = string.Empty;
 
-        [Link(ControlName = "hostCompanyZipCode", LinkActionName = "SetHostFullAddress")] 
+        [Link(ControlName = "hostCompanyZipCode", LinkActionName = "SetHostFullAddress", HideForBG = true)] 
         public string HostCompanyZipCode = string.Empty;
 
-        [Link(ControlName = "hostCompanyFax", LinkActionName = "SetHostFullAddress")] 
+        [Link(ControlName = "hostCompanyFax", LinkActionName = "SetHostFullAddress", HideForBG = true)] 
         public string HostCompanyFax = string.Empty;
 
-        [Link(ControlName = "hostCompanyEmail", LinkActionName = "SetHostFullAddress")] 
+        [Link(ControlName = "hostCompanyEmail", LinkActionName = "SetHostFullAddress", HideForBG = true)] 
         public string HostCompanyEmail = string.Empty;
 
         #endregion
@@ -543,6 +582,26 @@ namespace VisaCzech.BL
         public string VoucherIssuedBy = string.Empty;
 
         #endregion
+
+        #endregion
+
+        #region Insurance
+
+        [Link(ControlName = "insuranceCompany", HideForBG = true)]
+        public string InsuranceCompany = string.Empty;
+
+        [Link(ControlName = "insuranceId", HideForBG = true)]
+        public string InsuranceId = string.Empty;
+
+        [Link(ControlName = "insuranceValidDate", HideForBG = true)]
+        public string InsuranceValidDateValue = string.Empty;
+
+        #endregion
+
+        #region Transport
+
+        [Link(ControlName = "transport", HideForBG = true)]
+        public string Transport = string.Empty;
 
         #endregion
     }

@@ -94,7 +94,7 @@ namespace VisaCzech.BL.ScannerXmlParser
                     }
                     person.PersonalId = TryFillField(pageNode, "PersonID", person.PersonalId);
                     person.DocumentValidDate = TryFillDate(pageNode, "ValidDate", person.DocumentValidDate);
-                    person.DocumentIssuedDate = TryFillDate(pageNode, "IssueDate", person.DocumentValidDate);
+                    person.DocumentIssuedDate = TryFillDate(pageNode, "IssueDate", person.DocumentIssuedDate);
                     break;
             }
             var imageNode = pageNode.SelectSingleNode("image");

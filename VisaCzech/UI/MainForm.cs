@@ -74,6 +74,7 @@ namespace VisaCzech.UI
                                           _currentPacket.AddPerson(newPerson);
                                           currentPacketList.Items.Add(newPerson);
                                           PacketStorage.Instance.Save(_currentPacket);
+                                          PersonStorage.Instance.Save(newPerson);
                                       };
             form.CreatePerson(_currentPacket);
             form.ShowDialog();
@@ -136,6 +137,7 @@ namespace VisaCzech.UI
             {
                 _currentPacket.AddPerson(p);
                 currentPacketList.Items.Add(p);
+                PersonStorage.Instance.Save(p);
             }
             PacketStorage.Instance.Save(_currentPacket);
         }
@@ -146,12 +148,13 @@ namespace VisaCzech.UI
                 CreateNewPacket();
             if (_currentPacket == null)
                 return;
-            var indices = new int[currentPacketList.SelectedIndices.Count];
-            currentPacketList.SelectedIndices.CopyTo(indices, 0);
-            for (var i = indices.Length - 1; i >= 0; i--)
+            var items = new Person[currentPacketList.SelectedItems.Count];
+            currentPacketList.SelectedItems.CopyTo(items, 0);
+            foreach (var p in items)
             {
-                _currentPacket.Persons.RemoveAt(indices[i]);
-                currentPacketList.Items.RemoveAt(indices[i]);
+                var i = _currentPacket.IndexOfPerson(p);
+                _currentPacket.Persons.RemoveAt(i);
+                currentPacketList.Items.Remove(p);
             }
             PacketStorage.Instance.Save(_currentPacket);
         }
@@ -322,7 +325,7 @@ namespace VisaCzech.UI
             var savePath = dlg.SelectedPath;
             var persons = currentPacketList.SelectedItems.Cast<Person>().ToList();
             BGXmlExporter.Export(persons, savePath);
-
+            PersonsListExporter.Export(persons, savePath);
         }
     }
 
