@@ -36,9 +36,19 @@ namespace VisaCzech.BL
             if (Persons.IndexOf(p.Id) == -1)
             {
                 Persons.Add(p.Id);
+                FillPersonInfoFromPacket(p);
                 return true;
             }
             return false;
+        }
+
+        private void FillPersonInfoFromPacket(Person p)
+        {
+            p.VisaStartDate = TemplatePerson.VisaStartDate;
+            p.VisaEndDate = TemplatePerson.VisaEndDate;
+            p.VoucherNumber = TemplatePerson.VoucherNumber;
+            p.VoucherValidFrom = TemplatePerson.VoucherValidFrom;
+            p.VoucherValidTo = TemplatePerson.VoucherValidTo;
         }
 
         public bool RemovePerson(Person p)

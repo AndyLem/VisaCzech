@@ -74,17 +74,17 @@ namespace VisaCzech.BL.CognitiveScanner
                     }
                     else
                     {
-                        _backgroundStrategy.Worker.ReportProgress(percent, "Изображение не распознано. Поворачиваем на 90 градусов");
-                        if (!RotateImage(ref _package))
-                        {
-                            _backgroundStrategy.Worker.ReportProgress(100, "Не удалось повернуть изображение");
-                            break;
-                        }
-                        rotations++;
-                        percent += 20;
+                        //_backgroundStrategy.Worker.ReportProgress(percent, "Изображение не распознано. Поворачиваем на 90 градусов");
+                        //if (!RotateImage(ref _package))
+                        //{
+                        //    _backgroundStrategy.Worker.ReportProgress(100, "Не удалось повернуть изображение");
+                        //    break;
+                        //}
+                        //rotations++;
+                        //percent += 20;
                     }
 
-                } while (!recognized && rotations < 3);
+                } while (!recognized && rotations < 0);
 
                 if (!recognized)
                 {
@@ -170,27 +170,32 @@ namespace VisaCzech.BL.CognitiveScanner
         {
             var person = new Person();
 
-            var fieldInfos = person.GetType().GetFields();
+            return FillPerson(person);
+        }
+
+        public Person FillPerson(Person target)
+        {
+            var fieldInfos = target.GetType().GetFields();
 
             foreach (var info in fieldInfos)
             {
                 var custAttibs = info.GetCustomAttributes(true);
                 foreach (var oAttr in custAttibs.OfType<FieldAttribute>())
                 {
-                    info.SetValue(person, GetFieldValue(oAttr.FieldName));
+                    info.SetValue(target, GetFieldValue(oAttr.FieldName));
                 }
             }
 
             var mrz = GetFieldValue("MRZ");
             DateTime bd;
-            if (DateTime.TryParse(person.BirthDate, out bd))
+            if (DateTime.TryParse(target.BirthDate, out bd))
             {
                 if (bd.Year < 1920)
-                    bd = new DateTime(bd.Year+100, bd.Month, bd.Day);
-                person.BirthDate = bd.ToShortDateString();
+                    bd = new DateTime(bd.Year + 100, bd.Month, bd.Day);
+                target.BirthDate = bd.ToShortDateString();
             }
 
-            return mrz.Length > 0 ? AnalyzeMRZ(person, mrz) : person;
+            return mrz.Length > 0 ? AnalyzeMRZ(target, mrz) : target;
         }
 
         private string GetFieldValue(string fieldName)
@@ -202,19 +207,33 @@ namespace VisaCzech.BL.CognitiveScanner
 
         private static Person AnalyzeMRZ(Person p, string mrz)
         {
+            SaveMrzDebugInfo(mrz);
             mrz = mrz.Replace('"', '<').Replace(" ", "");
             p.PersonalId = GetMRZField(mrz, 29, 42, false);
-            var s = GetMRZField(mrz, 21, 21, false);
+            var s = GetMRZField(mrz, 22, 22, false);
             switch (s)
             {
                 case "M":
+                    p.SexValue = "Мужской";
                     p.Sex = Sex.Male;
                     break;
                 case "F":
+                    p.SexValue = "Женский";
                     p.Sex = Sex.Female;
                     break;
             }
             return p;
+        }
+
+        private static void SaveMrzDebugInfo(string mrz)
+        {
+            using (var fs = File.CreateText("mrz.txt"))
+            {
+                fs.WriteLine(mrz);
+                fs.WriteLine("ID: {0}", GetMRZField(mrz, 29, 42, false));
+                fs.WriteLine("Sex: {0}", GetMRZField(mrz, 22, 22, false));
+                fs.Close();
+            }
         }
 
         private static string GetMRZField(string mrz, int startIndex, int endIndex, bool firstRow = true)

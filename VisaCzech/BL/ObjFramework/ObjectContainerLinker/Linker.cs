@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using System.Reflection;
+using VisaCzech.BL.Converters;
 
 namespace VisaCzech.BL.ObjFramework.ObjectContainerLinker
 {
@@ -12,9 +13,11 @@ namespace VisaCzech.BL.ObjFramework.ObjectContainerLinker
         private Control _container;
         private readonly Dictionary<object, Tuple<FieldInfo, LinkAttribute>> _links = new Dictionary<object, Tuple<FieldInfo, LinkAttribute>>();
         public readonly LinkActionFactory ActionFactory = new LinkActionFactory();
+        public bool BgMode;
 
-        public void LinkObjectToControl(Control container, object obj)
+        public void LinkObjectToControl(Control container, object obj, bool bgMode = false)
         {
+            BgMode = bgMode;
             if (container == null) throw new ArgumentNullException("container");
             if (obj == null) throw new ArgumentNullException("obj");
 
@@ -30,6 +33,23 @@ namespace VisaCzech.BL.ObjFramework.ObjectContainerLinker
                     LinkToControl(oAttr, info);
                 }
             }
+
+            UpdateVisibility();
+        }
+
+        public void UpdateVisibility()
+        {
+            //_container.Hide();
+            foreach (var ctrl in _links.Keys)
+            {
+                var control = (Control) ctrl;
+                var info = _links[ctrl].Item1;
+                var attr = _links[ctrl].Item2;
+                var lblControl = FindControl(control.Parent, "lbl_" + control.Name);
+                control.Visible = !(attr.HideForBG && BgMode);
+                if (lblControl != null) lblControl.Visible = !(attr.HideForBG && BgMode);
+            }
+            //_container.Show();
         }
 
         public void MoveDataToObject()
@@ -64,31 +84,9 @@ namespace VisaCzech.BL.ObjFramework.ObjectContainerLinker
                         (ctrl as ComboBox).SelectedItem = val.ToString();
                     else (ctrl as ComboBox).Text = val.ToString();
                 }
-                else if (ctrl is DateTimePicker) (ctrl as DateTimePicker).Value = ConvertStrToDateTime(val);
+                else if (ctrl is DateTimePicker) (ctrl as DateTimePicker).Value = DateTimeConverter.ConvertStrToDateTime(val);
                 else if (ctrl is CheckBox) (ctrl as CheckBox).Checked = (bool) val;
             }
-        }
-
-        private static DateTime ConvertStrToDateTime(object val)
-        {
-            var valStr = val.ToString();
-            string dateStr;
-            if (string.IsNullOrEmpty(valStr)) return DateTime.Now;
-            if (valStr.Length == 8)
-                dateStr = valStr.Substring(0, 2) + "." + valStr.Substring(2, 2) + "." + valStr.Substring(4);
-            else if (valStr.IndexOfAny(new[] {'-', '.'}) != -1)
-                dateStr = val.ToString().Replace('-','.');
-            else throw new Exception("Непонятный формат даты в значении "+valStr);
-            DateTime dt;
-            try
-            {
-                dt = Convert.ToDateTime(dateStr);
-            }
-            catch (Exception)
-            {
-                return DateTime.Now;
-            }
-            return dt;
         }
 
         public static void FillComboBoxes(Control container, object obj)
@@ -126,6 +124,8 @@ namespace VisaCzech.BL.ObjFramework.ObjectContainerLinker
 
             var ctrl = FindControl(_container, ctrlName);
             if (ctrl == null) return;
+
+
             var val = info.GetValue(_obj);
             
             if (ctrl is TextBox)
@@ -137,7 +137,7 @@ namespace VisaCzech.BL.ObjFramework.ObjectContainerLinker
             else if (ctrl is DateTimePicker)
             {
                 (ctrl as DateTimePicker).ValueChanged += DtpOnValueChanged;
-                if (val != null) (ctrl as DateTimePicker).Value = ConvertStrToDateTime(val);
+                if (val != null) (ctrl as DateTimePicker).Value = DateTimeConverter.ConvertStrToDateTime(val);
             }
             else if (ctrl is ComboBox)
             {
@@ -213,18 +213,11 @@ namespace VisaCzech.BL.ObjFramework.ObjectContainerLinker
             var attr = _links[sender].Item2; 
             var dtp = sender as DateTimePicker;
             if (dtp != null)
-                info.SetValue(_obj, ConvertDateToText(dtp.Value, dtp.Tag as string));
+                info.SetValue(_obj, DateTimeConverter.ConvertDateToText(dtp.Value, dtp.Tag as string));
             DoLinkAction(sender, attr);
         }
 
-        private static string ConvertDateToText(DateTime dateTime, string format = null)
-        {
-            if (string.IsNullOrEmpty(format))
-                return dateTime.ToString("dd.MM.yyyy");
-            else
-                return dateTime.ToString(format);
-        }
-        
+       
         private void TbxOnTextChanged(object sender, EventArgs eventArgs)
         {
             if (!_links.ContainsKey(sender)) return;

@@ -16,6 +16,7 @@ using VisaCzech.Properties;
 using System.IO;
 using VisaCzech.BL.CognitiveScanner;
 using VisaCzech.UI.BG;
+using VisaCzech.BL.PersonCheckers;
 
 namespace VisaCzech.UI
 {
@@ -31,6 +32,8 @@ namespace VisaCzech.UI
             Create
         }
 
+        public ICheckersFactory CheckersFactory;
+
         public EventHandler PersonCreated;
 
         public bool AutoSavePerson = true;
@@ -41,6 +44,7 @@ namespace VisaCzech.UI
         public PersonForm()
         {
             InitializeComponent();
+            CheckersFactory = BL.PersonCheckers.CheckersFactory.Instance;
         }
 
         private void InitActionFactory()
@@ -255,7 +259,7 @@ namespace VisaCzech.UI
             {
                 CreateNewPerson();
             }
-            if (_person != null) _linker.LinkObjectToControl(this, _person);
+            if (_person != null) _linker.LinkObjectToControl(this, _person, bgModeBtn.Checked);
         }
 
         private void CreateNewPerson()
@@ -292,7 +296,32 @@ namespace VisaCzech.UI
             if (NeedTranslit())
                 ConvertAllToTranslit();
 
-            _linker.MoveDataToObject();
+            _linker.MoveDataToObject();           
+            
+            var errors = new List<string>();
+            var criticalStop = false;
+            foreach (var checker in CheckersFactory.EnumCheckers())
+            {
+                if (!checker.Check(_person))
+                {
+                    errors.Add(checker.WarningMessage);
+                    if (checker.IsCritical)
+                    {
+                        criticalStop = true;
+                        break;
+                    }
+                }
+            }
+            if (errors.Count > 0)
+            {
+                var frm = new CheckResultForm();
+                frm.Init(errors, criticalStop);
+                if (frm.ShowDialog() != DialogResult.OK)
+                {
+                    DialogResult = DialogResult.None;
+                    return;
+                }
+            }
             
             if (FormMode == Mode.Edit)
             {
@@ -312,12 +341,16 @@ namespace VisaCzech.UI
             _linker = new Linker();
             InitActionFactory();
             if (_linker == null) return;
-            _linker.LinkObjectToControl(this, _person);
+            _linker.LinkObjectToControl(this, _person, bgModeBtn.Checked);
             _linker.MoveDataFromObject();
             _linker.MoveDataToObject();
-
+            
             if (saveDialogResult != DialogResult.None)
                 Close();
+        
+            panel1.ScrollControlIntoView(surname);
+            surname.Focus();
+            
         }
 
         private void ShowSavedLabel()
@@ -386,7 +419,7 @@ namespace VisaCzech.UI
 // ReSharper restore LocalizableElement
                 InitialDirectory = path, 
                 CheckFileExists = true, 
-                Multiselect = true
+                Multiselect = false
             };
             if (dlg.ShowDialog() != DialogResult.OK) return;
 
@@ -399,10 +432,18 @@ namespace VisaCzech.UI
 
             Settings.Default["ImportPath"] = newPath;
 
-            var files = dlg.FileNames;
-            var scannedPerson = ScannerXmlParser.GetPerson(files);
-            _person.Merge(scannedPerson);
-            _linker.MoveDataFromObject();
+            var file = dlg.FileName;
+            //var scannedPerson = ScannerXmlParser.GetPerson(files);
+            try
+            {
+                var loadedPerson = PersonStorage.Instance.LoadFromFile(file);
+                _person.Merge(loadedPerson);
+                _linker.MoveDataFromObject();
+            }
+            catch 
+            {
+                
+            }
         }
 
         private void scan_Click(object sender, EventArgs e)
@@ -421,18 +462,18 @@ namespace VisaCzech.UI
                               {
                                   IsBackground = true,
                                   IsAutoClose = true,
-                                  AutoCloseDelay = 10000
+                                  AutoCloseDelay = 10
                               };
                 
                 Scanner.Instance.Init(ops);
                 if (Scanner.Instance.Success)
                 {
-                    var scannedPerson = Scanner.Instance.GetPerson();
-                    if (scannedPerson != null)
-                    {
-                        _person.Merge(scannedPerson);
+                    _person = Scanner.Instance.FillPerson(_person);
+                    //if (scannedPerson != null)
+                    //{
+                        //_person.Merge(scannedPerson);
                         _linker.MoveDataFromObject();
-                    }
+                    //}
                 }
             }
         }
@@ -454,11 +495,25 @@ namespace VisaCzech.UI
             form.ShowDialog();
         }
 
-        private void btnHost_Click(object sender, EventArgs e)
+        private void PersonForm_KeyDown(object sender, KeyEventArgs e)
         {
-            //var form = new HostForm();
-            //form.EditPerson(_person);
-            //form.ShowDialog();
+            if (e.Control && e.KeyCode == Keys.Enter)
+            {
+                e.Handled = true;
+                saveBtn_Click(sender, EventArgs.Empty);
+                return;
+            }
+            if (e.Control && e.KeyCode == Keys.S)
+            {
+                e.Handled = true;
+                scan_Click(sender, EventArgs.Empty);
+            }
+        }
+
+        private void bgModeBtn_Click(object sender, EventArgs e)
+        {
+            _linker.BgMode = bgModeBtn.Checked;
+            _linker.UpdateVisibility();
         }
     }
 }

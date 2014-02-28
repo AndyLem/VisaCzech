@@ -54,6 +54,11 @@ namespace VisaCzech.DL
             return res;
         }
 
+        public Person LoadFromFile(string fileName)
+        {
+            return Load(fileName);
+        }
+
         protected override Person Load(string fileName)
         {
             var res = base.Load(fileName);

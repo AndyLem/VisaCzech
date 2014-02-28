@@ -65,7 +65,7 @@ namespace VisaCzech.DL
             root.lcuz.lcuzRow.imena = person.Name;
             root.lcuz.lcuzRow.dat_raj = ConvertDate(person.BirthDate, @"yyyy/MM/dd");
             root.lcuz.lcuzRow.pol = person.Sex == Sex.Male ? "M" : "F";
-            root.lcuz.lcuzRow.dat_izd = ConvertDate(person.DocumentIssuedDate, "yyyy-MM-dd");
+            root.lcuz.lcuzRow.dat_izd = person.DocumentIssuedDate != Person.NOT_VALID_DATE ? ConvertDate(person.DocumentIssuedDate, "yyyy-MM-dd") : "";
 
             root.lcDop.lcDopRow.ld_mrjdarj = ConvertCountry(person.BirthCountry);
             root.lcDop.lcDopRow.ld_mrjnm = person.BirthPlace;
@@ -94,15 +94,15 @@ namespace VisaCzech.DL
             root.maika.maikaRow.dc_famil = person.MotherSurname;                        // ***
             root.maika.maikaRow.dc_imena = person.MotherName;                           // ***
 
-            if (person.Status == Status.Married)
-            {
+            //if (person.Status == Status.Married)
+            //{
                 root.sapruga.saprugaRow.sp_famil = person.SpouseSurname; // ***
                 root.sapruga.saprugaRow.sp_famil2 = person.SpouseSurnameAtBirth; // ***
                 root.sapruga.saprugaRow.sp_imena = person.SpouseName; // ***
                 root.sapruga.saprugaRow.sp_datraj = ConvertDate(person.SpouseBirthDate); // ***
                 root.sapruga.saprugaRow.sp_mrjdarj = ConvertCountry(person.SpouseBirthCountry); // ***
                 root.sapruga.saprugaRow.sp_mrjnm = person.SpouseBirthCity;
-            }
+            //}
 
             root.molba.molbaRow.dat_vli = ConvertDate(person.VisaStartDate, "yyyy-MM-dd");
             root.molba.molbaRow.dat_izl = ConvertDate(person.VisaEndDate, "yyyy-MM-dd");
@@ -115,7 +115,7 @@ namespace VisaCzech.DL
             root.molba.molbaRow.celdruga = person.OtherPurpose;                             // ***
             root.molba.molbaRow.mol_dat_vav = person.DateOfApply;  // ***
             root.molba.molbaRow.gratis = person.Gratis ? "Y" : "N";                         // ***
-            root.molba.molbaRow.imavisa = person.TransitDestinationPermit ? "Y" : "N";                  // ***
+            root.molba.molbaRow.imavisa = person.TransitDestinationPermit ? "Y" : "N/A";                  // ***
             root.molba.molbaRow.cenamol = person.Fee;                                       // ***
             root.molba.molbaRow.cenacurr = person.FeeCurrency;                              // ***
             root.molba.molbaRow.maindest = person.DestinationCountry;                       // ***
@@ -274,7 +274,8 @@ namespace VisaCzech.DL
 
         private static string ConvertStatus(Status status)
         {
-            var data = new[] { "N", "O", "R", "V", "Z" };
+            //var data = new[] { "N", "O", "R", "V", "Z" };
+            var data = new[] { "N", "Z", "R", "V", "Z" };
             return data[(int)status];
         }
 
